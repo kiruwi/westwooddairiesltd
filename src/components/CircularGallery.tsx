@@ -545,6 +545,7 @@ class App {
   palette: RGB[] = [];
   backgroundTarget?: HTMLElement | null;
   overlayTarget?: HTMLElement | null;
+  lastBackground: string | null = null;
   lastCenterIndex: number = -1;
   overlayRotation: number = 0;
   screen!: { width: number; height: number };
