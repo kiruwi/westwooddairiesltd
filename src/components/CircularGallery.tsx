@@ -488,7 +488,8 @@ class Media {
       }
     }
     this.scale = this.screen.height / 1500;
-    const sizeScale = 0.95;
+    const isMobile = this.screen.width < 640;
+    const sizeScale = isMobile ? 0.72 : 0.84;
     this.plane.scale.y =
       (this.viewport.height * (900 * this.scale) * sizeScale) / this.screen.height;
     this.plane.scale.x =
@@ -534,6 +535,13 @@ class App {
     last: number;
     position?: number;
   };
+  touchStartX: number = 0;
+  touchStartY: number = 0;
+  touchStartTime: number = 0;
+  isTouchingCarousel: boolean = false;
+  allowScroll: boolean = false;
+  exitLockMs: number = 450;
+  exitSwipeThreshold: number = 28;
   onCheckDebounce: (...args: any[]) => void;
   renderer!: Renderer;
   gl!: GL;
@@ -560,6 +568,7 @@ class App {
   boundOnTouchDown!: (e: MouseEvent | TouchEvent) => void;
   boundOnTouchMove!: (e: MouseEvent | TouchEvent) => void;
   boundOnTouchUp!: () => void;
+  touchMoveOptions: AddEventListenerOptions = { passive: false };
 
   isDown: boolean = false;
   start: number = 0;
@@ -713,15 +722,49 @@ class App {
   }
 
   onTouchDown(e: MouseEvent | TouchEvent) {
+    const target = e.target as Node | null;
+    if (target && !this.container.contains(target)) return;
     this.isDown = true;
+    this.isTouchingCarousel = true;
+    this.allowScroll = false;
     this.scroll.position = this.scroll.current;
-    this.start = "touches" in e ? e.touches[0].clientX : e.clientX;
+    if ("touches" in e) {
+      this.touchStartX = e.touches[0]?.clientX ?? 0;
+      this.touchStartY = e.touches[0]?.clientY ?? 0;
+      this.touchStartTime = performance.now();
+      this.start = this.touchStartX;
+    } else {
+      this.start = e.clientX;
+    }
     this.startLoop();
   }
 
   onTouchMove(e: MouseEvent | TouchEvent) {
     if (!this.isDown) return;
-    const x = "touches" in e ? e.touches[0].clientX : e.clientX;
+    const isTouch = "touches" in e;
+    const x = isTouch ? e.touches[0]?.clientX ?? 0 : e.clientX;
+    const y = isTouch ? e.touches[0]?.clientY ?? 0 : 0;
+    if (isTouch && this.isTouchingCarousel) {
+      const dx = x - this.touchStartX;
+      const dy = y - this.touchStartY;
+      const absDx = Math.abs(dx);
+      const absDy = Math.abs(dy);
+      const timeSinceStart = performance.now() - this.touchStartTime;
+      const isVertical = absDy > absDx && absDy > 10;
+      const wantsExit = dy > 0 && absDy > this.exitSwipeThreshold;
+      if (this.allowScroll) return;
+      if (isVertical && wantsExit && timeSinceStart > this.exitLockMs) {
+        this.allowScroll = true;
+        this.isDown = false;
+        this.isTouchingCarousel = false;
+        return;
+      }
+      if (isVertical) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+      if (e.cancelable) e.preventDefault();
+    }
     const distance = (this.start - x) * (this.scrollSpeed * 0.025);
     this.scroll.target = (this.scroll.position ?? 0) + distance;
     this.startLoop();
@@ -729,6 +772,8 @@ class App {
 
   onTouchUp() {
     this.isDown = false;
+    this.isTouchingCarousel = false;
+    this.allowScroll = false;
     this.onCheck();
     this.startLoop();
   }
@@ -798,7 +843,7 @@ class App {
           secondIndex = index;
         }
       });
-      const centerScale = 1.5;
+    const centerScale = this.screen.width < 640 ? 1.25 : 1.4;
       const baseScaleX = this.medias[centerIndex]?.baseScaleX ?? this.medias[0]?.baseScaleX ?? 0;
       const pushAmount = (centerScale - 1) * baseScaleX * 0.6;
       this.medias.forEach((media, index) =>
@@ -873,9 +918,9 @@ class App {
     window.addEventListener("mousedown", this.boundOnTouchDown);
     window.addEventListener("mousemove", this.boundOnTouchMove);
     window.addEventListener("mouseup", this.boundOnTouchUp);
-    window.addEventListener("touchstart", this.boundOnTouchDown);
-    window.addEventListener("touchmove", this.boundOnTouchMove);
-    window.addEventListener("touchend", this.boundOnTouchUp);
+    window.addEventListener("touchstart", this.boundOnTouchDown, { passive: true });
+    window.addEventListener("touchmove", this.boundOnTouchMove, this.touchMoveOptions);
+    window.addEventListener("touchend", this.boundOnTouchUp, { passive: true });
   }
 
   destroy() {
@@ -887,7 +932,7 @@ class App {
     window.removeEventListener("mousemove", this.boundOnTouchMove);
     window.removeEventListener("mouseup", this.boundOnTouchUp);
     window.removeEventListener("touchstart", this.boundOnTouchDown);
-    window.removeEventListener("touchmove", this.boundOnTouchMove);
+    window.removeEventListener("touchmove", this.boundOnTouchMove, this.touchMoveOptions);
     window.removeEventListener("touchend", this.boundOnTouchUp);
     if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
       this.renderer.gl.canvas.parentNode.removeChild(
