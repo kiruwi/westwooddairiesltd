@@ -326,8 +326,16 @@ class Media {
   }
 
   createShader() {
+    const maxAnisotropy = this.renderer.parameters?.maxAnisotropy ?? 0;
+    const isMobile = window.innerWidth < 640;
+    const anisotropy = maxAnisotropy
+      ? Math.min(maxAnisotropy, isMobile ? 4 : 8)
+      : 0;
     const texture = new Texture(this.gl, {
       generateMipmaps: true,
+      minFilter: this.gl.LINEAR_MIPMAP_LINEAR,
+      magFilter: this.gl.LINEAR,
+      anisotropy,
     });
     this.program = new Program(this.gl, {
       depthTest: false,
@@ -573,6 +581,13 @@ class App {
   isDown: boolean = false;
   start: number = 0;
 
+  getTargetDpr() {
+    const deviceDpr = window.devicePixelRatio || 1;
+    const isMobile = window.innerWidth < 640;
+    const maxDpr = isMobile ? 1.6 : 2;
+    return Math.min(deviceDpr, maxDpr);
+  }
+
   constructor(
     container: HTMLElement,
     {
@@ -609,7 +624,7 @@ class App {
     this.renderer = new Renderer({
       alpha: true,
       antialias: true,
-      dpr: Math.min(window.devicePixelRatio || 1, 1.25),
+      dpr: this.getTargetDpr(),
     });
     this.gl = this.renderer.gl;
     this.gl.clearColor(0, 0, 0, 0);
@@ -800,6 +815,10 @@ class App {
       width: this.container.clientWidth,
       height: this.container.clientHeight,
     };
+    const dpr = this.getTargetDpr();
+    if (this.renderer.dpr !== dpr) {
+      this.renderer.dpr = dpr;
+    }
     this.renderer.setSize(this.screen.width, this.screen.height);
     this.camera.perspective({
       aspect: this.screen.width / this.screen.height,
