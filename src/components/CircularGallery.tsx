@@ -904,8 +904,8 @@ interface CircularGalleryProps {
   font?: string;
   scrollSpeed?: number;
   scrollEase?: number;
-  backgroundTargetRef?: RefObject<HTMLElement>;
-  overlayTargetRef?: RefObject<HTMLElement>;
+  backgroundTargetRef?: RefObject<HTMLElement | null>;
+  overlayTargetRef?: RefObject<HTMLElement | null>;
 }
 
 export default function CircularGallery({
@@ -942,11 +942,11 @@ export default function CircularGallery({
         textColor,
         borderRadius,
         font,
-      scrollSpeed,
-      scrollEase,
-      backgroundTarget: backgroundTargetRef?.current ?? null,
-      overlayTarget: overlayTargetRef?.current ?? null,
-    });
+        scrollSpeed,
+        scrollEase,
+        backgroundTarget: backgroundTargetRef?.current ?? null,
+        overlayTarget: overlayTargetRef?.current ?? null,
+      });
     };
 
     start();
@@ -954,7 +954,17 @@ export default function CircularGallery({
       isMounted = false;
       if (app) app.destroy();
     };
-  }, [items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase]);
+  }, [
+    items,
+    bend,
+    textColor,
+    borderRadius,
+    font,
+    scrollSpeed,
+    scrollEase,
+    backgroundTargetRef,
+    overlayTargetRef,
+  ]);
 
   return (
     <div
