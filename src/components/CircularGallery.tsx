@@ -630,7 +630,7 @@ class App {
     borderRadius: number,
     font: string
   ) {
-    const defaultItems = [
+    const defaultItems: GalleryItem[] = [
       {
         image: "https://picsum.photos/seed/1/800/600?grayscale",
         text: "Bridge",
