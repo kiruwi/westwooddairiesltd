@@ -1,12 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import CircularGallery from "../components/CircularGallery";
 
 export default function Home() {
+  const router = useRouter();
   const sectionRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
+  const handleCarouselClick = useCallback(() => {
+    router.push("/products");
+  }, [router]);
 
   useEffect(() => {
     const elements = Array.from(
@@ -50,16 +55,24 @@ export default function Home() {
     []
   );
 
+  const sectionTones = {
+    hero: "#fde7f3",
+    about: "#fff4d6",
+    products: "#e7f6ef",
+    process: "#fde7f3",
+    stockists: "#fff4d6",
+  };
+
   return (
     <div className="bg-slate-50 px-6 pb-20 pt-24 text-zinc-900">
       <main className="mx-auto w-full max-w-6xl">
         <section
           id="home"
           data-reveal
-          className="scroll-mt-24 overflow-hidden rounded-3xl border border-zinc-100 shadow-[0_18px_40px_rgba(15,23,42,0.08)]"
+          className="scroll-mt-24 overflow-hidden rounded-none border border-zinc-100 shadow-[0_18px_40px_rgba(15,23,42,0.08)]"
           style={{
             background:
-              "radial-gradient(120% 140% at 0% 0%, #ffffff 0%, #f8fafc 55%, #f1f5f9 100%)",
+              `radial-gradient(120% 140% at 0% 0%, #ffffff 0%, ${sectionTones.hero} 55%, #f8d6e8 100%)`,
           }}
         >
           <div className="grid items-center gap-8 p-8 sm:grid-cols-[1.1fr_0.9fr]">
@@ -78,19 +91,19 @@ export default function Home() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
                   href="#products"
-                  className="inline-flex items-center justify-center rounded-full bg-sky-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/60"
+                  className="inline-flex items-center justify-center rounded-none bg-sky-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/60"
                 >
                   View products
                 </a>
                 <a
                   href="#process"
-                  className="inline-flex items-center justify-center rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-semibold text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60"
+                  className="inline-flex items-center justify-center rounded-none border border-zinc-300 px-5 py-2.5 text-sm font-semibold text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60"
                 >
                   Our process
                 </a>
               </div>
             </div>
-            <div className="relative h-60 w-full overflow-hidden rounded-2xl bg-white shadow-[0_12px_24px_rgba(15,23,42,0.12)] sm:h-72">
+            <div className="relative h-60 w-full overflow-hidden rounded-none bg-white shadow-[0_12px_24px_rgba(15,23,42,0.12)] sm:h-72">
               <Image
                 src="/images/BLUEBERRY.webp"
                 alt="Westwood Dairies blueberry yogurt"
@@ -106,7 +119,8 @@ export default function Home() {
         <section
           id="about"
           data-reveal
-          className="scroll-mt-24 mt-12 rounded-3xl border-y border-zinc-200/80 bg-zinc-50 px-6 py-8"
+          className="scroll-mt-24 mt-12 rounded-none border-y border-zinc-200/80 px-6 py-8"
+          style={{ backgroundColor: sectionTones.about }}
         >
           <div className="max-w-2xl">
             <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
@@ -123,7 +137,8 @@ export default function Home() {
         <section
           id="products"
           data-reveal
-          className="scroll-mt-24 mt-12 rounded-3xl bg-white px-6 py-8 shadow-[0_12px_32px_rgba(15,23,42,0.08)]"
+          className="scroll-mt-24 mt-12 rounded-none px-6 py-8 shadow-[0_12px_32px_rgba(15,23,42,0.08)]"
+          style={{ backgroundColor: sectionTones.products }}
         >
           <div className="flex flex-wrap items-baseline justify-between gap-3">
             <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
@@ -136,7 +151,7 @@ export default function Home() {
           <div className="mt-6 grid gap-5 md:grid-cols-3">
             <a
               href="#contact"
-              className="group flex h-full flex-col justify-between rounded-2xl border border-zinc-200/70 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
+              className="group flex h-full flex-col justify-between rounded-none border border-zinc-200/70 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
             >
               <div>
                 <h3 className="text-base font-semibold text-zinc-900">Soft serve ice cream</h3>
@@ -151,7 +166,7 @@ export default function Home() {
             </a>
             <a
               href="#contact"
-              className="group flex h-full flex-col justify-between rounded-2xl border border-zinc-200/70 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
+              className="group flex h-full flex-col justify-between rounded-none border border-zinc-200/70 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
             >
               <div>
                 <h3 className="text-base font-semibold text-zinc-900">
@@ -168,7 +183,7 @@ export default function Home() {
             </a>
             <a
               href="#contact"
-              className="group flex h-full flex-col justify-between rounded-2xl border border-zinc-200/70 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
+              className="group flex h-full flex-col justify-between rounded-none border border-zinc-200/70 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
             >
               <div>
                 <h3 className="text-base font-semibold text-zinc-900">Yogurt</h3>
@@ -187,22 +202,23 @@ export default function Home() {
         <section
           id="process"
           data-reveal
-          className="scroll-mt-24 mt-12 rounded-3xl border border-zinc-200/70 bg-zinc-50 px-6 py-8"
+          className="scroll-mt-24 mt-12 rounded-none border border-zinc-200/70 px-6 py-8"
+          style={{ backgroundColor: sectionTones.process }}
         >
           <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
             From plant to shelf
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-4 shadow-[0_8px_18px_rgba(15,23,42,0.06)]">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-50 text-sky-700">
+            <div className="flex items-center gap-3 rounded-none bg-white px-4 py-4 shadow-[0_8px_18px_rgba(15,23,42,0.06)]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-none bg-sky-50 text-sky-700">
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
                   <path d="M12 3s-5 6-5 10a5 5 0 0 0 10 0c0-4-5-10-5-10Z" />
                 </svg>
               </div>
               <p className="text-sm font-semibold text-zinc-900">Milk sourcing</p>
             </div>
-            <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-4 shadow-[0_8px_18px_rgba(15,23,42,0.06)]">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-50 text-sky-700">
+            <div className="flex items-center gap-3 rounded-none bg-white px-4 py-4 shadow-[0_8px_18px_rgba(15,23,42,0.06)]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-none bg-sky-50 text-sky-700">
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
                   <path d="M10 4v10.2a3.8 3.8 0 1 0 4 0V4" />
                   <path d="M8.5 7h7" />
@@ -210,8 +226,8 @@ export default function Home() {
               </div>
               <p className="text-sm font-semibold text-zinc-900">Pasteurisation</p>
             </div>
-            <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-4 shadow-[0_8px_18px_rgba(15,23,42,0.06)]">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-50 text-sky-700">
+            <div className="flex items-center gap-3 rounded-none bg-white px-4 py-4 shadow-[0_8px_18px_rgba(15,23,42,0.06)]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-none bg-sky-50 text-sky-700">
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
                   <path d="M9 3h6" />
                   <path d="M10 3v5l-4.5 7.2a3.5 3.5 0 0 0 3 5.3h7a3.5 3.5 0 0 0 3-5.3L14 8V3" />
@@ -219,8 +235,8 @@ export default function Home() {
               </div>
               <p className="text-sm font-semibold text-zinc-900">Culturing</p>
             </div>
-            <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-4 shadow-[0_8px_18px_rgba(15,23,42,0.06)]">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-50 text-sky-700">
+            <div className="flex items-center gap-3 rounded-none bg-white px-4 py-4 shadow-[0_8px_18px_rgba(15,23,42,0.06)]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-none bg-sky-50 text-sky-700">
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
                   <path d="M3 7.5 12 3l9 4.5-9 4.5-9-4.5Z" />
                   <path d="M3 7.5v9l9 4.5 9-4.5v-9" />
@@ -234,7 +250,8 @@ export default function Home() {
         <section
           id="stockists"
           data-reveal
-          className="scroll-mt-24 mt-12 rounded-3xl bg-white px-6 py-8 shadow-[0_12px_32px_rgba(15,23,42,0.08)]"
+          className="scroll-mt-24 mt-12 rounded-none px-6 py-8 shadow-[0_12px_32px_rgba(15,23,42,0.08)]"
+          style={{ backgroundColor: sectionTones.stockists }}
         >
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
@@ -248,7 +265,7 @@ export default function Home() {
             </div>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center rounded-full bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60"
+              className="inline-flex items-center justify-center rounded-none bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60"
             >
               Become a stockist
             </a>
@@ -258,7 +275,7 @@ export default function Home() {
         <section className="mt-12" aria-label="Product gallery">
           <div
             ref={sectionRef}
-            className="relative w-full overflow-hidden rounded-[32px] border border-white/50 shadow-[0_25px_80px_rgba(0,0,0,0.18)]"
+            className="relative w-full overflow-hidden rounded-none border border-white/50 shadow-[0_25px_80px_rgba(0,0,0,0.18)]"
             style={{
               background:
                 "radial-gradient(circle at center, #fce7f3 0%, #f9a8d4 70%, #f472b6 100%)",
@@ -292,6 +309,7 @@ export default function Home() {
                 textColor="#b91c5c"
                 backgroundTargetRef={sectionRef}
                 overlayTargetRef={overlayRef}
+                onItemClick={handleCarouselClick}
               />
             </div>
           </div>

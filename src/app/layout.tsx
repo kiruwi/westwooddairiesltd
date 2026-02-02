@@ -49,16 +49,16 @@ export default function RootLayout({
                 Quick links
               </h3>
               <div className="mt-4 grid gap-2 text-sm text-zinc-300">
-                <a className="transition hover:text-white" href="#home">
+                <a className="transition hover:text-white" href="/#home">
                   Home
                 </a>
-                <a className="transition hover:text-white" href="#products">
+                <a className="transition hover:text-white" href="/products">
                   Products
                 </a>
-                <a className="transition hover:text-white" href="#process">
+                <a className="transition hover:text-white" href="/#process">
                   Process
                 </a>
-                <a className="transition hover:text-white" href="#stockists">
+                <a className="transition hover:text-white" href="/#stockists">
                   Stockists
                 </a>
               </div>
@@ -82,7 +82,7 @@ export default function RootLayout({
                     key={label}
                     href="#"
                     aria-label={label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-700 text-[11px] font-semibold uppercase text-zinc-200 transition hover:border-zinc-500 hover:text-white"
+                    className="flex h-9 w-9 items-center justify-center rounded-none border border-zinc-700 text-[11px] font-semibold uppercase text-zinc-200 transition hover:border-zinc-500 hover:text-white"
                   >
                     {label}
                   </a>

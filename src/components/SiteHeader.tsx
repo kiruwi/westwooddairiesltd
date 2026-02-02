@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 
 const navItems = [
-  { label: "Home", href: "#home" },
-  { label: "Products", href: "#products" },
-  { label: "About", href: "#about" },
-  { label: "Process", href: "#process" },
-  { label: "Stockists", href: "#stockists" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/#home" },
+  { label: "Products", href: "/products" },
+  { label: "About", href: "/#about" },
+  { label: "Process", href: "/#process" },
+  { label: "Stockists", href: "/#stockists" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function SiteHeader() {
@@ -55,7 +55,7 @@ export default function SiteHeader() {
         <div className="flex items-center gap-3">
           <a
             href="#contact"
-            className="hidden items-center justify-center rounded-full bg-sky-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/60 md:inline-flex"
+            className="hidden items-center justify-center rounded-none bg-sky-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/60 md:inline-flex"
           >
             Order / Enquire
           </a>
@@ -65,7 +65,7 @@ export default function SiteHeader() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((open) => !open)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 text-zinc-700 transition hover:border-zinc-300 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-zinc-200 text-zinc-700 transition hover:border-zinc-300 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50 md:hidden"
           >
             <span className="sr-only">Menu</span>
             <svg
@@ -101,7 +101,7 @@ export default function SiteHeader() {
             <a
               href="#contact"
               onClick={() => setMenuOpen(false)}
-              className="mt-2 inline-flex items-center justify-center rounded-full bg-sky-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-800"
+              className="mt-2 inline-flex items-center justify-center rounded-none bg-sky-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-800"
             >
               Order / Enquire
             </a>

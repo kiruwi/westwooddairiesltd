@@ -531,6 +531,7 @@ interface AppConfig {
   scrollEase?: number;
   backgroundTarget?: HTMLElement | null;
   overlayTarget?: HTMLElement | null;
+  onItemClick?: () => void;
 }
 
 class App {
@@ -550,6 +551,8 @@ class App {
   allowScroll: boolean = false;
   exitLockMs: number = 450;
   exitSwipeThreshold: number = 28;
+  tapThreshold: number = 10;
+  touchMoved: boolean = false;
   onCheckDebounce: (...args: any[]) => void;
   renderer!: Renderer;
   gl!: GL;
@@ -561,6 +564,7 @@ class App {
   palette: RGB[] = [];
   backgroundTarget?: HTMLElement | null;
   overlayTarget?: HTMLElement | null;
+  onItemClick?: () => void;
   lastBackground: string | null = null;
   lastCenterIndex: number = -1;
   overlayRotation: number = 0;
@@ -600,6 +604,7 @@ class App {
       scrollEase = 0.05,
       backgroundTarget = null,
       overlayTarget = null,
+      onItemClick,
     }: AppConfig
   ) {
     document.documentElement.classList.remove("no-js");
@@ -609,6 +614,7 @@ class App {
     this.onCheckDebounce = debounce(this.onCheck.bind(this), 200);
     this.backgroundTarget = backgroundTarget;
     this.overlayTarget = overlayTarget;
+    this.onItemClick = onItemClick;
     this.boundUpdate = this.update.bind(this);
     this.createRenderer();
     this.createCamera();
@@ -742,6 +748,7 @@ class App {
     this.isDown = true;
     this.isTouchingCarousel = true;
     this.allowScroll = false;
+    this.touchMoved = false;
     this.scroll.position = this.scroll.current;
     if ("touches" in e) {
       this.touchStartX = e.touches[0]?.clientX ?? 0;
@@ -749,6 +756,9 @@ class App {
       this.touchStartTime = performance.now();
       this.start = this.touchStartX;
     } else {
+      this.touchStartX = e.clientX;
+      this.touchStartY = e.clientY;
+      this.touchStartTime = performance.now();
       this.start = e.clientX;
     }
     this.startLoop();
@@ -759,9 +769,12 @@ class App {
     const isTouch = "touches" in e;
     const x = isTouch ? e.touches[0]?.clientX ?? 0 : e.clientX;
     const y = isTouch ? e.touches[0]?.clientY ?? 0 : 0;
+    const dx = x - this.touchStartX;
+    const dy = y - this.touchStartY;
+    if (Math.abs(dx) > this.tapThreshold || Math.abs(dy) > this.tapThreshold) {
+      this.touchMoved = true;
+    }
     if (isTouch && this.isTouchingCarousel) {
-      const dx = x - this.touchStartX;
-      const dy = y - this.touchStartY;
       const absDx = Math.abs(dx);
       const absDy = Math.abs(dy);
       const timeSinceStart = performance.now() - this.touchStartTime;
@@ -786,6 +799,9 @@ class App {
   }
 
   onTouchUp() {
+    if (this.isTouchingCarousel && !this.touchMoved && !this.allowScroll) {
+      this.onItemClick?.();
+    }
     this.isDown = false;
     this.isTouchingCarousel = false;
     this.allowScroll = false;
@@ -795,9 +811,13 @@ class App {
 
   onWheel(e: Event) {
     const wheelEvent = e as WheelEvent;
-    const delta =
-      wheelEvent.deltaY || (wheelEvent as any).wheelDelta || (wheelEvent as any).detail;
-    this.scroll.target += (delta > 0 ? this.scrollSpeed : -this.scrollSpeed) * 0.2;
+    const deltaX = wheelEvent.deltaX ?? 0;
+    const deltaY =
+      wheelEvent.deltaY || (wheelEvent as any).wheelDelta || (wheelEvent as any).detail || 0;
+    const dominant = Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY;
+    const absDelta = Math.min(Math.abs(dominant), 80);
+    const normalized = dominant === 0 ? 0 : Math.sign(dominant) * (absDelta / 80);
+    this.scroll.target += normalized * this.scrollSpeed;
     this.onCheckDebounce();
     this.startLoop();
   }
@@ -971,6 +991,7 @@ interface CircularGalleryProps {
   scrollEase?: number;
   backgroundTargetRef?: RefObject<HTMLElement | null>;
   overlayTargetRef?: RefObject<HTMLElement | null>;
+  onItemClick?: () => void;
 }
 
 export default function CircularGallery({
@@ -983,6 +1004,7 @@ export default function CircularGallery({
   scrollEase = 0.05,
   backgroundTargetRef,
   overlayTargetRef,
+  onItemClick,
 }: CircularGalleryProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -1011,6 +1033,7 @@ export default function CircularGallery({
         scrollEase,
         backgroundTarget: backgroundTargetRef?.current ?? null,
         overlayTarget: overlayTargetRef?.current ?? null,
+        onItemClick,
       });
     };
 
@@ -1029,6 +1052,7 @@ export default function CircularGallery({
     scrollEase,
     backgroundTargetRef,
     overlayTargetRef,
+    onItemClick,
   ]);
 
   return (
