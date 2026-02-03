@@ -43,6 +43,7 @@ const pacifico = Pacifico({
   weight: "400",
 });
 
+
 export const metadata: Metadata = {
   title: "Westwood Dairies",
   description: "Fresh milk, expertly processed into cultured favorites.",
@@ -66,7 +67,7 @@ export default function RootLayout({
             <div>
               <a href="/" aria-label="Westwood Dairies home">
                 <Image
-                  src="/images/logo.webp"
+                  src="/images/logo-white.webp"
                   alt="Westwood Dairies"
                   width={270}
                   height={78}

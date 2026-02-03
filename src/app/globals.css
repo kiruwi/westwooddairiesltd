@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Yoghurt-Black";
+  src: url("/fonts/Yoghurt-Black.ttf.woff") format("woff"),
+    url("/fonts/Yoghurt-Black.ttf.svg#Yoghurt-Black") format("svg"),
+    url("/fonts/Yoghurt-Black.ttf.eot"),
+    url("/fonts/Yoghurt-Black.ttf.eot?#iefix") format("embedded-opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
@@ -35,14 +46,16 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-pacifico), var(--font-geist-sans), "Segoe UI", Tahoma,
+  font-family: "Yoghurt-Black", var(--font-geist-sans), "Segoe UI", Tahoma,
     Geneva, Verdana, sans-serif;
+  letter-spacing: 0.02em;
 }
 
 h5,
 h6 {
-  font-family: var(--font-pacifico), var(--font-geist-sans), "Segoe UI", Tahoma,
+  font-family: "Yoghurt-Black", var(--font-geist-sans), "Segoe UI", Tahoma,
     Verdana, sans-serif;
+  letter-spacing: 0.02em;
 }
 
 .font-chewy {
