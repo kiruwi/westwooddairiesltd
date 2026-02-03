@@ -35,13 +35,13 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-chewy), var(--font-geist-sans), "Segoe UI", Tahoma,
+  font-family: var(--font-pacifico), var(--font-geist-sans), "Segoe UI", Tahoma,
     Geneva, Verdana, sans-serif;
 }
 
 h5,
 h6 {
-  font-family: var(--font-chewy), var(--font-geist-sans), "Segoe UI", Tahoma,
+  font-family: var(--font-pacifico), var(--font-geist-sans), "Segoe UI", Tahoma,
     Verdana, sans-serif;
 }
 
@@ -61,7 +61,7 @@ h6 {
   display: inline-block;
   padding: 0.08em 0.35em;
   margin: 0 0.08em;
-  color: #132760;
+  color: #0154ba;
 }
 
 .highlight-jagged::before {
@@ -100,6 +100,11 @@ h6 {
 
 .font-playfair {
   font-family: var(--font-playfair), var(--font-geist-sans), "Segoe UI", Tahoma,
+    Geneva, Verdana, sans-serif;
+}
+
+.font-paragraph {
+  font-family: var(--font-nunito), var(--font-geist-sans), "Segoe UI", Tahoma,
     Geneva, Verdana, sans-serif;
 }
 

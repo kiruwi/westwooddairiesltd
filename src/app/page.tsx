@@ -62,7 +62,7 @@ const faqs = [
 export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const [openFaq, setOpenFaq] = useState(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
     const elements = Array.from(
@@ -131,7 +131,7 @@ export default function Home() {
             className="relative w-full overflow-hidden rounded-b-[36px] pt-40"
             style={{
               background:
-                "radial-gradient(circle at center, #62b4e3 0%, #132760 70%, #132760 100%)",
+                "radial-gradient(circle at center, #62b4e3 0%, #0154ba 70%, #0154ba 100%)",
             }}
           >
             <div
@@ -159,7 +159,7 @@ export default function Home() {
                 borderRadius={0.05}
                 scrollSpeed={2}
                 scrollEase={0.06}
-                textColor="#132760"
+                textColor="#0154ba"
                 showTitles={false}
                 backgroundTargetRef={sectionRef}
                 overlayTargetRef={overlayRef}
@@ -179,7 +179,7 @@ export default function Home() {
               simple, trusted methods, made locally to deliver consistent taste, freshness, and
               everyday dairy products you can rely on for home and family use.
             </p>
-            <button className="mt-6 inline-flex items-center justify-center rounded-full bg-[#62b4e3] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#4f9fc8]">
+            <button className="mt-6 inline-flex items-center justify-center rounded-full bg-[#0154ba] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#01419a]">
               Order Now
             </button>
           </div>
@@ -214,7 +214,7 @@ export default function Home() {
             <Link
               key={product.name}
               href={product.href}
-              className="card font-chewy relative flex flex-col overflow-hidden rounded-[26px] bg-white p-5 transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#62b4e3]/40"
+              className="card font-chewy relative flex flex-col overflow-hidden rounded-[26px] bg-white p-5 transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0154ba]/40"
               aria-label={`View ${product.name}`}
             >
               <div className="flex items-start justify-between gap-4">
@@ -222,11 +222,11 @@ export default function Home() {
                   <h3 className="text-2xl font-medium text-black sm:text-3xl">
                     {product.name}
                   </h3>
-                  <p className="mt-1 text-2xl text-black sm:text-3xl">
+                  <p className="mt-1 text-base text-black sm:text-lg font-paragraph">
                     {product.size}
                   </p>
                 </div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#62b4e3] text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0154ba] text-white">
                   <svg
                     viewBox="0 0 24 24"
                     className="h-5 w-5"
@@ -270,7 +270,7 @@ export default function Home() {
         <h2 className="text-center text-4xl font-medium text-black sm:text-5xl">
           Good Food Starts at the Source
         </h2>
-        <p className="mx-auto mt-4 max-w-3xl text-center text-2xl font-bold leading-9 text-black">
+        <p className="mx-auto mt-4 max-w-3xl text-center text-2xl font-bold leading-9 text-black font-paragraph">
           <span className="block">
             We work with <span className="highlight-jagged">well-kept cows</span> and simple
           </span>
@@ -293,7 +293,9 @@ export default function Home() {
             <button
               key={faq.question}
               type="button"
-              onClick={() => setOpenFaq(index)}
+              onClick={() =>
+                setOpenFaq((current) => (current === index ? null : index))
+              }
               aria-expanded={openFaq === index}
               className={`card w-full rounded-2xl p-4 text-left transition focus-visible:outline-none ${
                 openFaq === index
@@ -304,7 +306,7 @@ export default function Home() {
               <div className="grid w-full grid-cols-[50%_1fr] items-start gap-4">
                 <span
                   className={`text-lg font-semibold ${
-                    openFaq === index ? "text-white" : "text-[#62b4e3]"
+                    openFaq === index ? "text-white" : "text-[#0154ba]"
                   }`}
                 >
                   {String(index + 1).padStart(2, "0")}
@@ -396,7 +398,7 @@ export default function Home() {
             />
             <button
               type="submit"
-              className="w-full rounded-full bg-[#62b4e3] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#4f9fc8]"
+              className="w-full rounded-full bg-[#0154ba] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#01419a]"
             >
               Send Message
             </button>

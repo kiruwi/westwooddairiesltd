@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Nunito, Chewy, Playfair_Display } from "next/font/google";
+import Image from "next/image";
+import {
+  Geist,
+  Geist_Mono,
+  Nunito,
+  Chewy,
+  Playfair_Display,
+  Pacifico,
+} from "next/font/google";
 import SiteHeader from "../components/SiteHeader";
 import "./globals.css";
 
@@ -29,6 +37,12 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
 });
 
+const pacifico = Pacifico({
+  variable: "--font-pacifico",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: "Westwood Dairies",
   description: "Fresh milk, expertly processed into cultured favorites.",
@@ -42,20 +56,22 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${nunito.variable} ${chewy.variable} ${playfair.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${nunito.variable} ${chewy.variable} ${playfair.variable} ${pacifico.variable} antialiased`}
       >
         <SiteHeader />
         {children}
         <footer id="contact" className="text-white">
-          <div className="bg-[#132760]">
+          <div className="bg-[#0154ba]">
             <div className="grid w-full gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr]">
             <div>
-              <a
-                href="/"
-                className="font-playfair text-2xl font-medium uppercase tracking-normal text-white"
-                aria-label="Westwood Dairies home"
-              >
-                Westwood Dairies
+              <a href="/" aria-label="Westwood Dairies home">
+                <Image
+                  src="/images/logo.webp"
+                  alt="Westwood Dairies"
+                  width={270}
+                  height={78}
+                  className="h-[72px] w-auto"
+                />
               </a>
               <p className="mt-3 max-w-sm text-sm leading-6 text-white/80">
                 Thoughtfully processed with care from farm intake to finished product.

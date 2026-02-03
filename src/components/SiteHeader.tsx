@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { PRODUCT_CATEGORIES } from "../data/products";
@@ -44,8 +45,18 @@ export default function SiteHeader() {
   const bannerContent = (
     <>
       <div className="flex items-center gap-6 whitespace-nowrap">
-        <span>Call: +254 700 000 000</span>
-        <span>Email: orders@westwooddairies.com</span>
+        <a
+          href="tel:+254700000000"
+          className="transition hover:text-white/80"
+        >
+          Call: +254 700 000 000
+        </a>
+        <a
+          href="mailto:orders@westwooddairies.com"
+          className="transition hover:text-white/80"
+        >
+          Email: orders@westwooddairies.com
+        </a>
       </div>
       <div className="flex items-center gap-3 whitespace-nowrap">
         <a
@@ -99,7 +110,7 @@ export default function SiteHeader() {
         isHidden ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <div className="w-full bg-[#132760] text-white">
+      <div className="w-full bg-[#0154ba] text-white">
         <div className="marquee text-sm md:hidden">
           <div className="marquee-track">
             <div className="marquee-content">{bannerContent}</div>
@@ -151,7 +162,7 @@ export default function SiteHeader() {
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center rounded-lg bg-white px-3 py-1 text-sm font-semibold text-[#62b4e3] transition hover:bg-[#62b4e3]/20"
+              className="inline-flex items-center justify-center rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#0154ba] transition hover:bg-[#62b4e3]/20"
             >
               Order
             </a>
@@ -210,9 +221,17 @@ export default function SiteHeader() {
 
         <a
           href="/"
-          className={`shrink-0 font-playfair text-2xl font-medium uppercase tracking-normal ${navTextClass} md:mx-auto`}
+          className={`shrink-0 ${navTextClass} md:mx-auto`}
+          aria-label="Westwood Dairies home"
         >
-          Westwood Dairies
+          <Image
+            src={scrolled ? "/images/logo.webp" : "/images/logo-white.webp"}
+            alt="Westwood Dairies"
+            width={270}
+            height={78}
+            priority
+            className="h-[72px] w-auto"
+          />
         </a>
 
         <div className="flex items-center justify-start gap-4 md:justify-start">
@@ -236,10 +255,8 @@ export default function SiteHeader() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((open) => !open)}
-            className={`inline-flex h-10 w-10 items-center justify-center rounded-none border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50 md:hidden ${
-              scrolled
-                ? "border-zinc-200 text-black hover:border-zinc-300 hover:text-black"
-                : "border-white/60 text-white hover:border-white hover:text-white"
+            className={`inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#62b4e3] text-white transition hover:bg-[#4f9fc8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#62b4e3]/60 md:hidden ${
+              scrolled ? "" : "shadow-[0_6px_16px_rgba(0,0,0,0.18)]"
             }`}
           >
             <span className="sr-only">Menu</span>
