@@ -128,7 +128,7 @@ export default function Home() {
         >
           <div
             ref={sectionRef}
-            className="relative w-full overflow-hidden rounded-b-[36px] pt-40"
+            className="relative w-full overflow-hidden pt-40"
             style={{
               background:
                 "radial-gradient(circle at center, #62b4e3 0%, #0154ba 70%, #0154ba 100%)",
@@ -166,6 +166,22 @@ export default function Home() {
                 onItemClick={handleCarouselClick}
               />
             </div>
+            <svg
+              className="pointer-events-none absolute bottom-0 left-0 h-16 w-full"
+              viewBox="0 0 1200 120"
+              preserveAspectRatio="none"
+            >
+              <path
+                className="hidden sm:block"
+                d="M0,64 C120,96 240,32 360,64 C480,96 600,24 720,64 C840,104 960,44 1080,64 C1160,78 1200,96 1200,96 L1200,120 L0,120 Z"
+                fill="#f9f6ef"
+              />
+              <path
+                className="sm:hidden"
+                d="M0,70 C200,110 400,30 600,70 C800,110 1000,30 1200,70 L1200,120 L0,120 Z"
+                fill="#f9f6ef"
+              />
+            </svg>
           </div>
         </div>
 
