@@ -171,7 +171,7 @@ export default function Home() {
 
         <div className="grid items-center gap-8 px-6 pt-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div data-reveal data-delay="120" className="text-center lg:text-left">
-            <h1 className="text-5xl font-medium tracking-tight text-[#132760] sm:text-6xl">
+            <h1 className="text-5xl font-medium tracking-tight text-black sm:text-6xl">
               Fresh dairy for everyday moments.
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-black lg:mx-0">
@@ -206,7 +206,7 @@ export default function Home() {
         data-reveal
         data-delay="140"
       >
-        <h2 className="text-center text-4xl font-medium text-[#132760] sm:text-5xl">
+        <h2 className="text-center text-4xl font-medium text-black sm:text-5xl">
           Our Products
         </h2>
         <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-3">
@@ -257,7 +257,7 @@ export default function Home() {
       </section>
 
       <section id="about" className="px-6 py-12" data-reveal data-delay="200">
-        <h2 className="text-center text-4xl font-medium text-[#62b4e3] sm:text-5xl">
+        <h2 className="text-center text-4xl font-medium text-black sm:text-5xl">
           Good Food Starts at the Source
         </h2>
         <p className="mx-auto mt-4 max-w-3xl text-center text-2xl font-bold leading-9 text-black">
@@ -275,7 +275,7 @@ export default function Home() {
       </section>
 
       <section className="bg-[#eef7ff] px-6 pt-12 pb-4" data-reveal data-delay="260">
-        <h2 className="text-center text-4xl font-medium text-[#132760] sm:text-5xl">
+        <h2 className="text-center text-4xl font-medium text-black sm:text-5xl">
           Frequently Asked Questions
         </h2>
         <div className="mt-6 grid gap-3">
@@ -363,7 +363,7 @@ export default function Home() {
           />
         </div>
         <div className="card relative mx-auto max-w-2xl rounded-3xl bg-white p-8">
-          <h2 className="text-2xl font-medium text-[#62b4e3]">Send Us a Message</h2>
+          <h2 className="text-2xl font-medium text-black">Send Us a Message</h2>
           <form className="mt-6 grid gap-4">
             <input
               type="text"
