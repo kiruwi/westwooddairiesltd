@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "SuperWoobly";
-  src: url("/fonts/SuperWoobly-8MJlz.ttf") format("truetype");
+  font-family: "Milkyway";
+  src: url("/fonts/Milkyway%20DEMO.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "SuperWoobly";
-  src: url("/fonts/SuperWoobly-8MJlz.ttf") format("truetype");
+  font-family: "Milkyway";
+  src: url("/fonts/Milkyway%20DEMO.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -38,9 +38,39 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-nunito), var(--font-geist-sans), "Segoe UI", Tahoma,
+    Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+}
+
+p {
+  font-family: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Milkyway", var(--font-geist-sans), "Segoe UI", Tahoma, Geneva,
+    Verdana, sans-serif;
+}
+
+.card h1,
+.card h2,
+.card h3,
+.card h4 {
   font-family: var(--font-geist-sans), "Segoe UI", Tahoma, Geneva, Verdana,
     sans-serif;
-  line-height: 1.6;
+}
+
+.font-milkyway {
+  font-family: "Milkyway", var(--font-geist-sans), "Segoe UI", Tahoma, Geneva,
+    Verdana, sans-serif;
+}
+
+.card .font-milkyway {
+  font-family: "Milkyway", var(--font-geist-sans), "Segoe UI", Tahoma, Geneva,
+    Verdana, sans-serif;
 }
 
 html {

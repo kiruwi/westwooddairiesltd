@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Nunito } from "next/font/google";
 import SiteHeader from "../components/SiteHeader";
 import "./globals.css";
 
@@ -10,6 +10,11 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
 });
 
@@ -26,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${nunito.variable} antialiased`}
       >
         <SiteHeader />
         {children}
@@ -34,9 +39,9 @@ export default function RootLayout({
           id="contact"
           className="mt-16 bg-zinc-900 text-zinc-200"
         >
-          <div className="mx-auto grid w-full max-w-[1200px] gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr]">
+          <div className="grid w-full gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr]">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-zinc-200">
+              <p className="text-sm font-medium uppercase tracking-[0.3em] text-zinc-200">
                 Fresh dairy
               </p>
               <p className="mt-3 max-w-sm text-sm leading-6 text-zinc-300">
@@ -44,7 +49,7 @@ export default function RootLayout({
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-zinc-200">
+              <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-zinc-200">
                 Quick links
               </h3>
               <div className="mt-4 grid gap-2 text-sm text-zinc-300">
@@ -63,7 +68,7 @@ export default function RootLayout({
               </div>
             </div>
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.3em] text-zinc-200">
+              <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-zinc-200">
                 Contact
               </h3>
               <div className="mt-4 grid gap-2 text-sm text-zinc-300">
@@ -81,7 +86,7 @@ export default function RootLayout({
                     key={label}
                     href="#"
                     aria-label={label}
-                    className="flex h-9 w-9 items-center justify-center rounded-none border border-zinc-700 text-[11px] font-semibold uppercase text-zinc-200 transition hover:border-zinc-500 hover:text-white"
+                    className="flex h-9 w-9 items-center justify-center rounded-none border border-zinc-700 text-[11px] font-medium uppercase text-zinc-200 transition hover:border-zinc-500 hover:text-white"
                   >
                     {label}
                   </a>
@@ -90,7 +95,7 @@ export default function RootLayout({
             </div>
           </div>
           <div className="border-t border-zinc-800">
-            <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-6 py-4 text-xs text-zinc-400">
+            <div className="flex w-full items-center justify-between px-6 py-4 text-xs text-zinc-400">
               <span>(c) {new Date().getFullYear()}.</span>
               <span>All rights reserved.</span>
             </div>

@@ -251,6 +251,7 @@ interface MediaProps {
   font?: string;
   outlineColor?: string;
   outlineWidth?: number;
+  showTitle?: boolean;
 }
 
 class Media {
@@ -273,7 +274,7 @@ class Media {
   outlineWidth?: number;
   program!: Program;
   plane!: Mesh;
-  title!: Title;
+  title: Title | null = null;
   scale!: number;
   baseScaleX!: number;
   baseScaleY!: number;
@@ -302,6 +303,7 @@ class Media {
     font,
     outlineColor,
     outlineWidth,
+    showTitle = true,
   }: MediaProps) {
     this.geometry = geometry;
     this.gl = gl;
@@ -321,7 +323,9 @@ class Media {
     this.outlineWidth = outlineWidth;
     this.createShader();
     this.createMesh();
-    this.createTitle();
+    if (showTitle && this.text.trim().length > 0) {
+      this.createTitle();
+    }
     this.onResize();
   }
 
@@ -468,7 +472,9 @@ class Media {
     this.program.uniforms.uTime.value += 0.04;
     this.program.uniforms.uSpeed.value = this.speed;
     this.program.uniforms.uFocus.value = focus;
-    this.title.setVisible(isCenter);
+    if (this.title) {
+      this.title.setVisible(isCenter);
+    }
 
     const planeOffset = this.baseScaleX / 2;
     const viewportOffset = this.viewport.width / 2;
@@ -527,6 +533,7 @@ interface AppConfig {
   textColor?: string;
   borderRadius?: number;
   font?: string;
+  showTitles?: boolean;
   scrollSpeed?: number;
   scrollEase?: number;
   backgroundTarget?: HTMLElement | null;
@@ -568,6 +575,7 @@ class App {
   lastBackground: string | null = null;
   lastCenterIndex: number = -1;
   overlayRotation: number = 0;
+  showTitles: boolean;
   screen!: { width: number; height: number };
   viewport!: { width: number; height: number };
   raf: number = 0;
@@ -599,7 +607,8 @@ class App {
       bend = 1,
       textColor = "#ffffff",
       borderRadius = 0,
-      font = 'bold 30px "SuperWoobly"',
+      font = 'bold 30px "Milkyway"',
+      showTitles = true,
       scrollSpeed = 2,
       scrollEase = 0.05,
       backgroundTarget = null,
@@ -615,13 +624,14 @@ class App {
     this.backgroundTarget = backgroundTarget;
     this.overlayTarget = overlayTarget;
     this.onItemClick = onItemClick;
+    this.showTitles = showTitles;
     this.boundUpdate = this.update.bind(this);
     this.createRenderer();
     this.createCamera();
     this.createScene();
     this.onResize();
     this.createGeometry();
-    this.createMedias(items, bend, textColor, borderRadius, font);
+    this.createMedias(items, bend, textColor, borderRadius, font, this.showTitles);
     this.startLoop();
     this.addEventListeners();
   }
@@ -659,7 +669,8 @@ class App {
     bend: number = 1,
     textColor: string,
     borderRadius: number,
-    font: string
+    font: string,
+    showTitles: boolean
   ) {
     const defaultItems: GalleryItem[] = [
       {
@@ -738,6 +749,7 @@ class App {
         outlineWidth: 4,
         borderRadius,
         font,
+        showTitle: showTitles,
       });
     });
   }
@@ -987,6 +999,7 @@ interface CircularGalleryProps {
   textColor?: string;
   borderRadius?: number;
   font?: string;
+  showTitles?: boolean;
   scrollSpeed?: number;
   scrollEase?: number;
   backgroundTargetRef?: RefObject<HTMLElement | null>;
@@ -999,7 +1012,8 @@ export default function CircularGallery({
   bend = 3,
   textColor = "#ffffff",
   borderRadius = 0.05,
-  font = 'bold 30px "SuperWoobly"',
+  font = 'bold 30px "Milkyway"',
+  showTitles = true,
   scrollSpeed = 2,
   scrollEase = 0.05,
   backgroundTargetRef,
@@ -1029,6 +1043,7 @@ export default function CircularGallery({
         textColor,
         borderRadius,
         font,
+        showTitles,
         scrollSpeed,
         scrollEase,
         backgroundTarget: backgroundTargetRef?.current ?? null,
@@ -1048,6 +1063,7 @@ export default function CircularGallery({
     textColor,
     borderRadius,
     font,
+    showTitles,
     scrollSpeed,
     scrollEase,
     backgroundTargetRef,

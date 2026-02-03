@@ -34,22 +34,22 @@ export default function ProductsClient() {
   return (
     <div className="bg-slate-50 px-6 pb-20 pt-24 text-zinc-900">
       <main className="mx-auto w-full max-w-[1200px]">
-        <header className="mb-10">
-          <h1 className="mt-3 text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl">
+        <header className="mb-10 text-center">
+          <h1 className="mt-3 text-4xl font-medium tracking-tight text-[#5b8915] sm:text-5xl">
             Products
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-600">
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-black">
             Ice cream, yogurt, and fermented milk made with care from farm intake to
             finished product.
           </p>
         </header>
 
         <div className="grid gap-8 lg:grid-cols-[1fr_3fr]">
-          <aside className="border border-zinc-200 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] lg:sticky lg:top-24 lg:self-start">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.35em] text-zinc-900">
+          <aside className="card border border-zinc-200 bg-white p-6 lg:sticky lg:top-24 lg:self-start">
+            <h2 className="text-sm font-medium uppercase tracking-[0.35em] text-zinc-900">
               Product list
             </h2>
-            <nav className="mt-5 grid gap-3 text-sm text-zinc-700">
+            <nav className="mt-5 grid gap-3 text-sm text-black">
               {PRODUCT_CATEGORIES.map((category) => (
                 <a
                   key={category.id}
@@ -65,7 +65,7 @@ export default function ProductsClient() {
               ))}
               <a
                 href="/#contact"
-                className="inline-flex items-center justify-center border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-900"
+                className="inline-flex items-center justify-center border border-zinc-300 px-4 py-2 text-sm font-semibold text-black transition hover:border-zinc-400 hover:text-black"
               >
                 Order / Enquire
               </a>
@@ -73,15 +73,15 @@ export default function ProductsClient() {
           </aside>
 
           <section className="grid gap-6">
-            <div className="border border-zinc-200 bg-white p-6 shadow-[0_12px_28px_rgba(15,23,42,0.06)]">
+            <div className="card border border-zinc-200 bg-white p-6">
               <div
                 className="mb-4 h-1 w-full"
                 style={{ backgroundColor: activeCategory.tone }}
               />
-              <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
+              <h2 className="font-milkyway text-2xl font-medium tracking-tight text-black">
                 {activeCategory.title}
               </h2>
-              <p className="mt-2 max-w-2xl text-base leading-7 text-zinc-600">
+              <p className="mt-2 max-w-2xl text-base leading-7 text-black">
                 {activeCategory.description}
               </p>
             </div>
@@ -90,20 +90,20 @@ export default function ProductsClient() {
               {activeItems.map((item) => (
                 <div
                   key={item.slug}
-                  className="border border-zinc-200 bg-white shadow-[0_10px_24px_rgba(15,23,42,0.06)]"
+                  className="card border border-zinc-200 bg-white"
                 >
-                  <div className="relative h-44 w-full overflow-hidden border-b border-zinc-200 bg-white">
+                  <div className="relative h-64 w-full overflow-hidden border-b border-zinc-200 bg-white">
                     {item.image ? (
                       <Image
                         src={item.image}
                         alt={item.name}
                         fill
                         sizes="(max-width: 768px) 90vw, 30vw"
-                        className="object-contain p-4"
+                        className="object-contain p-2"
                       />
                     ) : (
                       <div
-                        className="flex h-full w-full flex-col items-center justify-center gap-2 text-zinc-700"
+                        className="flex h-full w-full flex-col items-center justify-center gap-2 text-black"
                         style={{ backgroundColor: activeCategory.tone }}
                       >
                         <span className="text-xs font-semibold uppercase tracking-[0.3em]">
@@ -124,15 +124,15 @@ export default function ProductsClient() {
                     }
                   >
                     <h3
-                      className={`text-lg font-semibold ${
-                        activeCategory.id === "yogurt" ? "text-white" : "text-zinc-900"
+                      className={`font-milkyway text-lg font-medium ${
+                        activeCategory.id === "yogurt" ? "text-white" : "text-black"
                       }`}
                     >
                       {item.name}
                     </h3>
                     <p
                       className={`mt-2 text-sm leading-6 ${
-                        activeCategory.id === "yogurt" ? "text-white/90" : "text-zinc-600"
+                        activeCategory.id === "yogurt" ? "text-white/90" : "text-black"
                       }`}
                     >
                       {item.description}
