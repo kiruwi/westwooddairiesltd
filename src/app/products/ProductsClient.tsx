@@ -19,12 +19,12 @@ export default function ProductsClient() {
   }, [requestedCategory]);
 
   const activeItems = useMemo(() => {
-    const filtered = PRODUCT_ITEMS.filter(
-      (item) => item.categoryId === activeCategory.id
-    );
     const query = searchQuery.trim().toLowerCase();
-    if (!query) return filtered;
-    return filtered.filter((item) => {
+    const sourceItems = query
+      ? PRODUCT_ITEMS
+      : PRODUCT_ITEMS.filter((item) => item.categoryId === activeCategory.id);
+    if (!query) return sourceItems;
+    return sourceItems.filter((item) => {
       const name = item.name.toLowerCase();
       const desc = item.description.toLowerCase();
       return name.includes(query) || desc.includes(query);
@@ -43,7 +43,7 @@ export default function ProductsClient() {
   return (
     <div className="bg-[#eef7ff] px-6 pb-20 pt-24 text-zinc-900">
       <main className="mx-auto w-full max-w-[1200px]">
-        <header className="mb-10">
+        <header className="mb-10 pt-6">
           <div className="mx-auto max-w-xl">
             <label htmlFor="product-search" className="sr-only">
               Search products

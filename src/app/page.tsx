@@ -240,7 +240,17 @@ export default function Home() {
                 </div>
               </div>
               <div className="relative mt-4 mt-auto flex h-80 items-end justify-center -mx-5 -mb-5">
-                <div className="absolute inset-x-8 bottom-0 h-72 rounded-t-[200px] bg-[#d5ecff]" />
+                <div
+                  className="absolute inset-x-8 bottom-0 h-72 rounded-t-[200px]"
+                  style={{
+                    backgroundColor:
+                      product.name === "Soft Serve Ice Cream"
+                        ? "#f8d6e6"
+                        : product.name === "Yogurt"
+                          ? "#e5d6ff"
+                          : "#d5ecff",
+                  }}
+                />
                 <div className="relative h-64 w-56">
                   <Image
                     src={product.image}
