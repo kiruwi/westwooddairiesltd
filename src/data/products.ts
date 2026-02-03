@@ -16,7 +16,7 @@ export type ProductItem = {
 export const PRODUCT_CATEGORIES: ProductCategory[] = [
   {
     id: "ice-cream",
-    title: "Ice cream",
+    title: "Soft serve ice cream",
     description:
       "Soft serve ice cream made for cones, cups, and food service partners.",
     tone: "#fff4d6",
@@ -42,6 +42,14 @@ export const PRODUCT_ITEMS: ProductItem[] = [
     name: "Soft serve ice cream",
     description: "Smooth, airy, and clean on the finish.",
     categoryId: "ice-cream",
+    image: "/images/strawberry.webp",
+  },
+  {
+    slug: "vanilla-ice-cream",
+    name: "Vanilla",
+    description: "Classic vanilla soft serve with a creamy finish.",
+    categoryId: "ice-cream",
+    image: "/images/vanilla.webp",
   },
   {
     slug: "blueberry-yogurt",
@@ -90,5 +98,6 @@ export const PRODUCT_ITEMS: ProductItem[] = [
     name: "Maziwa lala",
     description: "Cultured milk with a smooth, refreshing finish.",
     categoryId: "fermented-milk",
+    image: "/images/maziwa lala.webp",
   },
 ];

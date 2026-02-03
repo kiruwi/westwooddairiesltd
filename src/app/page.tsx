@@ -13,15 +13,15 @@ const products = [
     href: "/products?category=yogurt",
   },
   {
-    name: "Ice Cream",
+    name: "Soft Serve Ice Cream",
     size: "Assorted flavours",
-    image: "/images/MANGO.webp",
+    image: "/images/strawberry.webp",
     href: "/products?category=ice-cream",
   },
   {
     name: "Maziwa Lala",
     size: "Fermented milk (500 ml / 1 litre)",
-    image: "/images/MIXED BERRY.webp",
+    image: "/images/maziwa lala.webp",
     href: "/products?category=fermented-milk",
   },
 ];
@@ -51,6 +51,11 @@ const faqs = [
     question: "Can I visit your production site?",
     answer:
       "Visits can be arranged on request. Contact us to plan a tour.",
+  },
+  {
+    question: "Delivery & Payment",
+    answer:
+      "We deliver fresh dairy products within our delivery areas, packed to stay cold and safe. Pay easily via mobile money or cash on delivery.",
   },
 ];
 
@@ -114,19 +119,19 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-[#f9f6ef] text-[#5b8915]">
+    <div className="min-h-screen w-full bg-[#f9f6ef] text-black">
       <section id="home" className="pb-10">
         <div
-          className="relative w-full overflow-hidden border-y border-emerald-100/60"
+          className="relative w-full overflow-hidden"
           data-reveal
           data-delay="0"
         >
           <div
             ref={sectionRef}
-            className="relative w-full overflow-hidden rounded-b-[36px]"
+            className="relative w-full overflow-hidden rounded-b-[36px] pt-40"
             style={{
               background:
-                "radial-gradient(circle at center, #e0f2e8 0%, #b7e4c7 70%, #95d5b2 100%)",
+                "radial-gradient(circle at center, #62b4e3 0%, #132760 70%, #132760 100%)",
             }}
           >
             <div
@@ -148,18 +153,13 @@ export default function Home() {
               />
             </div>
             <div className="relative h-[560px] w-full px-6 pb-10 pt-24">
-              <p className="absolute left-1/2 top-14 w-full max-w-2xl -translate-x-1/2 px-10 text-center text-2xl font-bold text-white leading-9">
-                <span className="block">Fresh Dairy Made with Care,</span>
-                <span className="block">yogurt, ice cream,</span>
-                <span className="block">and maziwa lala made from quality cow milk.</span>
-              </p>
               <CircularGallery
                 items={items}
                 bend={1}
                 borderRadius={0.05}
                 scrollSpeed={2}
                 scrollEase={0.06}
-                textColor="#14532d"
+                textColor="#132760"
                 showTitles={false}
                 backgroundTargetRef={sectionRef}
                 overlayTargetRef={overlayRef}
@@ -171,14 +171,15 @@ export default function Home() {
 
         <div className="grid items-center gap-8 px-6 pt-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div data-reveal data-delay="120" className="text-center lg:text-left">
-            <h1 className="text-5xl font-medium tracking-tight text-[#5b8915] sm:text-6xl">
+            <h1 className="text-5xl font-medium tracking-tight text-[#132760] sm:text-6xl">
               Fresh dairy for everyday moments.
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-black lg:mx-0">
               Yogurt, ice cream, and maziwa lala prepared fresh using quality cow milk and
-              simple, trusted methods.
+              simple, trusted methods, made locally to deliver consistent taste, freshness, and
+              everyday dairy products you can rely on for home and family use.
             </p>
-            <button className="mt-6 inline-flex items-center justify-center rounded-full bg-[#5b8915] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#4d7612]">
+            <button className="mt-6 inline-flex items-center justify-center rounded-full bg-[#62b4e3] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#4f9fc8]">
               Order Now
             </button>
           </div>
@@ -199,29 +200,33 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="products" className="px-6 py-12" data-reveal data-delay="140">
-        <h2 className="text-center text-3xl font-medium text-[#5b8915] sm:text-4xl">
+      <section
+        id="products"
+        className="bg-[#eef7ff] px-6 py-12"
+        data-reveal
+        data-delay="140"
+      >
+        <h2 className="text-center text-4xl font-medium text-[#132760] sm:text-5xl">
           Our Products
         </h2>
-        <p className="mt-2 text-center text-sm text-black">
-          Yogurt, ice cream, and maziwa lala made fresh for you.
-        </p>
         <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-3">
           {products.map((product) => (
             <Link
               key={product.name}
               href={product.href}
-              className="card relative overflow-hidden rounded-[26px] bg-white p-5 transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5b8915]/40"
+              className="card font-chewy relative flex flex-col overflow-hidden rounded-[26px] bg-white p-5 transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#62b4e3]/40"
               aria-label={`View ${product.name}`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="font-milkyway text-xl font-medium text-black sm:text-2xl">
+                  <h3 className="text-2xl font-medium text-black sm:text-3xl">
                     {product.name}
                   </h3>
-                  <p className="mt-1 text-sm text-black">{product.size}</p>
+                  <p className="mt-1 text-2xl text-black sm:text-3xl">
+                    {product.size}
+                  </p>
                 </div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#5b8915] text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#62b4e3] text-white">
                   <svg
                     viewBox="0 0 24 24"
                     className="h-5 w-5"
@@ -234,9 +239,9 @@ export default function Home() {
                   </svg>
                 </div>
               </div>
-              <div className="relative mt-6 flex h-72 items-end justify-center">
-                <div className="absolute inset-x-6 bottom-0 h-60 rounded-t-[160px] bg-[#e6f2c8]" />
-                <div className="relative h-52 w-48">
+              <div className="relative mt-4 mt-auto flex h-80 items-end justify-center -mx-5 -mb-5">
+                <div className="absolute inset-x-8 bottom-0 h-72 rounded-t-[200px] bg-[#d5ecff]" />
+                <div className="relative h-64 w-56">
                   <Image
                     src={product.image}
                     alt={product.name}
@@ -252,125 +257,136 @@ export default function Home() {
       </section>
 
       <section id="about" className="px-6 py-12" data-reveal data-delay="200">
-        <h2 className="text-center text-3xl font-medium text-[#5b8915] sm:text-4xl">
+        <h2 className="text-center text-4xl font-medium text-[#62b4e3] sm:text-5xl">
           Good Food Starts at the Source
         </h2>
         <p className="mx-auto mt-4 max-w-3xl text-center text-2xl font-bold leading-9 text-black">
-          We work with well-kept cows and simple production methods to make dairy you can
-          trust. Our yogurt, ice cream, and maziwa lala are prepared fresh, with no
-          unnecessary additives, so you get clean taste and consistent quality every time.
+          <span className="block">
+            We work with <span className="highlight-jagged">well-kept cows</span> and simple
+          </span>
+          <span className="block">production methods to make dairy you can trust.</span>
+          <span className="block">Our yogurt, ice cream, and maziwa lala are prepared fresh,</span>
+          <span className="block">
+            with <span className="highlight-jagged">no unnecessary additives</span>, so you get
+            clean
+          </span>
+          <span className="block">taste and consistent quality every time.</span>
         </p>
       </section>
 
-      <section className="px-6 py-12" data-reveal data-delay="260">
-        <h2 className="text-center text-3xl font-medium text-[#5b8915] sm:text-4xl">
-          Why Choose Us
-        </h2>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            "Quality cow milk",
-            "Freshly prepared",
-            "No unnecessary additives",
-            "Trusted local production",
-          ].map((item) => (
-            <div
-              key={item}
-              className="card rounded-2xl bg-white p-4 text-sm font-medium text-[#5b8915]"
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="px-6 py-12" data-reveal data-delay="320">
-        <h2 className="text-center text-3xl font-medium text-[#5b8915] sm:text-4xl">
-          Delivery & Payment
-        </h2>
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
-          <div className="card rounded-3xl bg-white p-6">
-            <h3 className="text-lg font-medium text-[#5b8915]">Delivery</h3>
-            <p className="mt-2 text-sm leading-6 text-black">
-              We deliver fresh dairy products within our delivery areas, packed to stay cold
-              and safe.
-            </p>
-          </div>
-          <div className="card rounded-3xl bg-white p-6">
-            <h3 className="text-lg font-medium text-[#5b8915]">Payment</h3>
-            <p className="mt-2 text-sm leading-6 text-black">
-              Pay easily via mobile money or cash on delivery.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="px-6 py-12" data-reveal data-delay="440">
-        <h2 className="text-center text-3xl font-medium text-[#5b8915] sm:text-4xl">
+      <section className="bg-[#eef7ff] px-6 pt-12 pb-4" data-reveal data-delay="260">
+        <h2 className="text-center text-4xl font-medium text-[#132760] sm:text-5xl">
           Frequently Asked Questions
         </h2>
         <div className="mt-6 grid gap-3">
           {faqs.map((faq, index) => (
-            <div key={faq.question} className="card rounded-2xl border border-emerald-100 bg-white p-4 transition">
-              <button
-                type="button"
-                className="flex w-full items-center justify-between text-left text-sm font-medium text-[#5b8915]"
-                onClick={() => setOpenFaq(index)}
-              >
-                {faq.question}
-                <span>{openFaq === index ? "-" : "+"}</span>
-              </button>
-              {openFaq === index ? (
-                <p className="mt-3 text-sm text-black">{faq.answer}</p>
-              ) : null}
-            </div>
+            <button
+              key={faq.question}
+              type="button"
+              onClick={() => setOpenFaq(index)}
+              aria-expanded={openFaq === index}
+              className={`card w-full rounded-2xl p-4 text-left transition focus-visible:outline-none ${
+                openFaq === index
+                  ? "bg-[#62b4e3]"
+                  : "bg-white"
+              }`}
+            >
+              <div className="grid w-full grid-cols-[50%_1fr] items-start gap-4">
+                <span
+                  className={`text-lg font-semibold ${
+                    openFaq === index ? "text-white" : "text-[#62b4e3]"
+                  }`}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={`flex w-full items-start justify-between gap-4 text-left text-lg font-semibold ${
+                    openFaq === index ? "text-white" : "text-black"
+                  }`}
+                >
+                  <span className="block">{faq.question}</span>
+                  <span>{openFaq === index ? "-" : "+"}</span>
+                </span>
+                {openFaq === index ? (
+                  <p className="col-start-2 text-sm text-black">{faq.answer}</p>
+                ) : null}
+              </div>
+            </button>
           ))}
         </div>
       </section>
 
       <section id="contact" className="relative px-6 py-14" data-reveal data-delay="500">
-        <div className="absolute left-6 top-10 hidden h-32 w-32 overflow-hidden rounded-full bg-white/60 lg:block">
+        <div className="pointer-events-none absolute left-2 top-2 hidden h-44 w-44 overflow-hidden lg:block rotate-[-8deg]">
           <Image
             src="/images/BLUEBERRY.webp"
             alt=""
             fill
-            sizes="128px"
-            className="object-contain p-4"
+            sizes="176px"
+            className="object-contain"
           />
         </div>
-        <div className="absolute right-6 bottom-10 hidden h-32 w-32 overflow-hidden rounded-full bg-white/60 lg:block">
+        <div className="pointer-events-none absolute right-0 bottom-2 hidden h-48 w-48 overflow-hidden lg:block rotate-[8deg]">
           <Image
             src="/images/MANGO.webp"
             alt=""
             fill
+            sizes="192px"
+            className="object-contain"
+          />
+        </div>
+        <div className="pointer-events-none absolute right-24 top-6 hidden h-36 w-36 overflow-hidden lg:block rotate-[12deg]">
+          <Image
+            src="/images/KEY LIME.webp"
+            alt=""
+            fill
+            sizes="144px"
+            className="object-contain"
+          />
+        </div>
+        <div className="pointer-events-none absolute left-20 bottom-4 hidden h-40 w-40 overflow-hidden lg:block rotate-[-12deg]">
+          <Image
+            src="/images/MIXED BERRY.webp"
+            alt=""
+            fill
+            sizes="160px"
+            className="object-contain"
+          />
+        </div>
+        <div className="pointer-events-none absolute right-36 bottom-24 hidden h-32 w-32 overflow-hidden lg:block rotate-[4deg]">
+          <Image
+            src="/images/MANGO COCNUT.webp"
+            alt=""
+            fill
             sizes="128px"
-            className="object-contain p-4"
+            className="object-contain"
           />
         </div>
         <div className="card relative mx-auto max-w-2xl rounded-3xl bg-white p-8">
-          <h2 className="text-2xl font-medium text-[#5b8915]">Send Us a Message</h2>
+          <h2 className="text-2xl font-medium text-[#62b4e3]">Send Us a Message</h2>
           <form className="mt-6 grid gap-4">
             <input
               type="text"
               name="name"
               placeholder="Name"
-              className="w-full rounded-full border border-emerald-100 px-4 py-3 text-sm"
+              className="w-full rounded-full border border-[#62b4e3]/30 px-4 py-3 text-sm"
             />
             <input
               type="tel"
               name="phone"
               placeholder="Phone number"
               required
-              className="w-full rounded-full border border-emerald-100 px-4 py-3 text-sm"
+              className="w-full rounded-full border border-[#62b4e3]/30 px-4 py-3 text-sm"
             />
             <textarea
               name="message"
               placeholder="Message"
               rows={4}
-              className="w-full rounded-3xl border border-emerald-100 px-4 py-3 text-sm"
+              className="w-full rounded-3xl border border-[#62b4e3]/30 px-4 py-3 text-sm"
             />
             <button
               type="submit"
-              className="w-full rounded-full bg-[#5b8915] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#4d7612]"
+              className="w-full rounded-full bg-[#62b4e3] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#4f9fc8]"
             >
               Send Message
             </button>
@@ -378,9 +394,6 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="border-t border-emerald-100 px-6 py-6 text-xs text-black">
-        © {new Date().getFullYear()} Fresh dairy made with care.
-      </footer>
     </div>
   );
 }

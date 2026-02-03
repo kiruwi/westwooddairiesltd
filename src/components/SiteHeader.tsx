@@ -18,10 +18,19 @@ const rightNavItems = [
 export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
+    let lastY = window.scrollY;
     const onScroll = () => {
-      setScrolled(window.scrollY > 6);
+      const currentY = window.scrollY;
+      setScrolled(currentY > 6);
+      if (currentY > lastY && currentY > 80) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+      lastY = currentY;
     };
 
     onScroll();
@@ -29,9 +38,17 @@ export default function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const navTextClass = scrolled ? "text-black" : "text-white";
+  const navHoverClass = "hover:text-[#62b4e3]";
+  const navRingClass = "focus-visible:ring-2 focus-visible:ring-[#62b4e3]/50";
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-white">
-      <div className="w-full bg-[#5b8915] text-white">
+    <header
+      className={`fixed left-0 right-0 top-0 z-50 w-full transform transition-transform duration-300 ${
+        isHidden ? "-translate-y-full" : "translate-y-0"
+      }`}
+    >
+      <div className="w-full bg-[#132760] text-white">
         <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-2 text-sm">
           <div className="flex flex-wrap items-center gap-4">
             <span>Call: +254 700 000 000</span>
@@ -83,23 +100,27 @@ export default function SiteHeader() {
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center rounded-lg bg-white px-3 py-1 text-sm font-semibold text-[#5b8915] transition hover:bg-[#f4f8ef]"
+              className="inline-flex items-center justify-center rounded-lg bg-white px-3 py-1 text-sm font-semibold text-[#62b4e3] transition hover:bg-[#62b4e3]/20"
             >
               Order
             </a>
           </div>
         </div>
       </div>
-      <div className="grid w-full items-center gap-4 border-b border-zinc-200/70 px-6 py-4 md:grid-cols-[1fr_auto_1fr]">
+      <div
+        className={`grid w-full items-center gap-4 px-6 py-8 md:grid-cols-[1fr_auto_1fr] ${
+          scrolled ? "border-b border-zinc-200/70 bg-[#f9f6ef]" : "bg-transparent"
+        }`}
+      >
         <nav
           aria-label="Primary left"
-          className="hidden items-center justify-end gap-6 pr-6 text-base text-black md:flex"
+          className={`hidden items-center justify-end gap-6 pr-6 text-base md:flex ${navTextClass}`}
         >
           {leftNavItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="transition-colors hover:text-[#5b8915] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5b8915]/50"
+              className={`transition-colors ${navHoverClass} focus-visible:outline-none ${navRingClass}`}
             >
               {item.label}
             </a>
@@ -107,7 +128,7 @@ export default function SiteHeader() {
           <div className="group relative">
             <a
               href="/products"
-              className="inline-flex items-center gap-1 transition-colors hover:text-[#5b8915] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5b8915]/50"
+              className={`inline-flex items-center gap-1 transition-colors ${navHoverClass} focus-visible:outline-none ${navRingClass}`}
             >
               Products
               <svg
@@ -126,7 +147,7 @@ export default function SiteHeader() {
                   <a
                     key={category.id}
                     href={`/products?category=${category.id}`}
-                    className="px-2 py-1 transition hover:bg-zinc-50 hover:text-[#5b8915]"
+                    className="px-2 py-1 transition hover:bg-zinc-50 hover:text-[#62b4e3]"
                   >
                     {category.title}
                   </a>
@@ -138,7 +159,7 @@ export default function SiteHeader() {
 
         <a
           href="/"
-          className="mx-auto text-base font-medium uppercase tracking-[0.3em] text-zinc-900"
+          className={`mx-auto font-playfair text-2xl font-medium uppercase tracking-normal ${navTextClass}`}
         >
           Westwood Dairies
         </a>
@@ -146,13 +167,13 @@ export default function SiteHeader() {
         <div className="flex items-center justify-start gap-4">
           <nav
             aria-label="Primary right"
-            className="hidden items-center justify-start gap-6 pl-6 text-base text-black md:flex"
+            className={`hidden items-center justify-start gap-6 pl-6 text-base md:flex ${navTextClass}`}
           >
             {rightNavItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="transition-colors hover:text-[#5b8915] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5b8915]/50"
+                className={`transition-colors ${navHoverClass} focus-visible:outline-none ${navRingClass}`}
               >
                 {item.label}
               </a>
@@ -164,7 +185,11 @@ export default function SiteHeader() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((open) => !open)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-zinc-200 text-black transition hover:border-zinc-300 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50 md:hidden"
+            className={`inline-flex h-10 w-10 items-center justify-center rounded-none border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50 md:hidden ${
+              scrolled
+                ? "border-zinc-200 text-black hover:border-zinc-300 hover:text-black"
+                : "border-white/60 text-white hover:border-white hover:text-white"
+            }`}
           >
             <span className="sr-only">Menu</span>
             <svg

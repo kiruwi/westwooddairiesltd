@@ -503,7 +503,7 @@ class Media {
     }
     this.scale = this.screen.height / 1500;
     const isMobile = this.screen.width < 640;
-    const sizeScale = isMobile ? 0.72 : 0.84;
+    const sizeScale = isMobile ? 0.72 : 1.68;
     this.plane.scale.y =
       (this.viewport.height * (900 * this.scale) * sizeScale) / this.screen.height;
     this.plane.scale.x =
@@ -607,7 +607,7 @@ class App {
       bend = 1,
       textColor = "#ffffff",
       borderRadius = 0,
-      font = 'bold 30px "Milkyway"',
+      font = 'bold 30px "Chewy"',
       showTitles = true,
       scrollSpeed = 2,
       scrollEase = 0.05,
@@ -1012,7 +1012,7 @@ export default function CircularGallery({
   bend = 3,
   textColor = "#ffffff",
   borderRadius = 0.05,
-  font = 'bold 30px "Milkyway"',
+  font = 'bold 30px "Chewy"',
   showTitles = true,
   scrollSpeed = 2,
   scrollEase = 0.05,
