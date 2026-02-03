@@ -789,18 +789,11 @@ class App {
     if (isTouch && this.isTouchingCarousel) {
       const absDx = Math.abs(dx);
       const absDy = Math.abs(dy);
-      const timeSinceStart = performance.now() - this.touchStartTime;
       const isVertical = absDy > absDx && absDy > 10;
-      const wantsExit = dy > 0 && absDy > this.exitSwipeThreshold;
-      if (this.allowScroll) return;
-      if (isVertical && wantsExit && timeSinceStart > this.exitLockMs) {
+      if (isVertical) {
         this.allowScroll = true;
         this.isDown = false;
         this.isTouchingCarousel = false;
-        return;
-      }
-      if (isVertical) {
-        if (e.cancelable) e.preventDefault();
         return;
       }
       if (e.cancelable) e.preventDefault();

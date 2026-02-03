@@ -152,7 +152,7 @@ export default function Home() {
                 className="object-cover"
               />
             </div>
-            <div className="relative h-[560px] w-full px-6 pb-10 pt-24">
+            <div className="relative h-[560px] w-full pb-10 pt-24">
               <CircularGallery
                 items={items}
                 bend={1}
@@ -209,7 +209,7 @@ export default function Home() {
         <h2 className="text-center text-4xl font-medium text-black sm:text-5xl">
           Our Products
         </h2>
-        <div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
           {products.map((product) => (
             <Link
               key={product.name}

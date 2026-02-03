@@ -100,12 +100,61 @@ export default function SiteHeader() {
       }`}
     >
       <div className="w-full bg-[#132760] text-white">
-        <div className="marquee text-sm">
+        <div className="marquee text-sm md:hidden">
           <div className="marquee-track">
             <div className="marquee-content">{bannerContent}</div>
-            <div className="marquee-content" aria-hidden="true">
+            <div className="marquee-content marquee-duplicate" aria-hidden="true">
               {bannerContent}
             </div>
+          </div>
+        </div>
+        <div className="hidden items-center justify-between gap-3 px-6 py-2 text-sm md:flex">
+          <div className="flex items-center gap-6 whitespace-nowrap">
+            <span>Call: +254 700 000 000</span>
+            <span>Email: orders@westwooddairies.com</span>
+          </div>
+          <div className="flex items-center gap-3 whitespace-nowrap">
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              >
+                <rect x="4" y="4" width="16" height="16" rx="4" />
+                <circle cx="12" cy="12" r="3.5" />
+                <circle cx="17.5" cy="6.5" r="1" />
+              </svg>
+            </a>
+            <a
+              href="#"
+              aria-label="Facebook"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
+            >
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+                <path d="M13.5 9H16V6h-2.5C11.6 6 10 7.6 10 9.5V12H8v3h2v6h3v-6h2.5l.5-3H13v-2.2c0-.5.3-.8.5-.8Z" />
+              </svg>
+            </a>
+            <a
+              href="#"
+              aria-label="LinkedIn"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
+            >
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+                <path d="M6.5 9.5H3.8V21h2.7V9.5ZM5.1 3.5a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2ZM20.5 14.2c0-2.7-1.4-4-3.4-4-1.6 0-2.3.9-2.7 1.5V9.5h-2.6V21h2.6v-6c0-1.6.3-3.1 2.3-3.1 2 0 2 1.9 2 3.2V21h2.6v-6.8Z" />
+              </svg>
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center rounded-lg bg-white px-3 py-1 text-sm font-semibold text-[#62b4e3] transition hover:bg-[#62b4e3]/20"
+            >
+              Order
+            </a>
           </div>
         </div>
       </div>

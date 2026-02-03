@@ -111,7 +111,7 @@ h6 {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 24s linear infinite;
+  animation: none;
 }
 
 .marquee-content {
@@ -126,12 +126,32 @@ h6 {
   margin-left: 2.5rem;
 }
 
+.marquee-duplicate {
+  display: none;
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0);
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 640px) {
+  .marquee-track {
+    animation: marquee 24s linear infinite !important;
+  }
+
+  .marquee-duplicate {
+    display: flex;
+  }
+}
+
+@media (min-width: 641px) {
+  .marquee-track {
+    animation: none !important;
   }
 }
 
