@@ -39,7 +39,7 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
 export const PRODUCT_ITEMS: ProductItem[] = [
   {
     slug: "soft-serve-ice-cream",
-    name: "Soft serve ice cream",
+    name: "Strawberry",
     description: "Smooth, airy, and clean on the finish.",
     categoryId: "ice-cream",
     image: "/images/strawberry.webp",

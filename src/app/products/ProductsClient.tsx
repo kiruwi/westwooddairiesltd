@@ -43,7 +43,7 @@ export default function ProductsClient() {
   return (
     <div className="bg-[#eef7ff] px-6 pb-20 pt-24 text-zinc-900">
       <main className="mx-auto w-full max-w-[1200px]">
-        <header className="mb-10 pt-6">
+        <header className="mb-10 pt-20">
           <div className="mx-auto max-w-xl">
             <label htmlFor="product-search" className="sr-only">
               Search products
@@ -61,7 +61,7 @@ export default function ProductsClient() {
 
         <div className="grid gap-8 lg:grid-cols-[1fr_3fr]">
           <aside className="card rounded-3xl bg-white p-6 lg:sticky lg:top-24 lg:self-start">
-            <h2 className="text-2xl font-normal tracking-normal text-[#0154ba]">
+            <h2 className="text-5xl font-normal tracking-normal text-[#0154ba]">
               Product list
             </h2>
             <nav className="mt-5 grid gap-4 text-lg text-black">
@@ -69,7 +69,7 @@ export default function ProductsClient() {
                 <a
                   key={category.id}
                   href={`/products?category=${category.id}`}
-                  className={`border-l-2 pl-3 transition hover:border-black hover:text-black ${
+                  className={`border-l-2 pl-3 transition font-paragraph text-base hover:border-black hover:text-black ${
                     category.id === activeCategory.id
                       ? "border-black text-black"
                       : "border-transparent"
@@ -93,7 +93,7 @@ export default function ProductsClient() {
                 className="mb-4 h-1 w-full"
                 style={{ backgroundColor: activeCategory.tone }}
               />
-              <h2 className="text-2xl font-medium tracking-tight text-[#0154ba]">
+              <h2 className="text-5xl font-medium tracking-tight text-[#0154ba]">
                 {activeCategory.title}
               </h2>
               <p className="mt-2 max-w-2xl text-base leading-7 text-black">
@@ -140,14 +140,14 @@ export default function ProductsClient() {
                       }
                     >
                       <h3
-                        className={`text-2xl font-medium ${
+                        className={`text-2xl font-bold font-paragraph ${
                           activeCategory.id === "yogurt" ? "text-white" : "text-[#0154ba]"
                         }`}
                       >
                         {item.name}
                       </h3>
                       <p
-                        className={`mt-3 text-2xl leading-8 ${
+                        className={`mt-3 font-paragraph text-lg leading-7 ${
                           activeCategory.id === "yogurt" ? "text-white/90" : "text-black"
                         }`}
                       >

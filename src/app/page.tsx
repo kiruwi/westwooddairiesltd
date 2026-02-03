@@ -171,7 +171,7 @@ export default function Home() {
 
         <div className="grid items-center gap-8 px-6 pt-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div data-reveal data-delay="120" className="text-center lg:text-left">
-            <h1 className="text-5xl font-medium tracking-tight text-[#0154ba] sm:text-6xl">
+            <h1 className="text-6xl font-medium tracking-tight text-[#0154ba] sm:text-7xl">
               Fresh dairy for everyday moments.
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-black lg:mx-0">
@@ -206,7 +206,7 @@ export default function Home() {
         data-reveal
         data-delay="140"
       >
-        <h2 className="text-center text-4xl font-medium text-[#0154ba] sm:text-5xl">
+        <h2 className="text-center text-5xl font-medium text-[#0154ba] sm:text-6xl">
           Our Products
         </h2>
         <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -219,7 +219,7 @@ export default function Home() {
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="text-2xl font-medium text-[#0154ba] sm:text-3xl">
+                  <h3 className="text-2xl font-bold text-[#0154ba] font-paragraph sm:text-3xl">
                     {product.name}
                   </h3>
                   <p className="mt-1 text-base text-black sm:text-lg font-paragraph">
@@ -267,7 +267,7 @@ export default function Home() {
       </section>
 
       <section id="about" className="px-6 py-12" data-reveal data-delay="200">
-        <h2 className="text-center text-4xl font-medium text-[#0154ba] sm:text-5xl">
+        <h2 className="text-center text-5xl font-medium text-[#0154ba] sm:text-6xl">
           Good Food Starts at the Source
         </h2>
         <p className="mx-auto mt-4 max-w-3xl text-center text-2xl font-bold leading-9 text-black font-paragraph">
@@ -285,7 +285,7 @@ export default function Home() {
       </section>
 
       <section className="bg-[#eef7ff] px-6 pt-12 pb-4" data-reveal data-delay="260">
-        <h2 className="text-center text-4xl font-medium text-[#0154ba] sm:text-5xl">
+        <h2 className="text-center text-5xl font-medium text-[#0154ba] sm:text-6xl">
           Frequently Asked Questions
         </h2>
         <div className="mt-6 grid gap-3">
@@ -375,7 +375,7 @@ export default function Home() {
           />
         </div>
         <div className="card relative mx-auto max-w-2xl rounded-3xl bg-white p-8">
-          <h2 className="text-2xl font-medium text-[#0154ba]">Send Us a Message</h2>
+          <h2 className="text-3xl font-medium text-[#0154ba]">Send Us a Message</h2>
           <form className="mt-6 grid gap-4">
             <input
               type="text"
