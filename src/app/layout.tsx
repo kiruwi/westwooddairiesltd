@@ -34,14 +34,13 @@ export default function RootLayout({
           id="contact"
           className="mt-16 bg-zinc-900 text-zinc-200"
         >
-          <div className="mx-auto grid w-full max-w-6xl gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr]">
+          <div className="mx-auto grid w-full max-w-[1200px] gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr]">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-zinc-200">
-                Westwood Dairies
+                Fresh dairy
               </p>
               <p className="mt-3 max-w-sm text-sm leading-6 text-zinc-300">
-                Fresh dairy, thoughtfully processed with care from farm intake to
-                finished product.
+                Thoughtfully processed with care from farm intake to finished product.
               </p>
             </div>
             <div>
@@ -74,7 +73,7 @@ export default function RootLayout({
                 <a className="transition hover:text-white" href="tel:+254700000000">
                   +254 700 000 000
                 </a>
-                <span>Westwood Dairies, Nairobi</span>
+                <span>Nairobi</span>
               </div>
               <div className="mt-4 flex items-center gap-3">
                 {["IG", "FB", "LI"].map((label) => (
@@ -91,8 +90,8 @@ export default function RootLayout({
             </div>
           </div>
           <div className="border-t border-zinc-800">
-            <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 text-xs text-zinc-400">
-              <span>(c) {new Date().getFullYear()} Westwood Dairies.</span>
+            <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-6 py-4 text-xs text-zinc-400">
+              <span>(c) {new Date().getFullYear()}.</span>
               <span>All rights reserved.</span>
             </div>
           </div>

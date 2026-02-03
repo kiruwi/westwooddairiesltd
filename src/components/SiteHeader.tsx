@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 
+import { PRODUCT_CATEGORIES } from "../data/products";
+
 const navItems = [
   { label: "Home", href: "/#home" },
-  { label: "Products", href: "/products" },
   { label: "About", href: "/#about" },
   { label: "Process", href: "/#process" },
   { label: "Stockists", href: "/#stockists" },
@@ -31,9 +32,9 @@ export default function SiteHeader() {
         scrolled ? "shadow-sm" : ""
       }`}
     >
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-4">
+      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 px-6 py-4">
         <a
-          href="#home"
+          href="/"
           className="text-sm font-semibold uppercase tracking-[0.3em] text-zinc-900"
         >
           Westwood Dairies
@@ -42,6 +43,36 @@ export default function SiteHeader() {
           aria-label="Primary"
           className="hidden items-center gap-4 text-sm text-zinc-600 md:flex"
         >
+          <div className="group relative">
+            <a
+              href="/products"
+              className="inline-flex items-center gap-1 transition-colors hover:text-sky-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
+            >
+              Products
+              <svg
+                viewBox="0 0 20 20"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              >
+                <path strokeLinecap="round" d="M6 8l4 4 4-4" />
+              </svg>
+            </a>
+            <div className="absolute left-0 top-full z-20 w-48 border border-zinc-200 bg-white opacity-0 shadow-[0_12px_28px_rgba(15,23,42,0.12)] transition invisible group-hover:visible group-hover:opacity-100">
+              <div className="grid gap-1 p-3 text-sm text-zinc-700">
+                {PRODUCT_CATEGORIES.map((category) => (
+                  <a
+                    key={category.id}
+                    href={`/products?category=${category.id}`}
+                    className="px-2 py-1 transition hover:bg-zinc-50 hover:text-sky-700"
+                  >
+                    {category.title}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
           {navItems.map((item) => (
             <a
               key={item.label}
@@ -88,16 +119,37 @@ export default function SiteHeader() {
       >
         <nav aria-label="Mobile">
           <div className="grid gap-3 text-sm text-zinc-700">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={() => setMenuOpen(false)}
-                className="transition-colors hover:text-sky-700"
-              >
-                {item.label}
-              </a>
-            ))}
+          <div className="grid gap-2">
+            <a
+              href="/products"
+              onClick={() => setMenuOpen(false)}
+              className="transition-colors hover:text-sky-700"
+            >
+              Products
+            </a>
+            <div className="grid gap-2 pl-3 text-xs uppercase tracking-[0.3em] text-zinc-500">
+              {PRODUCT_CATEGORIES.map((category) => (
+                <a
+                  key={category.id}
+                  href={`/products?category=${category.id}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-sm font-medium normal-case tracking-normal text-zinc-700 transition-colors hover:text-sky-700"
+                >
+                  {category.title}
+                </a>
+              ))}
+            </div>
+          </div>
+          {navItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={() => setMenuOpen(false)}
+              className="transition-colors hover:text-sky-700"
+            >
+              {item.label}
+            </a>
+          ))}
             <a
               href="#contact"
               onClick={() => setMenuOpen(false)}

@@ -1,62 +1,72 @@
-const products = [
-  {
-    id: "soft-serve",
-    name: "Soft serve ice cream",
-    description:
-      "Smooth, airy, and ready for cones or cups, with a clean dairy finish that pairs perfectly with fruit, syrups, or toppings.",
-    tone: "#fff4d6",
-  },
-  {
-    id: "maziwa-lala",
-    name: "Maziwa lala (fermented milk)",
-    description:
-      "Traditional cultured milk with a gentle tang, ideal for daily drinking or serving chilled alongside meals.",
-    tone: "#e7f6ef",
-  },
-  {
-    id: "yogurt",
-    name: "Yogurt",
-    description:
-      "Creamy, high-protein yogurt crafted in small batches for a balanced flavor and a lush, spoonable texture.",
-    tone: "#fde7f3",
-  },
-];
+"use client";
+
+import Image from "next/image";
+import { useMemo } from "react";
+import { useSearchParams } from "next/navigation";
+import { PRODUCT_CATEGORIES, PRODUCT_ITEMS } from "../../data/products";
 
 export default function ProductsPage() {
+  const searchParams = useSearchParams();
+  const requestedCategory = searchParams.get("category") ?? "";
+
+  const activeCategory = useMemo(() => {
+    const defaultCategory = PRODUCT_CATEGORIES[0];
+    return (
+      PRODUCT_CATEGORIES.find((entry) => entry.id === requestedCategory) ??
+      defaultCategory
+    );
+  }, [requestedCategory]);
+
+  const activeItems = useMemo(
+    () =>
+      PRODUCT_ITEMS.filter((item) => item.categoryId === activeCategory.id),
+    [activeCategory]
+  );
+
+  const yogurtToneMap: Record<string, string> = {
+    "blueberry-yogurt": "#7c3aed",
+    "key-lime-yogurt": "#84cc16",
+    "lemon-biscuit-yogurt": "#facc15",
+    "mango-coconut-yogurt": "#fb923c",
+    "mango-yogurt": "#f97316",
+    "mixed-berry-yogurt": "#f43f5e",
+  };
+
   return (
     <div className="bg-slate-50 px-6 pb-20 pt-24 text-zinc-900">
-      <main className="mx-auto w-full max-w-6xl">
+      <main className="mx-auto w-full max-w-[1200px]">
         <header className="mb-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-sky-700/70">
-            Westwood Dairies
-          </p>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl">
-            All products
+            Products
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-600">
-            Explore our core dairy range. Tap any product to view details or contact us to
-            place an order.
+            Ice cream, yogurt, and fermented milk made with care from farm intake to
+            finished product.
           </p>
         </header>
 
         <div className="grid gap-8 lg:grid-cols-[1fr_3fr]">
-          <aside className="border border-zinc-200 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)]">
+          <aside className="border border-zinc-200 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] lg:sticky lg:top-24 lg:self-start">
             <h2 className="text-sm font-semibold uppercase tracking-[0.35em] text-zinc-900">
-              Products
+              Product list
             </h2>
             <nav className="mt-5 grid gap-3 text-sm text-zinc-700">
-              {products.map((product) => (
+              {PRODUCT_CATEGORIES.map((category) => (
                 <a
-                  key={product.id}
-                  href={`#${product.id}`}
-                  className="border-l-2 border-transparent pl-3 transition hover:border-sky-700 hover:text-sky-800"
+                  key={category.id}
+                  href={`/products?category=${category.id}`}
+                  className={`border-l-2 pl-3 transition hover:border-sky-700 hover:text-sky-800 ${
+                    category.id === activeCategory.id
+                      ? "border-sky-700 text-sky-800"
+                      : "border-transparent"
+                  }`}
                 >
-                  {product.name}
+                  {category.title}
                 </a>
               ))}
               <a
                 href="/#contact"
-                className="mt-4 inline-flex items-center justify-center border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-900"
+                className="inline-flex items-center justify-center border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-900"
               >
                 Order / Enquire
               </a>
@@ -64,35 +74,74 @@ export default function ProductsPage() {
           </aside>
 
           <section className="grid gap-6">
-            {products.map((product) => (
-              <article
-                key={product.id}
-                id={product.id}
-                className="border border-zinc-200 bg-white p-6 shadow-[0_12px_28px_rgba(15,23,42,0.06)]"
-              >
-                <div className="mb-4 h-1 w-full" style={{ backgroundColor: product.tone }} />
-                <h3 className="text-2xl font-semibold tracking-tight text-zinc-900">
-                  {product.name}
-                </h3>
-                <p className="mt-3 max-w-2xl text-base leading-7 text-zinc-600">
-                  {product.description}
-                </p>
-                <div className="mt-5 flex flex-wrap gap-3">
-                  <a
-                    href="/#contact"
-                    className="inline-flex items-center justify-center bg-sky-700 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-800"
+            <div className="border border-zinc-200 bg-white p-6 shadow-[0_12px_28px_rgba(15,23,42,0.06)]">
+              <div
+                className="mb-4 h-1 w-full"
+                style={{ backgroundColor: activeCategory.tone }}
+              />
+              <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
+                {activeCategory.title}
+              </h2>
+              <p className="mt-2 max-w-2xl text-base leading-7 text-zinc-600">
+                {activeCategory.description}
+              </p>
+            </div>
+
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {activeItems.map((item) => (
+                <div
+                  key={item.slug}
+                  className="border border-zinc-200 bg-white shadow-[0_10px_24px_rgba(15,23,42,0.06)]"
+                >
+                  <div className="relative h-44 w-full overflow-hidden border-b border-zinc-200 bg-white">
+                    {item.image ? (
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        sizes="(max-width: 768px) 90vw, 30vw"
+                        className="object-contain p-4"
+                      />
+                    ) : (
+                      <div
+                        className="flex h-full w-full flex-col items-center justify-center gap-2 text-zinc-700"
+                        style={{ backgroundColor: activeCategory.tone }}
+                      >
+                        <span className="text-xs font-semibold uppercase tracking-[0.3em]">
+                          Image
+                        </span>
+                        <span className="text-sm font-semibold uppercase tracking-[0.2em]">
+                          Coming soon
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <div
+                    className="p-4"
+                    style={
+                      activeCategory.id === "yogurt"
+                        ? { backgroundColor: yogurtToneMap[item.slug] ?? "#fde7f3" }
+                        : undefined
+                    }
                   >
-                    Order / Enquire
-                  </a>
-                  <a
-                    href="/#process"
-                    className="inline-flex items-center justify-center border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-900"
-                  >
-                    Our process
-                  </a>
+                    <h3
+                      className={`text-lg font-semibold ${
+                        activeCategory.id === "yogurt" ? "text-white" : "text-zinc-900"
+                      }`}
+                    >
+                      {item.name}
+                    </h3>
+                    <p
+                      className={`mt-2 text-sm leading-6 ${
+                        activeCategory.id === "yogurt" ? "text-white/90" : "text-zinc-600"
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-              </article>
-            ))}
+              ))}
+            </div>
           </section>
         </div>
       </main>

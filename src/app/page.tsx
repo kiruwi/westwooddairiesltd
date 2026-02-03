@@ -27,7 +27,10 @@ export default function Home() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
+            const target = entry.target as HTMLElement;
+            const delay = parseInt(target.dataset.delay ?? "0", 10);
+            target.style.transitionDelay = `${delay}ms`;
+            target.classList.add("is-visible");
             observer.unobserve(entry.target);
           }
         });
@@ -57,19 +60,68 @@ export default function Home() {
 
   const sectionTones = {
     hero: "#fde7f3",
-    about: "#fff4d6",
-    products: "#e7f6ef",
-    process: "#fde7f3",
-    stockists: "#fff4d6",
+    products: "#fff4d6",
+    about: "#e7f6ef",
+    process: "#f1f5f9",
+    stockists: "#fde7f3",
   };
 
   return (
     <div className="bg-slate-50 px-6 pb-20 pt-24 text-zinc-900">
-      <main className="mx-auto w-full max-w-6xl">
+      <main className="mx-auto w-full max-w-[1200px]">
+        <section
+          className="relative left-1/2 w-screen -translate-x-1/2"
+          aria-label="Product gallery"
+          data-reveal
+          data-delay="0"
+        >
+          <div
+            ref={sectionRef}
+            className="relative w-full overflow-hidden rounded-none border-y border-white/50 shadow-[0_25px_80px_rgba(0,0,0,0.18)]"
+            style={{
+              background:
+                "radial-gradient(circle at center, #fce7f3 0%, #f9a8d4 70%, #f472b6 100%)",
+            }}
+          >
+            <div
+              ref={overlayRef}
+              aria-hidden="true"
+              className="pointer-events-none absolute opacity-20 transition-transform duration-700 ease-out"
+              style={{
+                inset: "-56%",
+                transformOrigin: "center",
+              }}
+            >
+              <Image
+                src="/images/bg overlay.svg"
+                alt=""
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="relative h-[600px] w-full p-8">
+              <CircularGallery
+                items={items}
+                bend={1}
+                borderRadius={0.05}
+                scrollSpeed={2}
+                scrollEase={0.06}
+                textColor="#b91c5c"
+                backgroundTargetRef={sectionRef}
+                overlayTargetRef={overlayRef}
+                onItemClick={handleCarouselClick}
+              />
+            </div>
+          </div>
+        </section>
+
         <section
           id="home"
           data-reveal
-          className="scroll-mt-24 overflow-hidden rounded-none border border-zinc-100 shadow-[0_18px_40px_rgba(15,23,42,0.08)]"
+          data-delay="80"
+          className="scroll-mt-24 mt-12 overflow-hidden rounded-none border border-zinc-100 shadow-[0_18px_40px_rgba(15,23,42,0.08)]"
           style={{
             background:
               `radial-gradient(120% 140% at 0% 0%, #ffffff 0%, ${sectionTones.hero} 55%, #f8d6e8 100%)`,
@@ -77,10 +129,7 @@ export default function Home() {
         >
           <div className="grid items-center gap-8 p-8 sm:grid-cols-[1.1fr_0.9fr]">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-sky-700/70">
-                Westwood Dairies
-              </p>
-              <h1 className="mt-4 text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl">
+              <h1 className="text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl">
                 Fresh milk, expertly processed into cultured favorites.
               </h1>
               <p className="mt-4 max-w-xl text-base leading-7 text-zinc-600">
@@ -106,7 +155,7 @@ export default function Home() {
             <div className="relative h-60 w-full overflow-hidden rounded-none bg-white shadow-[0_12px_24px_rgba(15,23,42,0.12)] sm:h-72">
               <Image
                 src="/images/BLUEBERRY.webp"
-                alt="Westwood Dairies blueberry yogurt"
+                alt="Blueberry yogurt"
                 fill
                 priority
                 sizes="(max-width: 640px) 90vw, 45vw"
@@ -117,8 +166,78 @@ export default function Home() {
         </section>
 
         <section
+          id="products"
+          data-reveal
+          data-delay="140"
+          className="scroll-mt-24 mt-12 rounded-none px-6 py-8 shadow-[0_12px_32px_rgba(15,23,42,0.08)]"
+          style={{ backgroundColor: sectionTones.products }}
+        >
+          <div className="flex flex-wrap items-baseline justify-between gap-3">
+            <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
+              Explore our products
+            </h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-sky-700/70">
+              Products
+            </p>
+          </div>
+          <div className="mt-6 grid gap-5 md:grid-cols-3">
+            <a
+              href="/products"
+              className="group flex h-full flex-col justify-between rounded-none border border-zinc-200/70 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
+            >
+              <div>
+                <div className="mb-4 h-1 w-full bg-amber-200" />
+                <h3 className="text-base font-semibold text-zinc-900">Soft serve ice cream</h3>
+                <p className="mt-2 text-sm leading-6 text-zinc-600">
+                  Smooth, airy, and ready for cones or cups, with a clean dairy finish that
+                  pairs perfectly with fruit, syrups, or toppings.
+                </p>
+              </div>
+              <span className="mt-4 inline-flex items-center text-sm font-semibold text-sky-700 transition group-hover:text-sky-800">
+                View details
+              </span>
+            </a>
+            <a
+              href="/products"
+              className="group flex h-full flex-col justify-between rounded-none border border-zinc-200/70 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
+            >
+              <div>
+                <div className="mb-4 h-1 w-full bg-emerald-200" />
+                <h3 className="text-base font-semibold text-zinc-900">
+                  Maziwa lala (fermented milk)
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-zinc-600">
+                  Traditional cultured milk with a gentle tang, ideal for daily drinking or
+                  serving chilled alongside meals.
+                </p>
+              </div>
+              <span className="mt-4 inline-flex items-center text-sm font-semibold text-sky-700 transition group-hover:text-sky-800">
+                View details
+              </span>
+            </a>
+            <a
+              href="/products"
+              className="group flex h-full flex-col justify-between rounded-none border border-zinc-200/70 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
+            >
+              <div>
+                <div className="mb-4 h-1 w-full bg-rose-200" />
+                <h3 className="text-base font-semibold text-zinc-900">Yogurt</h3>
+                <p className="mt-2 text-sm leading-6 text-zinc-600">
+                  Creamy, high-protein yogurt crafted in small batches for a balanced flavor
+                  and a lush, spoonable texture.
+                </p>
+              </div>
+              <span className="mt-4 inline-flex items-center text-sm font-semibold text-sky-700 transition group-hover:text-sky-800">
+                View details
+              </span>
+            </a>
+          </div>
+        </section>
+
+        <section
           id="about"
           data-reveal
+          data-delay="200"
           className="scroll-mt-24 mt-12 rounded-none border-y border-zinc-200/80 px-6 py-8"
           style={{ backgroundColor: sectionTones.about }}
         >
@@ -135,73 +254,9 @@ export default function Home() {
         </section>
 
         <section
-          id="products"
-          data-reveal
-          className="scroll-mt-24 mt-12 rounded-none px-6 py-8 shadow-[0_12px_32px_rgba(15,23,42,0.08)]"
-          style={{ backgroundColor: sectionTones.products }}
-        >
-          <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
-              Our dairy range
-            </h2>
-            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-sky-700/70">
-              Products
-            </p>
-          </div>
-          <div className="mt-6 grid gap-5 md:grid-cols-3">
-            <a
-              href="#contact"
-              className="group flex h-full flex-col justify-between rounded-none border border-zinc-200/70 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
-            >
-              <div>
-                <h3 className="text-base font-semibold text-zinc-900">Soft serve ice cream</h3>
-                <p className="mt-2 text-sm leading-6 text-zinc-600">
-                  Smooth, airy, and ready for cones or cups, with a clean dairy finish that
-                  pairs perfectly with fruit, syrups, or toppings.
-                </p>
-              </div>
-              <span className="mt-4 inline-flex items-center text-sm font-semibold text-sky-700 transition group-hover:text-sky-800">
-                View details
-              </span>
-            </a>
-            <a
-              href="#contact"
-              className="group flex h-full flex-col justify-between rounded-none border border-zinc-200/70 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
-            >
-              <div>
-                <h3 className="text-base font-semibold text-zinc-900">
-                  Maziwa lala (fermented milk)
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-zinc-600">
-                  Traditional cultured milk with a gentle tang, ideal for daily drinking or
-                  serving chilled alongside meals.
-                </p>
-              </div>
-              <span className="mt-4 inline-flex items-center text-sm font-semibold text-sky-700 transition group-hover:text-sky-800">
-                View details
-              </span>
-            </a>
-            <a
-              href="#contact"
-              className="group flex h-full flex-col justify-between rounded-none border border-zinc-200/70 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(15,23,42,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
-            >
-              <div>
-                <h3 className="text-base font-semibold text-zinc-900">Yogurt</h3>
-                <p className="mt-2 text-sm leading-6 text-zinc-600">
-                  Creamy, high-protein yogurt crafted in small batches for a balanced flavor
-                  and a lush, spoonable texture.
-                </p>
-              </div>
-              <span className="mt-4 inline-flex items-center text-sm font-semibold text-sky-700 transition group-hover:text-sky-800">
-                View details
-              </span>
-            </a>
-          </div>
-        </section>
-
-        <section
           id="process"
           data-reveal
+          data-delay="260"
           className="scroll-mt-24 mt-12 rounded-none border border-zinc-200/70 px-6 py-8"
           style={{ backgroundColor: sectionTones.process }}
         >
@@ -250,11 +305,27 @@ export default function Home() {
         <section
           id="stockists"
           data-reveal
+          data-delay="320"
           className="scroll-mt-24 mt-12 rounded-none px-6 py-8 shadow-[0_12px_32px_rgba(15,23,42,0.08)]"
           style={{ backgroundColor: sectionTones.stockists }}
         >
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="max-w-2xl">
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div className="border border-zinc-200 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)]">
+              <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
+                Order / Enquire
+              </h2>
+              <p className="mt-3 text-base leading-7 text-zinc-600">
+                Planning a launch or bulk order? Tell us the volume and delivery window,
+                and we will line it up.
+              </p>
+              <a
+                href="#contact"
+                className="mt-5 inline-flex items-center justify-center rounded-none bg-sky-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/60"
+              >
+                Start an order
+              </a>
+            </div>
+            <div className="border border-zinc-200 bg-white p-6 shadow-[0_10px_24px_rgba(15,23,42,0.06)]">
               <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
                 Become a stockist
               </h2>
@@ -262,58 +333,16 @@ export default function Home() {
                 Partner with us for consistent supply, dependable delivery, and a product
                 lineup that customers ask for by name.
               </p>
+              <a
+                href="#contact"
+                className="mt-5 inline-flex items-center justify-center rounded-none bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60"
+              >
+                Become a stockist
+              </a>
             </div>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center rounded-none bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/60"
-            >
-              Become a stockist
-            </a>
           </div>
         </section>
 
-        <section className="mt-12" aria-label="Product gallery">
-          <div
-            ref={sectionRef}
-            className="relative w-full overflow-hidden rounded-none border border-white/50 shadow-[0_25px_80px_rgba(0,0,0,0.18)]"
-            style={{
-              background:
-                "radial-gradient(circle at center, #fce7f3 0%, #f9a8d4 70%, #f472b6 100%)",
-            }}
-          >
-            <div
-              ref={overlayRef}
-              aria-hidden="true"
-              className="pointer-events-none absolute opacity-20 transition-transform duration-700 ease-out"
-              style={{
-                inset: "-56%",
-                transformOrigin: "center",
-              }}
-            >
-              <Image
-                src="/images/bg overlay.svg"
-                alt=""
-                fill
-                priority
-                sizes="100vw"
-                className="object-cover"
-              />
-            </div>
-            <div className="relative h-[600px] w-full p-8">
-              <CircularGallery
-                items={items}
-                bend={1}
-                borderRadius={0.05}
-                scrollSpeed={2}
-                scrollEase={0.06}
-                textColor="#b91c5c"
-                backgroundTargetRef={sectionRef}
-                overlayTargetRef={overlayRef}
-                onItemClick={handleCarouselClick}
-              />
-            </div>
-          </div>
-        </section>
       </main>
     </div>
   );
