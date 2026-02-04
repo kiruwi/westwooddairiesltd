@@ -40,8 +40,8 @@ export default function SiteHeader() {
   }, []);
 
   const navTextClass = scrolled ? "text-black" : "text-white";
-  const navHoverClass = "hover:text-[#62b4e3]";
-  const navRingClass = "focus-visible:ring-2 focus-visible:ring-[#62b4e3]/50";
+  const navHoverClass = "hover:text-[#c7d5f0]";
+  const navRingClass = "focus-visible:ring-2 focus-visible:ring-[#c7d5f0]/50";
   const bannerContent = (
     <>
       <div className="flex items-center gap-6 whitespace-nowrap">
@@ -96,7 +96,7 @@ export default function SiteHeader() {
         </a>
         <a
           href="#contact"
-          className="inline-flex items-center justify-center rounded-lg bg-white px-3 py-1 text-sm font-semibold text-[#62b4e3] transition hover:bg-[#62b4e3]/20"
+          className="inline-flex items-center justify-center rounded-lg bg-white px-3 py-1 text-sm font-semibold text-[#c7d5f0] transition hover:bg-[#c7d5f0]/20"
         >
           Order
         </a>
@@ -110,7 +110,7 @@ export default function SiteHeader() {
         isHidden ? "-translate-y-full" : "translate-y-0"
       }`}
     >
-      <div className="w-full bg-[#0154ba] text-white">
+      <div className="w-full bg-[#213864] text-white">
         <div className="marquee text-sm md:hidden">
           <div className="marquee-track">
             <div className="marquee-content">{bannerContent}</div>
@@ -162,7 +162,7 @@ export default function SiteHeader() {
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#0154ba] transition hover:bg-[#62b4e3]/20"
+              className="inline-flex items-center justify-center rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#213864] transition hover:bg-[#c7d5f0]/20"
             >
               Order
             </a>
@@ -171,7 +171,7 @@ export default function SiteHeader() {
       </div>
       <div
         className={`flex w-full flex-nowrap items-center justify-between gap-4 px-6 py-8 md:grid md:grid-cols-[1fr_auto_1fr] ${
-          scrolled ? "border-b border-zinc-200/70 bg-[#f9f6ef]" : "bg-transparent"
+          scrolled ? "border-b border-zinc-200/70 bg-white" : "bg-transparent"
         }`}
       >
         <nav
@@ -209,7 +209,7 @@ export default function SiteHeader() {
                   <a
                     key={category.id}
                     href={`/products?category=${category.id}`}
-                    className="px-2 py-1 transition hover:bg-zinc-50 hover:text-[#62b4e3]"
+                    className="px-2 py-1 transition hover:bg-zinc-50 hover:text-[#c7d5f0]"
                   >
                     {category.title}
                   </a>
@@ -225,7 +225,7 @@ export default function SiteHeader() {
           aria-label="Westwood Dairies home"
         >
           <Image
-            src={scrolled ? "/images/logo1.webp" : "/images/logo-white1.webp"}
+            src={scrolled ? "/images/logo-2.webp" : "/images/logo-2-wite.webp"}
             alt="Westwood Dairies"
             width={324}
             height={94}
@@ -255,8 +255,8 @@ export default function SiteHeader() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((open) => !open)}
-            className={`inline-flex h-10 w-10 items-center justify-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#62b4e3]/60 md:hidden ${
-              scrolled ? "text-[#0154ba]" : "text-white"
+            className={`inline-flex h-10 w-10 items-center justify-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c7d5f0]/60 md:hidden ${
+              scrolled ? "text-[#213864]" : "text-white"
             }`}
           >
             <span className="sr-only">Menu</span>

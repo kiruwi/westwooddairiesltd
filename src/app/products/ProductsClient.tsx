@@ -41,7 +41,7 @@ export default function ProductsClient() {
   };
 
   return (
-    <div className="bg-[#eef7ff] px-6 pb-20 pt-24 text-zinc-900">
+    <div className="bg-[#c7d5f0] px-6 pb-20 pt-24 text-zinc-900">
       <main className="mx-auto w-full max-w-[1200px]">
         <header className="mb-10 pt-20">
           <div className="mx-auto max-w-xl">
@@ -54,14 +54,14 @@ export default function ProductsClient() {
               placeholder="Search products"
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
-              className="w-full rounded-full border border-[#62b4e3]/40 bg-white px-6 py-3 text-base text-black placeholder:text-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#62b4e3]/40"
+              className="w-full rounded-full border border-[#c7d5f0]/40 bg-white px-6 py-3 text-base text-black placeholder:text-black/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c7d5f0]/40"
             />
           </div>
         </header>
 
         <div className="grid gap-8 lg:grid-cols-[1fr_3fr]">
           <aside className="card rounded-3xl bg-white p-6 lg:sticky lg:top-24 lg:self-start">
-            <h2 className="text-5xl font-normal tracking-normal text-[#0154ba] font-title-italic">
+            <h2 className="text-5xl font-normal tracking-normal text-[#213864] font-title-italic">
               Product list
             </h2>
             <nav className="mt-5 grid gap-4 text-lg text-black">
@@ -80,7 +80,7 @@ export default function ProductsClient() {
               ))}
               <a
                 href="/#contact"
-                className="inline-flex items-center justify-center rounded-full bg-[#62b4e3] px-4 py-2 text-base font-semibold text-white transition hover:bg-[#4f9fc8]"
+                className="inline-flex items-center justify-center rounded-full bg-[#213864] px-4 py-2 text-base font-semibold text-white transition hover:bg-[#1a2f57]"
               >
                 Order
               </a>
@@ -93,7 +93,7 @@ export default function ProductsClient() {
                 className="mb-4 h-1 w-full"
                 style={{ backgroundColor: activeCategory.tone }}
               />
-              <h2 className="text-5xl font-medium tracking-tight text-[#0154ba] font-title-italic">
+              <h2 className="text-5xl font-medium tracking-tight text-[#213864] font-title-italic">
                 {activeCategory.title}
               </h2>
               <p className="mt-2 max-w-2xl text-base leading-7 text-black">
@@ -141,7 +141,7 @@ export default function ProductsClient() {
                     >
                       <h3
                         className={`text-2xl font-bold font-paragraph ${
-                          activeCategory.id === "yogurt" ? "text-white" : "text-[#0154ba]"
+                          activeCategory.id === "yogurt" ? "text-white" : "text-[#213864]"
                         }`}
                       >
                         {item.name}

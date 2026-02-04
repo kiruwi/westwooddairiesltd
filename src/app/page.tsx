@@ -119,7 +119,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-[#f9f6ef] text-black">
+    <div className="min-h-screen w-full bg-white text-black">
       <section id="home" className="pb-10">
         <div
           className="relative w-full overflow-hidden"
@@ -131,7 +131,7 @@ export default function Home() {
             className="relative w-full overflow-hidden pt-24 md:pt-40"
             style={{
               background:
-                "radial-gradient(circle at center, #62b4e3 0%, #0154ba 70%, #0154ba 100%)",
+                "radial-gradient(circle at center, #c7d5f0 0%, #213864 70%, #213864 100%)",
             }}
           >
             <div
@@ -159,7 +159,7 @@ export default function Home() {
                 borderRadius={0.05}
                 scrollSpeed={2}
                 scrollEase={0.06}
-                textColor="#0154ba"
+                textColor="#213864"
                 showTitles={false}
                 backgroundTargetRef={sectionRef}
                 overlayTargetRef={overlayRef}
@@ -174,12 +174,12 @@ export default function Home() {
               <path
                 className="hidden sm:block"
                 d="M0,64 C120,96 240,32 360,64 C480,96 600,24 720,64 C840,104 960,44 1080,64 C1160,78 1200,96 1200,96 L1200,120 L0,120 Z"
-                fill="#f9f6ef"
+                fill="#ffffff"
               />
               <path
                 className="sm:hidden"
                 d="M0,70 C200,110 400,30 600,70 C800,110 1000,30 1200,70 L1200,120 L0,120 Z"
-                fill="#f9f6ef"
+                fill="#ffffff"
               />
             </svg>
           </div>
@@ -187,7 +187,7 @@ export default function Home() {
 
         <div className="grid items-center gap-8 px-6 pt-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div data-reveal data-delay="120" className="text-center lg:text-left">
-            <h1 className="text-6xl font-medium tracking-tight text-[#0154ba] sm:text-7xl font-title-italic">
+            <h1 className="text-6xl font-medium tracking-tight text-[#213864] sm:text-7xl font-title-italic">
               Fresh dairy for everyday moments.
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-black lg:mx-0">
@@ -197,7 +197,7 @@ export default function Home() {
             </p>
             <Link
               href="/products"
-              className="mt-6 inline-flex items-center justify-center rounded-full bg-[#0154ba] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#01419a]"
+              className="mt-6 inline-flex items-center justify-center rounded-full bg-[#213864] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1a2f57]"
             >
               Order Now
             </Link>
@@ -221,11 +221,11 @@ export default function Home() {
 
       <section
         id="products"
-        className="bg-[#eef7ff] px-6 py-12"
+        className="bg-[#c7d5f0] px-6 py-12"
         data-reveal
         data-delay="140"
       >
-        <h2 className="text-center text-5xl font-medium text-[#0154ba] sm:text-6xl font-title-italic">
+        <h2 className="text-center text-5xl font-medium text-[#213864] sm:text-6xl font-title-italic">
           Our Products
         </h2>
         <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -233,19 +233,19 @@ export default function Home() {
             <Link
               key={product.name}
               href={product.href}
-              className="card font-chewy relative flex flex-col overflow-hidden rounded-[26px] bg-white p-5 transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0154ba]/40"
+              className="card font-chewy relative flex flex-col overflow-hidden rounded-[26px] bg-white p-5 transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#213864]/40"
               aria-label={`View ${product.name}`}
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="text-2xl font-bold text-[#0154ba] font-paragraph sm:text-3xl">
+                  <h3 className="text-2xl font-bold text-[#213864] font-paragraph sm:text-3xl">
                     {product.name}
                   </h3>
                   <p className="mt-1 text-base text-black sm:text-lg font-paragraph">
                     {product.size}
                   </p>
                 </div>
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0154ba] text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#213864] text-white">
                   <svg
                     viewBox="0 0 24 24"
                     className="h-5 w-5"
@@ -286,7 +286,7 @@ export default function Home() {
       </section>
 
       <section id="about" className="px-6 py-12" data-reveal data-delay="200">
-        <h2 className="text-center text-5xl font-medium text-[#0154ba] sm:text-6xl font-title-italic">
+        <h2 className="text-center text-5xl font-medium text-[#213864] sm:text-6xl font-title-italic">
           Good Food Starts at the Source
         </h2>
         <p className="mx-auto mt-4 max-w-3xl text-center text-2xl font-bold leading-9 text-black font-paragraph">
@@ -303,8 +303,12 @@ export default function Home() {
         </p>
       </section>
 
-      <section className="bg-[#eef7ff] px-6 pt-12 pb-4" data-reveal data-delay="260">
-        <h2 className="text-center text-5xl font-medium text-[#0154ba] sm:text-6xl font-title-italic">
+      <section
+        className="bg-[#c7d5f0] px-6 pt-12 pb-4"
+        data-reveal
+        data-delay="260"
+      >
+        <h2 className="text-center text-5xl font-medium text-[#213864] sm:text-6xl font-title-italic">
           Frequently Asked Questions
         </h2>
         <div className="mt-6 grid gap-3">
@@ -318,14 +322,14 @@ export default function Home() {
               aria-expanded={openFaq === index}
               className={`card w-full rounded-2xl p-4 text-left transition focus-visible:outline-none ${
                 openFaq === index
-                  ? "bg-[#62b4e3]"
+                  ? "bg-[#c7d5f0]"
                   : "bg-white"
               }`}
             >
               <div className="grid w-full grid-cols-[50%_1fr] items-start gap-4">
                 <span
                   className={`text-lg font-semibold ${
-                    openFaq === index ? "text-white" : "text-[#0154ba]"
+                    openFaq === index ? "text-white" : "text-[#213864]"
                   }`}
                 >
                   {String(index + 1).padStart(2, "0")}
@@ -353,11 +357,20 @@ export default function Home() {
         data-reveal
         data-delay="500"
       >
-        <Image
-          src="/images/Untitled-1milk-spash.svg"
-          alt=""
-          fill
-          className="pointer-events-none absolute inset-0 z-0 object-cover opacity-[0.03] scale-125"
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 scale-125 opacity-[0.05]"
+          style={{
+            backgroundColor: "#213864",
+            WebkitMaskImage: "url('/images/Untitled-1milk-spash.svg')",
+            maskImage: "url('/images/Untitled-1milk-spash.svg')",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskSize: "cover",
+            maskSize: "cover",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+          }}
         />
         <div className="relative z-10 px-6 py-14">
           <div className="pointer-events-none absolute left-2 top-2 hidden h-44 w-44 overflow-hidden lg:block rotate-[-8deg]">
@@ -406,7 +419,7 @@ export default function Home() {
             />
           </div>
           <div className="card relative mx-auto max-w-2xl rounded-3xl bg-white p-8">
-            <h2 className="text-3xl font-medium text-[#0154ba] font-title-italic">
+            <h2 className="text-3xl font-medium text-[#213864] font-title-italic">
               Send Us a Message
             </h2>
             <form className="mt-6 grid gap-4">
@@ -414,24 +427,24 @@ export default function Home() {
                 type="text"
                 name="name"
                 placeholder="Name"
-                className="w-full rounded-full border border-[#62b4e3]/30 px-4 py-3 text-sm"
+                className="w-full rounded-full border border-[#c7d5f0]/30 px-4 py-3 text-sm"
               />
               <input
                 type="tel"
                 name="phone"
                 placeholder="Phone number"
                 required
-                className="w-full rounded-full border border-[#62b4e3]/30 px-4 py-3 text-sm"
+                className="w-full rounded-full border border-[#c7d5f0]/30 px-4 py-3 text-sm"
               />
               <textarea
                 name="message"
                 placeholder="Message"
                 rows={4}
-                className="w-full rounded-3xl border border-[#62b4e3]/30 px-4 py-3 text-sm"
+                className="w-full rounded-3xl border border-[#c7d5f0]/30 px-4 py-3 text-sm"
               />
               <button
                 type="submit"
-                className="w-full rounded-full bg-[#0154ba] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#01419a]"
+                className="w-full rounded-full bg-[#213864] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#1a2f57]"
               >
                 Send Message
               </button>

@@ -62,12 +62,12 @@ export default function RootLayout({
         <SiteHeader />
         {children}
         <footer id="contact" className="relative z-10 -mt-20 text-white">
-          <div className="bg-[#0154ba]">
+          <div className="bg-[#213864]">
             <div className="grid w-full gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr]">
               <div>
                 <a href="/" aria-label="Westwood Dairies home">
                   <Image
-                    src="/images/logo-white1.webp"
+                    src="/images/logo-2-wite.webp"
                     alt="Westwood Dairies"
                     width={324}
                     height={94}
@@ -153,8 +153,8 @@ export default function RootLayout({
               </div>
             </div>
           </div>
-          <div className="bg-[#62b4e3]">
-            <div className="flex w-full items-center justify-center px-6 py-4 text-xs text-white">
+          <div className="bg-[#c7d5f0]">
+            <div className="flex w-full items-center justify-center px-6 py-4 text-xs text-[#213864]">
               © 2026 Fresh dairy made with care.
             </div>
           </div>
