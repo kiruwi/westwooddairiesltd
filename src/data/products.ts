@@ -11,6 +11,7 @@ export type ProductItem = {
   description: string;
   categoryId: string;
   image?: string;
+  priceKsh: number;
 };
 
 export const PRODUCT_CATEGORIES: ProductCategory[] = [
@@ -43,6 +44,7 @@ export const PRODUCT_ITEMS: ProductItem[] = [
     description: "Smooth, airy, and clean on the finish.",
     categoryId: "ice-cream",
     image: "/images/strawberry.webp",
+    priceKsh: 0,
   },
   {
     slug: "vanilla-ice-cream",
@@ -50,6 +52,7 @@ export const PRODUCT_ITEMS: ProductItem[] = [
     description: "Classic vanilla soft serve with a creamy finish.",
     categoryId: "ice-cream",
     image: "/images/vanilla.webp",
+    priceKsh: 0,
   },
   {
     slug: "blueberry-yogurt",
@@ -57,6 +60,7 @@ export const PRODUCT_ITEMS: ProductItem[] = [
     description: "Blueberry yogurt with a smooth, creamy finish.",
     categoryId: "yogurt",
     image: "/images/BLUEBERRY.webp",
+    priceKsh: 0,
   },
   {
     slug: "key-lime-yogurt",
@@ -64,6 +68,7 @@ export const PRODUCT_ITEMS: ProductItem[] = [
     description: "Zesty key lime with a bright, tangy lift.",
     categoryId: "yogurt",
     image: "/images/KEY LIME.webp",
+    priceKsh: 0,
   },
   {
     slug: "lemon-biscuit-yogurt",
@@ -71,6 +76,7 @@ export const PRODUCT_ITEMS: ProductItem[] = [
     description: "Citrus yogurt balanced with a biscuit finish.",
     categoryId: "yogurt",
     image: "/images/LEMON AND BISCUIT.webp",
+    priceKsh: 0,
   },
   {
     slug: "mango-coconut-yogurt",
@@ -78,6 +84,7 @@ export const PRODUCT_ITEMS: ProductItem[] = [
     description: "Tropical mango with a soft coconut note.",
     categoryId: "yogurt",
     image: "/images/MANGO COCNUT.webp",
+    priceKsh: 0,
   },
   {
     slug: "mango-yogurt",
@@ -85,6 +92,7 @@ export const PRODUCT_ITEMS: ProductItem[] = [
     description: "Sweet mango yogurt with a clean dairy finish.",
     categoryId: "yogurt",
     image: "/images/MANGO.webp",
+    priceKsh: 0,
   },
   {
     slug: "mixed-berry-yogurt",
@@ -92,6 +100,7 @@ export const PRODUCT_ITEMS: ProductItem[] = [
     description: "Berry blend with a balanced, creamy taste.",
     categoryId: "yogurt",
     image: "/images/MIXED BERRY.webp",
+    priceKsh: 0,
   },
   {
     slug: "maziwa-lala",
@@ -99,5 +108,6 @@ export const PRODUCT_ITEMS: ProductItem[] = [
     description: "Cultured milk with a smooth, refreshing finish.",
     categoryId: "fermented-milk",
     image: "/images/maziwa lala.webp",
+    priceKsh: 0,
   },
 ];

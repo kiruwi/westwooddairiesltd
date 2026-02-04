@@ -84,7 +84,7 @@ export default function ProductsClient() {
   }, [counts, isHydrated]);
 
   return (
-    <div className="bg-[#c7d5f0] px-6 pb-20 pt-24 text-zinc-900">
+    <div className="bg-[#c7d5f0] px-6 pb-32 pt-24 text-zinc-900 md:pb-40">
       <main className="mx-auto w-full max-w-[1200px]">
         <header className="mb-10 pt-20">
           <div className="mx-auto max-w-xl">
@@ -135,9 +135,6 @@ export default function ProductsClient() {
               <h2 className="text-5xl font-medium tracking-tight text-[#213864] font-title-italic">
                 {activeCategory.title}
               </h2>
-              <p className="mt-2 max-w-2xl text-base leading-7 text-black">
-                {activeCategory.description}
-              </p>
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -147,7 +144,7 @@ export default function ProductsClient() {
                     key={item.slug}
                     className="card rounded-3xl bg-white font-chewy"
                   >
-                    <div className="relative h-96 w-full overflow-hidden rounded-t-3xl bg-white">
+                    <div className="relative h-72 w-full overflow-hidden rounded-t-3xl rounded-b-[40px] bg-white">
                       {item.image ? (
                         <Image
                           src={item.image}
@@ -193,6 +190,15 @@ export default function ProductsClient() {
                         {item.description}
                       </p>
                       <div className="mt-4 flex items-center justify-between gap-3">
+                        <span
+                          className={`px-1 text-sm font-semibold transition font-paragraph ${
+                            activeCategory.id === "yogurt"
+                              ? "text-white"
+                              : "text-[#213864]"
+                          }`}
+                        >
+                          KES {item.priceKsh.toLocaleString("en-KE")}
+                        </span>
                         <div className="flex items-center gap-2">
                           <button
                             type="button"
@@ -219,12 +225,6 @@ export default function ProductsClient() {
                             +
                           </button>
                         </div>
-                        <button
-                          type="button"
-                          className="rounded-full bg-[#213864] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#1a2f57] font-paragraph"
-                        >
-                          Order
-                        </button>
                       </div>
                     </div>
                   </div>
