@@ -128,7 +128,7 @@ export default function Home() {
         >
           <div
             ref={sectionRef}
-            className="relative w-full overflow-hidden pt-40"
+            className="relative w-full overflow-hidden pt-24 md:pt-40"
             style={{
               background:
                 "radial-gradient(circle at center, #62b4e3 0%, #0154ba 70%, #0154ba 100%)",
@@ -152,7 +152,7 @@ export default function Home() {
                 className="object-cover"
               />
             </div>
-            <div className="relative h-[560px] w-full pb-10 pt-24">
+            <div className="relative h-[560px] w-full pb-10 pt-16 md:pt-24">
               <CircularGallery
                 items={items}
                 bend={1}

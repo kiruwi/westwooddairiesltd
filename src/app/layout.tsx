@@ -64,65 +64,68 @@ export default function RootLayout({
         <footer id="contact" className="text-white">
           <div className="bg-[#0154ba]">
             <div className="grid w-full gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr]">
-            <div>
-              <a href="/" aria-label="Westwood Dairies home">
-                <Image
-                  src="/images/logo-white.webp"
-                  alt="Westwood Dairies"
-                  width={270}
-                  height={78}
-                  className="h-[72px] w-auto"
-                />
-              </a>
-              <p className="mt-3 max-w-sm text-sm leading-6 text-white/80">
-                Thoughtfully processed with care from farm intake to finished product.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-white">
-                Quick links
-              </h3>
-              <div className="mt-4 grid gap-2 text-sm text-white/80">
-                <a className="transition hover:text-white" href="/#home">
-                  Home
+              <div>
+                <a href="/" aria-label="Westwood Dairies home">
+                  <Image
+                    src="/images/logo-white.webp"
+                    alt="Westwood Dairies"
+                    width={270}
+                    height={78}
+                    className="h-[72px] w-auto"
+                  />
                 </a>
-                <a className="transition hover:text-white" href="/products">
-                  Products
-                </a>
-                <a className="transition hover:text-white" href="/#process">
-                  Process
-                </a>
-                <a className="transition hover:text-white" href="/#stockists">
-                  Stockists
-                </a>
+                <p className="mt-3 max-w-sm text-sm leading-6 text-white/80">
+                  Thoughtfully processed with care from farm intake to finished product.
+                </p>
               </div>
-            </div>
-            <div>
-              <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-white">
-                Contact
-              </h3>
-              <div className="mt-4 grid gap-2 text-sm text-white/80">
-                <a className="transition hover:text-white" href="mailto:orders@westwooddairies.com">
-                  orders@westwooddairies.com
-                </a>
-                <a className="transition hover:text-white" href="tel:+254700000000">
-                  +254 700 000 000
-                </a>
-                <span>Nairobi</span>
-              </div>
-              <div className="mt-4 flex items-center gap-3">
-                {["IG", "FB", "LI"].map((label) => (
-                  <a
-                    key={label}
-                    href="#"
-                    aria-label={label}
-                    className="flex h-9 w-9 items-center justify-center rounded-none border border-white/40 text-[11px] font-medium uppercase text-white/80 transition hover:border-white hover:text-white"
-                  >
-                    {label}
+              <div>
+                <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-white">
+                  Quick links
+                </h3>
+                <div className="mt-4 grid gap-2 text-sm text-white/80">
+                  <a className="transition hover:text-white" href="/#home">
+                    Home
                   </a>
-                ))}
+                  <a className="transition hover:text-white" href="/products">
+                    Products
+                  </a>
+                  <a className="transition hover:text-white" href="/#process">
+                    Process
+                  </a>
+                  <a className="transition hover:text-white" href="/#stockists">
+                    Stockists
+                  </a>
+                </div>
               </div>
-            </div>
+              <div>
+                <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-white">
+                  Contact
+                </h3>
+                <div className="mt-4 grid gap-2 text-sm text-white/80">
+                  <a
+                    className="transition hover:text-white"
+                    href="mailto:orders@westwooddairies.com"
+                  >
+                    orders@westwooddairies.com
+                  </a>
+                  <a className="transition hover:text-white" href="tel:+254700000000">
+                    +254 700 000 000
+                  </a>
+                  <span>Nairobi</span>
+                </div>
+                <div className="mt-4 flex items-center gap-3">
+                  {["IG", "FB", "LI"].map((label) => (
+                    <a
+                      key={label}
+                      href="#"
+                      aria-label={label}
+                      className="flex h-9 w-9 items-center justify-center rounded-none border border-white/40 text-[11px] font-medium uppercase text-white/80 transition hover:border-white hover:text-white"
+                    >
+                      {label}
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
           <div className="bg-[#62b4e3]">
