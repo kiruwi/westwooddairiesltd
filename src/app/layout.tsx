@@ -114,16 +114,41 @@ export default function RootLayout({
                   <span>Nairobi</span>
                 </div>
                 <div className="mt-4 flex items-center gap-3">
-                  {["IG", "FB", "LI"].map((label) => (
-                    <a
-                      key={label}
-                      href="#"
-                      aria-label={label}
-                      className="flex h-9 w-9 items-center justify-center rounded-none border border-white/40 text-[11px] font-medium uppercase text-white/80 transition hover:border-white hover:text-white"
+                  <a
+                    href="#"
+                    aria-label="Instagram"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
                     >
-                      {label}
-                    </a>
-                  ))}
+                      <rect x="4" y="4" width="16" height="16" rx="4" />
+                      <circle cx="12" cy="12" r="3.5" />
+                      <circle cx="17.5" cy="6.5" r="1" />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    aria-label="Facebook"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                      <path d="M13.5 9H16V6h-2.5C11.6 6 10 7.6 10 9.5V12H8v3h2v6h3v-6h2.5l.5-3H13v-2.2c0-.5.3-.8.5-.8Z" />
+                    </svg>
+                  </a>
+                  <a
+                    href="#"
+                    aria-label="LinkedIn"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+                  >
+                    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                      <path d="M6.5 9.5H3.8V21h2.7V9.5ZM5.1 3.5a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2ZM20.5 14.2c0-2.7-1.4-4-3.4-4-1.6 0-2.3.9-2.7 1.5V9.5h-2.6V21h2.6v-6c0-1.6.3-3.1 2.3-3.1 2 0 2 1.9 2 3.2V21h2.6v-6.8Z" />
+                    </svg>
+                  </a>
                 </div>
               </div>
             </div>
