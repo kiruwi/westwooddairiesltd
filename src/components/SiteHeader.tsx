@@ -255,14 +255,20 @@ export default function SiteHeader() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((open) => !open)}
-            className={`inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#62b4e3] text-white transition hover:bg-[#4f9fc8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#62b4e3]/60 md:hidden ${
-              scrolled ? "" : "shadow-[0_6px_16px_rgba(0,0,0,0.18)]"
-            }`}
+            className="relative inline-flex h-[60px] w-[60px] items-center justify-center text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#62b4e3]/60 md:hidden"
           >
+            <span className="absolute inset-0">
+              <svg viewBox="0 0 64 64" className="h-full w-full" aria-hidden="true">
+                <path
+                  d="M32 8c7 0 10 6 12 10 5 1 8 5 8 10 0 6-4 10-10 11-2 6-8 12-10 12-2 0-8-6-10-12-6-1-10-5-10-11 0-5 3-9 8-10 2-4 5-10 12-10Z"
+                  fill="#62b4e3"
+                />
+              </svg>
+            </span>
             <span className="sr-only">Menu</span>
             <svg
               viewBox="0 0 24 24"
-              className="h-5 w-5"
+              className="absolute inset-0 m-auto h-5 w-5"
               fill="none"
               stroke="currentColor"
               strokeWidth="1.8"

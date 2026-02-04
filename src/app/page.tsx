@@ -195,9 +195,12 @@ export default function Home() {
               simple, trusted methods, made locally to deliver consistent taste, freshness, and
               everyday dairy products you can rely on for home and family use.
             </p>
-            <button className="mt-6 inline-flex items-center justify-center rounded-full bg-[#0154ba] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#01419a]">
+            <Link
+              href="/products"
+              className="mt-6 inline-flex items-center justify-center rounded-full bg-[#0154ba] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#01419a]"
+            >
               Order Now
-            </button>
+            </Link>
           </div>
           <div
             className="relative h-64 w-full overflow-hidden rounded-[28px] bg-white"
