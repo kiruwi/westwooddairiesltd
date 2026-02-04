@@ -46,7 +46,7 @@ export default function SiteHeader() {
       try {
         const raw = window.localStorage.getItem(storageKey);
         const parsed = raw ? JSON.parse(raw) : {};
-        const total = Object.values(parsed).reduce(
+        const total = Object.values(parsed).reduce<number>(
           (sum, value) => sum + (typeof value === "number" ? value : 0),
           0
         );
