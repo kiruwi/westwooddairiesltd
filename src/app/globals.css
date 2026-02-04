@@ -121,6 +121,13 @@ h6 {
     Geneva, Verdana, sans-serif;
 }
 
+.font-title-italic {
+  font-family: "Yoghurt-Black", var(--font-geist-sans), "Segoe UI", Tahoma,
+    Geneva, Verdana, sans-serif;
+  font-style: normal;
+  font-synthesis: style;
+}
+
 .marquee {
   position: relative;
   overflow: hidden;

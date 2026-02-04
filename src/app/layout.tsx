@@ -61,17 +61,17 @@ export default function RootLayout({
       >
         <SiteHeader />
         {children}
-        <footer id="contact" className="text-white">
+        <footer id="contact" className="relative z-10 -mt-20 text-white">
           <div className="bg-[#0154ba]">
             <div className="grid w-full gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr]">
               <div>
                 <a href="/" aria-label="Westwood Dairies home">
                   <Image
-                    src="/images/logo-white.webp"
+                    src="/images/logo-white1.webp"
                     alt="Westwood Dairies"
-                    width={270}
-                    height={78}
-                    className="h-[72px] w-auto"
+                    width={324}
+                    height={94}
+                    className="h-[86px] w-auto"
                   />
                 </a>
                 <p className="mt-3 max-w-sm text-sm leading-6 text-white/80">
@@ -79,7 +79,7 @@ export default function RootLayout({
                 </p>
               </div>
               <div>
-                <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-white">
+                <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-white font-title-italic">
                   Quick links
                 </h3>
                 <div className="mt-4 grid gap-2 text-sm text-white/80">
@@ -98,7 +98,7 @@ export default function RootLayout({
                 </div>
               </div>
               <div>
-                <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-white">
+                <h3 className="text-sm font-medium uppercase tracking-[0.3em] text-white font-title-italic">
                   Contact
                 </h3>
                 <div className="mt-4 grid gap-2 text-sm text-white/80">

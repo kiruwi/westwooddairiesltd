@@ -187,7 +187,7 @@ export default function Home() {
 
         <div className="grid items-center gap-8 px-6 pt-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div data-reveal data-delay="120" className="text-center lg:text-left">
-            <h1 className="text-6xl font-medium tracking-tight text-[#0154ba] sm:text-7xl">
+            <h1 className="text-6xl font-medium tracking-tight text-[#0154ba] sm:text-7xl font-title-italic">
               Fresh dairy for everyday moments.
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-black lg:mx-0">
@@ -225,7 +225,7 @@ export default function Home() {
         data-reveal
         data-delay="140"
       >
-        <h2 className="text-center text-5xl font-medium text-[#0154ba] sm:text-6xl">
+        <h2 className="text-center text-5xl font-medium text-[#0154ba] sm:text-6xl font-title-italic">
           Our Products
         </h2>
         <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -286,7 +286,7 @@ export default function Home() {
       </section>
 
       <section id="about" className="px-6 py-12" data-reveal data-delay="200">
-        <h2 className="text-center text-5xl font-medium text-[#0154ba] sm:text-6xl">
+        <h2 className="text-center text-5xl font-medium text-[#0154ba] sm:text-6xl font-title-italic">
           Good Food Starts at the Source
         </h2>
         <p className="mx-auto mt-4 max-w-3xl text-center text-2xl font-bold leading-9 text-black font-paragraph">
@@ -304,7 +304,7 @@ export default function Home() {
       </section>
 
       <section className="bg-[#eef7ff] px-6 pt-12 pb-4" data-reveal data-delay="260">
-        <h2 className="text-center text-5xl font-medium text-[#0154ba] sm:text-6xl">
+        <h2 className="text-center text-5xl font-medium text-[#0154ba] sm:text-6xl font-title-italic">
           Frequently Asked Questions
         </h2>
         <div className="mt-6 grid gap-3">
@@ -347,81 +347,96 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="relative px-6 py-14" data-reveal data-delay="500">
-        <div className="pointer-events-none absolute left-2 top-2 hidden h-44 w-44 overflow-hidden lg:block rotate-[-8deg]">
-          <Image
-            src="/images/BLUEBERRY.webp"
-            alt=""
-            fill
-            sizes="176px"
-            className="object-contain"
-          />
-        </div>
-        <div className="pointer-events-none absolute right-0 bottom-2 hidden h-48 w-48 overflow-hidden lg:block rotate-[8deg]">
-          <Image
-            src="/images/MANGO.webp"
-            alt=""
-            fill
-            sizes="192px"
-            className="object-contain"
-          />
-        </div>
-        <div className="pointer-events-none absolute right-24 top-6 hidden h-36 w-36 overflow-hidden lg:block rotate-[12deg]">
-          <Image
-            src="/images/KEY LIME.webp"
-            alt=""
-            fill
-            sizes="144px"
-            className="object-contain"
-          />
-        </div>
-        <div className="pointer-events-none absolute left-20 bottom-4 hidden h-40 w-40 overflow-hidden lg:block rotate-[-12deg]">
-          <Image
-            src="/images/MIXED BERRY.webp"
-            alt=""
-            fill
-            sizes="160px"
-            className="object-contain"
-          />
-        </div>
-        <div className="pointer-events-none absolute right-36 bottom-24 hidden h-32 w-32 overflow-hidden lg:block rotate-[4deg]">
-          <Image
-            src="/images/MANGO COCNUT.webp"
-            alt=""
-            fill
-            sizes="128px"
-            className="object-contain"
-          />
-        </div>
-        <div className="card relative mx-auto max-w-2xl rounded-3xl bg-white p-8">
-          <h2 className="text-3xl font-medium text-[#0154ba]">Send Us a Message</h2>
-          <form className="mt-6 grid gap-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              className="w-full rounded-full border border-[#62b4e3]/30 px-4 py-3 text-sm"
+      <section
+        id="contact"
+        className="relative isolate min-h-[70vh] overflow-hidden bg-white pb-24 md:min-h-[85vh] md:pb-32"
+        data-reveal
+        data-delay="500"
+      >
+        <Image
+          src="/images/Untitled-1milk-spash.svg"
+          alt=""
+          fill
+          className="pointer-events-none absolute inset-0 z-0 object-cover opacity-[0.03] scale-125"
+        />
+        <div className="relative z-10 px-6 py-14">
+          <div className="pointer-events-none absolute left-2 top-2 hidden h-44 w-44 overflow-hidden lg:block rotate-[-8deg]">
+            <Image
+              src="/images/BLUEBERRY.webp"
+              alt=""
+              fill
+              sizes="176px"
+              className="object-contain"
             />
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone number"
-              required
-              className="w-full rounded-full border border-[#62b4e3]/30 px-4 py-3 text-sm"
+          </div>
+          <div className="pointer-events-none absolute right-0 bottom-2 hidden h-48 w-48 overflow-hidden lg:block rotate-[8deg]">
+            <Image
+              src="/images/MANGO.webp"
+              alt=""
+              fill
+              sizes="192px"
+              className="object-contain"
             />
-            <textarea
-              name="message"
-              placeholder="Message"
-              rows={4}
-              className="w-full rounded-3xl border border-[#62b4e3]/30 px-4 py-3 text-sm"
+          </div>
+          <div className="pointer-events-none absolute right-24 top-6 hidden h-36 w-36 overflow-hidden lg:block rotate-[12deg]">
+            <Image
+              src="/images/KEY LIME.webp"
+              alt=""
+              fill
+              sizes="144px"
+              className="object-contain"
             />
-            <button
-              type="submit"
-              className="w-full rounded-full bg-[#0154ba] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#01419a]"
-            >
-              Send Message
-            </button>
-          </form>
+          </div>
+          <div className="pointer-events-none absolute left-20 bottom-4 hidden h-40 w-40 overflow-hidden lg:block rotate-[-12deg]">
+            <Image
+              src="/images/MIXED BERRY.webp"
+              alt=""
+              fill
+              sizes="160px"
+              className="object-contain"
+            />
+          </div>
+          <div className="pointer-events-none absolute right-36 bottom-24 hidden h-32 w-32 overflow-hidden lg:block rotate-[4deg]">
+            <Image
+              src="/images/MANGO COCNUT.webp"
+              alt=""
+              fill
+              sizes="128px"
+              className="object-contain"
+            />
+          </div>
+          <div className="card relative mx-auto max-w-2xl rounded-3xl bg-white p-8">
+            <h2 className="text-3xl font-medium text-[#0154ba] font-title-italic">
+              Send Us a Message
+            </h2>
+            <form className="mt-6 grid gap-4">
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                className="w-full rounded-full border border-[#62b4e3]/30 px-4 py-3 text-sm"
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone number"
+                required
+                className="w-full rounded-full border border-[#62b4e3]/30 px-4 py-3 text-sm"
+              />
+              <textarea
+                name="message"
+                placeholder="Message"
+                rows={4}
+                className="w-full rounded-3xl border border-[#62b4e3]/30 px-4 py-3 text-sm"
+              />
+              <button
+                type="submit"
+                className="w-full rounded-full bg-[#0154ba] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#01419a]"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
         </div>
       </section>
 

@@ -225,12 +225,12 @@ export default function SiteHeader() {
           aria-label="Westwood Dairies home"
         >
           <Image
-            src={scrolled ? "/images/logo.webp" : "/images/logo-white.webp"}
+            src={scrolled ? "/images/logo1.webp" : "/images/logo-white1.webp"}
             alt="Westwood Dairies"
-            width={270}
-            height={78}
+            width={324}
+            height={94}
             priority
-            className="h-[72px] w-auto"
+            className="h-[86px] w-auto"
           />
         </a>
 

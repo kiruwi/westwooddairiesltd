@@ -61,7 +61,7 @@ export default function ProductsClient() {
 
         <div className="grid gap-8 lg:grid-cols-[1fr_3fr]">
           <aside className="card rounded-3xl bg-white p-6 lg:sticky lg:top-24 lg:self-start">
-            <h2 className="text-5xl font-normal tracking-normal text-[#0154ba]">
+            <h2 className="text-5xl font-normal tracking-normal text-[#0154ba] font-title-italic">
               Product list
             </h2>
             <nav className="mt-5 grid gap-4 text-lg text-black">
@@ -93,7 +93,7 @@ export default function ProductsClient() {
                 className="mb-4 h-1 w-full"
                 style={{ backgroundColor: activeCategory.tone }}
               />
-              <h2 className="text-5xl font-medium tracking-tight text-[#0154ba]">
+              <h2 className="text-5xl font-medium tracking-tight text-[#0154ba] font-title-italic">
                 {activeCategory.title}
               </h2>
               <p className="mt-2 max-w-2xl text-base leading-7 text-black">
