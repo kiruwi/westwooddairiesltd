@@ -255,7 +255,9 @@ export default function SiteHeader() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((open) => !open)}
-            className="inline-flex h-10 w-10 items-center justify-center text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#62b4e3]/60 md:hidden"
+            className={`inline-flex h-10 w-10 items-center justify-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#62b4e3]/60 md:hidden ${
+              scrolled ? "text-[#0154ba]" : "text-white"
+            }`}
           >
             <span className="sr-only">Menu</span>
             <svg
