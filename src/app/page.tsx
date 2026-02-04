@@ -8,7 +8,7 @@ import CircularGallery from "../components/CircularGallery";
 const products = [
   {
     name: "Yogurt",
-    size: "Plain and flavoured (500 ml / 1 litre)",
+    size: "Premium and For Kids",
     image: "/images/BLUEBERRY.webp",
     href: "/products?category=yogurt",
   },
