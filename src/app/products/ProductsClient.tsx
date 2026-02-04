@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { PRODUCT_CATEGORIES, PRODUCT_ITEMS } from "../../data/products";
 
@@ -9,6 +9,8 @@ export default function ProductsClient() {
   const searchParams = useSearchParams();
   const requestedCategory = searchParams.get("category") ?? "";
   const [searchQuery, setSearchQuery] = useState("");
+  const [counts, setCounts] = useState<Record<string, number>>({});
+  const [isHydrated, setIsHydrated] = useState(false);
 
   const activeCategory = useMemo(() => {
     const defaultCategory = PRODUCT_CATEGORIES[0];
@@ -39,6 +41,47 @@ export default function ProductsClient() {
     "mango-yogurt": "#f97316",
     "mixed-berry-yogurt": "#f43f5e",
   };
+
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem("westwood-cart");
+      const parsed = raw ? JSON.parse(raw) : {};
+      setCounts(parsed ?? {});
+    } catch {
+      setCounts({});
+    }
+    setIsHydrated(true);
+  }, []);
+
+  const updateCounts = (slug: string, delta: number) => {
+    setCounts((prev) => {
+      const next = { ...prev };
+      const current = next[slug] ?? 0;
+      const updated = Math.max(0, current + delta);
+      if (updated === 0) {
+        delete next[slug];
+      } else {
+        next[slug] = updated;
+      }
+      return next;
+    });
+  };
+
+  useEffect(() => {
+    if (!isHydrated) return;
+    try {
+      window.localStorage.setItem("westwood-cart", JSON.stringify(counts));
+      const total = Object.values(counts).reduce(
+        (sum, value) => sum + (typeof value === "number" ? value : 0),
+        0
+      );
+      window.dispatchEvent(
+        new CustomEvent("cart-updated", { detail: { total } })
+      );
+    } catch {
+      // ignore storage errors
+    }
+  }, [counts, isHydrated]);
 
   return (
     <div className="bg-[#c7d5f0] px-6 pb-20 pt-24 text-zinc-900">
@@ -80,7 +123,7 @@ export default function ProductsClient() {
               ))}
               <a
                 href="/#contact"
-                className="inline-flex items-center justify-center rounded-full bg-[#213864] px-4 py-2 text-base font-semibold text-white transition hover:bg-[#1a2f57]"
+                className="inline-flex items-center justify-center rounded-full bg-[#213864] px-4 py-2 text-base font-semibold text-white transition hover:bg-[#1a2f57] font-paragraph"
               >
                 Order
               </a>
@@ -88,11 +131,7 @@ export default function ProductsClient() {
           </aside>
 
           <section className="grid gap-6">
-            <div className="card rounded-3xl bg-white p-6">
-              <div
-                className="mb-4 h-1 w-full"
-                style={{ backgroundColor: activeCategory.tone }}
-              />
+            <div className="py-2">
               <h2 className="text-5xl font-medium tracking-tight text-[#213864] font-title-italic">
                 {activeCategory.title}
               </h2>
@@ -153,6 +192,40 @@ export default function ProductsClient() {
                       >
                         {item.description}
                       </p>
+                      <div className="mt-4 flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => updateCounts(item.slug, -1)}
+                            disabled={!counts[item.slug]}
+                            aria-label={`Remove ${item.name}`}
+                            className={`flex h-8 w-8 items-center justify-center rounded-full border text-sm font-semibold transition ${
+                              counts[item.slug]
+                                ? "border-[#213864] text-[#213864] hover:bg-[#213864] hover:text-white"
+                                : "border-black/20 text-black/30"
+                            }`}
+                          >
+                            -
+                          </button>
+                          <span className="min-w-[24px] text-center text-base font-semibold text-[#213864] font-paragraph">
+                            {counts[item.slug] ?? 0}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => updateCounts(item.slug, 1)}
+                            aria-label={`Add ${item.name}`}
+                            className="flex h-8 w-8 items-center justify-center rounded-full bg-[#213864] text-sm font-semibold text-white transition hover:bg-[#1a2f57]"
+                          >
+                            +
+                          </button>
+                        </div>
+                        <button
+                          type="button"
+                          className="rounded-full bg-[#213864] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#1a2f57] font-paragraph"
+                        >
+                          Order
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))

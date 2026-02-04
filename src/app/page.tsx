@@ -197,7 +197,7 @@ export default function Home() {
             </p>
             <Link
               href="/products"
-              className="mt-6 inline-flex items-center justify-center rounded-full bg-[#213864] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1a2f57]"
+              className="mt-6 inline-flex items-center justify-center rounded-full bg-[#213864] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1a2f57] font-paragraph"
             >
               Order Now
             </Link>

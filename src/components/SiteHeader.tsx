@@ -20,6 +20,7 @@ export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -37,6 +38,40 @@ export default function SiteHeader() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const storageKey = "westwood-cart";
+    const readCart = () => {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        const parsed = raw ? JSON.parse(raw) : {};
+        const total = Object.values(parsed).reduce(
+          (sum, value) => sum + (typeof value === "number" ? value : 0),
+          0
+        );
+        setCartCount(total);
+      } catch {
+        setCartCount(0);
+      }
+    };
+
+    readCart();
+    const handleCartUpdate = (event: Event) => {
+      const custom = event as CustomEvent<{ total?: number }>;
+      if (custom.detail && typeof custom.detail.total === "number") {
+        setCartCount(custom.detail.total);
+      } else {
+        readCart();
+      }
+    };
+
+    window.addEventListener("cart-updated", handleCartUpdate);
+    window.addEventListener("storage", readCart);
+    return () => {
+      window.removeEventListener("cart-updated", handleCartUpdate);
+      window.removeEventListener("storage", readCart);
+    };
   }, []);
 
   const navTextClass = scrolled ? "text-black" : "text-white";
@@ -96,9 +131,12 @@ export default function SiteHeader() {
         </a>
         <a
           href="#contact"
-          className="inline-flex items-center justify-center rounded-lg bg-white px-3 py-1 text-sm font-semibold text-[#c7d5f0] transition hover:bg-[#c7d5f0]/20"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-3 py-1 text-sm font-semibold text-[#c7d5f0] transition hover:bg-[#c7d5f0]/20"
         >
-          Order
+          Cart
+          <span className="inline-flex min-w-[20px] items-center justify-center rounded-full px-1.5 text-[11px] leading-none text-[#213864] font-paragraph">
+            {cartCount}
+          </span>
         </a>
       </div>
     </>
@@ -162,9 +200,12 @@ export default function SiteHeader() {
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center justify-center rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#213864] transition hover:bg-[#c7d5f0]/20"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#213864] transition hover:bg-[#c7d5f0]/20"
             >
-              Order
+              Cart
+              <span className="inline-flex min-w-[20px] items-center justify-center rounded-full px-1.5 text-[11px] leading-none text-[#213864] font-paragraph">
+                {cartCount}
+              </span>
             </a>
           </div>
         </div>
