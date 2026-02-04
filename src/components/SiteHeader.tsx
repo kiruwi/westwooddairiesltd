@@ -129,15 +129,6 @@ export default function SiteHeader() {
             <path d="M6.5 9.5H3.8V21h2.7V9.5ZM5.1 3.5a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2ZM20.5 14.2c0-2.7-1.4-4-3.4-4-1.6 0-2.3.9-2.7 1.5V9.5h-2.6V21h2.6v-6c0-1.6.3-3.1 2.3-3.1 2 0 2 1.9 2 3.2V21h2.6v-6.8Z" />
           </svg>
         </a>
-        <a
-          href="#contact"
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-3 py-1 text-sm font-semibold text-[#c7d5f0] transition hover:bg-[#c7d5f0]/20"
-        >
-          Cart
-          <span className="inline-flex min-w-[20px] items-center justify-center rounded-full px-1.5 text-[11px] leading-none text-[#213864] font-paragraph">
-            {cartCount}
-          </span>
-        </a>
       </div>
     </>
   );
@@ -197,15 +188,6 @@ export default function SiteHeader() {
               <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
                 <path d="M6.5 9.5H3.8V21h2.7V9.5ZM5.1 3.5a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2ZM20.5 14.2c0-2.7-1.4-4-3.4-4-1.6 0-2.3.9-2.7 1.5V9.5h-2.6V21h2.6v-6c0-1.6.3-3.1 2.3-3.1 2 0 2 1.9 2 3.2V21h2.6v-6.8Z" />
               </svg>
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-3 py-1 text-sm font-semibold text-[#213864] transition hover:bg-[#c7d5f0]/20"
-            >
-              Cart
-              <span className="inline-flex min-w-[20px] items-center justify-center rounded-full px-1.5 text-[11px] leading-none text-[#213864] font-paragraph">
-                {cartCount}
-              </span>
             </a>
           </div>
         </div>

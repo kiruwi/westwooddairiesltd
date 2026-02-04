@@ -33,6 +33,15 @@ export default function ProductsClient() {
     });
   }, [activeCategory, searchQuery]);
 
+  const cartTotal = useMemo(
+    () =>
+      Object.values(counts).reduce(
+        (sum, value) => sum + (typeof value === "number" ? value : 0),
+        0
+      ),
+    [counts]
+  );
+
   const yogurtToneMap: Record<string, string> = {
     "blueberry-yogurt": "#7c3aed",
     "key-lime-yogurt": "#84cc16",
@@ -121,12 +130,12 @@ export default function ProductsClient() {
                   {category.title}
                 </a>
               ))}
-              <a
-                href="/#contact"
-                className="inline-flex items-center justify-center rounded-full bg-[#213864] px-4 py-2 text-base font-semibold text-white transition hover:bg-[#1a2f57] font-paragraph"
-              >
-                Order
-              </a>
+              <div className="inline-flex items-center gap-2 rounded-full bg-[#213864] px-4 py-2 text-base font-semibold text-white font-paragraph">
+                Cart
+                <span className="inline-flex min-w-[20px] items-center justify-center rounded-full bg-white px-2 text-sm font-semibold text-[#213864]">
+                  {cartTotal}
+                </span>
+              </div>
             </nav>
           </aside>
 
