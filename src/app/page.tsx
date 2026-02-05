@@ -221,14 +221,29 @@ export default function Home() {
 
       <section
         id="products"
-        className="bg-[#c7d5f0] px-6 py-12"
+        className="relative isolate overflow-hidden bg-[#c7d5f0] px-6 py-12"
         data-reveal
         data-delay="140"
       >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 scale-125 opacity-[0.07] rotate-180"
+          style={{
+            backgroundColor: "#213864",
+            WebkitMaskImage: "url('/images/Untitled-1milk-spash.svg')",
+            maskImage: "url('/images/Untitled-1milk-spash.svg')",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskSize: "cover",
+            maskSize: "cover",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+          }}
+        />
         <h2 className="text-center text-5xl font-medium text-[#213864] sm:text-6xl font-title-italic">
           Our Products
         </h2>
-        <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="relative z-10 mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
           {products.map((product) => (
             <Link
               key={product.name}
