@@ -82,15 +82,48 @@ export default function SiteHeader() {
       <div className="flex items-center gap-6 whitespace-nowrap">
         <a
           href="tel:+254700000000"
-          className="transition hover:text-white/80"
+          aria-label="Call Westwood Dairies"
+          className="inline-flex items-center gap-2 transition hover:text-white/80"
         >
-          Call: +254 700 000 000
+          <svg
+            viewBox="0 0 24 24"
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5.5 4.5 8.2 4c.5-.1 1 .2 1.1.7l.6 2.7c.1.5-.1 1-.6 1.2l-1.7.8c.9 2.2 2.6 3.9 4.8 4.8l.8-1.7c.2-.5.7-.7 1.2-.6l2.7.6c.5.1.8.6.7 1.1l-.5 2.7c-.1.5-.5.9-1 .9-6.1 0-11-4.9-11-11 0-.5.4-.9.9-1Z"
+            />
+          </svg>
+          <span>+254 700 000 000</span>
         </a>
         <a
           href="mailto:orders@westwooddairies.com"
-          className="transition hover:text-white/80"
+          aria-label="Email Westwood Dairies"
+          className="inline-flex items-center gap-2 transition hover:text-white/80"
         >
-          Email: orders@westwooddairies.com
+          <svg
+            viewBox="0 0 24 24"
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4 6h16v12H4z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m4 7 8 6 8-6"
+            />
+          </svg>
+          <span>orders@westwooddairies.com</span>
         </a>
       </div>
       <div className="flex items-center gap-3 whitespace-nowrap">
@@ -140,7 +173,7 @@ export default function SiteHeader() {
       }`}
     >
       <div className="w-full bg-[#213864] text-white">
-        <div className="marquee text-sm md:hidden">
+        <div className="marquee text-base md:hidden">
           <div className="marquee-track">
             <div className="marquee-content">{bannerContent}</div>
             <div className="marquee-content marquee-duplicate" aria-hidden="true">
@@ -148,10 +181,53 @@ export default function SiteHeader() {
             </div>
           </div>
         </div>
-        <div className="hidden items-center justify-between gap-3 px-6 py-2 text-sm md:flex">
+        <div className="hidden items-center justify-between gap-3 px-6 py-2 text-base md:flex">
           <div className="flex items-center gap-6 whitespace-nowrap">
-            <span>Call: +254 700 000 000</span>
-            <span>Email: orders@westwooddairies.com</span>
+            <a
+              href="tel:+254700000000"
+              aria-label="Call Westwood Dairies"
+              className="inline-flex items-center gap-2 transition hover:text-white/80"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5.5 4.5 8.2 4c.5-.1 1 .2 1.1.7l.6 2.7c.1.5-.1 1-.6 1.2l-1.7.8c.9 2.2 2.6 3.9 4.8 4.8l.8-1.7c.2-.5.7-.7 1.2-.6l2.7.6c.5.1.8.6.7 1.1l-.5 2.7c-.1.5-.5.9-1 .9-6.1 0-11-4.9-11-11 0-.5.4-.9.9-1Z"
+                />
+              </svg>
+              <span>+254 700 000 000</span>
+            </a>
+            <a
+              href="mailto:orders@westwooddairies.com"
+              aria-label="Email Westwood Dairies"
+              className="inline-flex items-center gap-2 transition hover:text-white/80"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16v12H4z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m4 7 8 6 8-6"
+                />
+              </svg>
+              <span>orders@westwooddairies.com</span>
+            </a>
           </div>
           <div className="flex items-center gap-3 whitespace-nowrap">
             <a
