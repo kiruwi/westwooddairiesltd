@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { PRODUCT_CATEGORIES } from "../data/products";
@@ -20,7 +21,6 @@ export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -38,40 +38,6 @@ export default function SiteHeader() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const storageKey = "westwood-cart";
-    const readCart = () => {
-      try {
-        const raw = window.localStorage.getItem(storageKey);
-        const parsed = raw ? JSON.parse(raw) : {};
-        const total = Object.values(parsed).reduce<number>(
-          (sum, value) => sum + (typeof value === "number" ? value : 0),
-          0
-        );
-        setCartCount(total);
-      } catch {
-        setCartCount(0);
-      }
-    };
-
-    readCart();
-    const handleCartUpdate = (event: Event) => {
-      const custom = event as CustomEvent<{ total?: number }>;
-      if (custom.detail && typeof custom.detail.total === "number") {
-        setCartCount(custom.detail.total);
-      } else {
-        readCart();
-      }
-    };
-
-    window.addEventListener("cart-updated", handleCartUpdate);
-    window.addEventListener("storage", readCart);
-    return () => {
-      window.removeEventListener("cart-updated", handleCartUpdate);
-      window.removeEventListener("storage", readCart);
-    };
   }, []);
 
   const navTextClass = scrolled ? "text-black" : "text-white";
@@ -278,16 +244,16 @@ export default function SiteHeader() {
           className={`hidden items-center justify-end gap-6 pr-6 text-base md:flex ${navTextClass}`}
         >
           {leftNavItems.map((item) => (
-            <a
+            <Link
               key={item.label}
               href={item.href}
               className={`transition-colors ${navHoverClass} focus-visible:outline-none ${navRingClass}`}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
           <div className="group relative">
-            <a
+            <Link
               href="/products"
               className={`inline-flex items-center gap-1 transition-colors ${navHoverClass} focus-visible:outline-none ${navRingClass}`}
             >
@@ -301,24 +267,24 @@ export default function SiteHeader() {
               >
                 <path strokeLinecap="round" d="M6 8l4 4 4-4" />
               </svg>
-            </a>
+            </Link>
             <div className="absolute left-0 top-full z-20 w-48 border border-zinc-200 bg-white opacity-0 transition invisible group-hover:visible group-hover:opacity-100">
               <div className="grid gap-1 p-3 text-sm text-black">
                 {PRODUCT_CATEGORIES.map((category) => (
-                  <a
+                  <Link
                     key={category.id}
                     href={`/products?category=${category.id}`}
                     className="px-2 py-1 transition hover:bg-zinc-50 hover:text-[#c7d5f0]"
                   >
                     {category.title}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
           </div>
         </nav>
 
-        <a
+        <Link
           href="/"
           className={`shrink-0 ${navTextClass} md:mx-auto`}
           aria-label="Westwood Dairies home"
@@ -331,7 +297,7 @@ export default function SiteHeader() {
             priority
             className="h-[86px] w-auto"
           />
-        </a>
+        </Link>
 
         <div className="flex items-center justify-start gap-4 md:justify-start">
           <nav
@@ -339,13 +305,13 @@ export default function SiteHeader() {
             className={`hidden items-center justify-start gap-6 pl-6 text-base md:flex ${navTextClass}`}
           >
             {rightNavItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
                 className={`transition-colors ${navHoverClass} focus-visible:outline-none ${navRingClass}`}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
           <button
@@ -379,47 +345,47 @@ export default function SiteHeader() {
       >
         <nav aria-label="Mobile">
           <div className="grid gap-3 text-sm text-black">
-          <div className="grid gap-2">
-            <a
-              href="/products"
-              onClick={() => setMenuOpen(false)}
-              className="transition-colors hover:text-sky-700"
-            >
-              Products
-            </a>
-            <div className="grid gap-2 pl-3 text-xs uppercase tracking-[0.3em] text-black">
-              {PRODUCT_CATEGORIES.map((category) => (
-                <a
-                  key={category.id}
-                  href={`/products?category=${category.id}`}
-                  onClick={() => setMenuOpen(false)}
-                  className="text-sm font-medium normal-case tracking-normal text-black transition-colors hover:text-sky-700"
-                >
-                  {category.title}
-                </a>
-              ))}
+            <div className="grid gap-2">
+              <Link
+                href="/products"
+                onClick={() => setMenuOpen(false)}
+                className="transition-colors hover:text-sky-700"
+              >
+                Products
+              </Link>
+              <div className="grid gap-2 pl-3 text-xs uppercase tracking-[0.3em] text-black">
+                {PRODUCT_CATEGORIES.map((category) => (
+                  <Link
+                    key={category.id}
+                    href={`/products?category=${category.id}`}
+                    onClick={() => setMenuOpen(false)}
+                    className="text-sm font-medium normal-case tracking-normal text-black transition-colors hover:text-sky-700"
+                  >
+                    {category.title}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
-          {leftNavItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              onClick={() => setMenuOpen(false)}
-              className="transition-colors hover:text-sky-700"
-            >
-              {item.label}
-            </a>
-          ))}
-          {rightNavItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              onClick={() => setMenuOpen(false)}
-              className="transition-colors hover:text-sky-700"
-            >
-              {item.label}
-            </a>
-          ))}
+            {leftNavItems.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                className="transition-colors hover:text-sky-700"
+              >
+                {item.label}
+              </Link>
+            ))}
+            {rightNavItems.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setMenuOpen(false)}
+                className="transition-colors hover:text-sky-700"
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
         </nav>
       </div>

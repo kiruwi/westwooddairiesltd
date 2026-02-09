@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import Script from "next/script";
 import {
   Geist,
   Geist_Mono,
@@ -56,16 +58,33 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script id="google-tag-manager" strategy="beforeInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TCS6X8R9');`}
+        </Script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${nunito.variable} ${chewy.variable} ${playfair.variable} ${pacifico.variable} antialiased`}
       >
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-TCS6X8R9"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <SiteHeader />
         {children}
         <footer id="contact" className="relative z-10 -mt-20 text-white">
           <div className="bg-[#213864]">
             <div className="grid w-full gap-8 px-6 py-10 md:grid-cols-[1.2fr_1fr_1fr]">
               <div>
-                <a href="/" aria-label="Westwood Dairies home">
+                <Link href="/" aria-label="Westwood Dairies home">
                   <Image
                     src="/images/logo-2-wite.webp"
                     alt="Westwood Dairies"
@@ -73,7 +92,7 @@ export default function RootLayout({
                     height={94}
                     className="h-[86px] w-auto"
                   />
-                </a>
+                </Link>
                 <p className="mt-3 max-w-sm text-sm leading-6 text-white/80">
                   Thoughtfully processed with care from farm intake to finished product.
                 </p>
@@ -83,18 +102,18 @@ export default function RootLayout({
                   Quick links
                 </h3>
                 <div className="mt-4 grid gap-2 text-sm text-white/80">
-                  <a className="transition hover:text-white" href="/#home">
+                  <Link className="transition hover:text-white" href="/#home">
                     Home
-                  </a>
-                  <a className="transition hover:text-white" href="/products">
+                  </Link>
+                  <Link className="transition hover:text-white" href="/products">
                     Products
-                  </a>
-                  <a className="transition hover:text-white" href="/#process">
+                  </Link>
+                  <Link className="transition hover:text-white" href="/#process">
                     Process
-                  </a>
-                  <a className="transition hover:text-white" href="/#stockists">
+                  </Link>
+                  <Link className="transition hover:text-white" href="/#stockists">
                     Stockists
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div>

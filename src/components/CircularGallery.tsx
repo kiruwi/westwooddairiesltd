@@ -5,6 +5,7 @@ import { useEffect, useRef, type RefObject } from "react";
 
 type GL = Renderer["gl"];
 type RGB = { r: number; g: number; b: number };
+type LegacyWheelEvent = WheelEvent & { wheelDelta?: number; detail?: number };
 
 const DEFAULT_BG_COLOR = "#fce7f3";
 
@@ -46,19 +47,17 @@ function shadeRgb(color: RGB, factor: number): RGB {
   };
 }
 
-function lightenRgb(color: RGB, amount: number): RGB {
-  return mixRgb(color, { r: 255, g: 255, b: 255 }, amount);
-}
-
 function rgbToCss(color: RGB): string {
   return `rgb(${color.r} ${color.g} ${color.b})`;
 }
 
-function debounce<T extends (...args: any[]) => void>(func: T, wait: number) {
-  let timeout: number;
-  return function (this: any, ...args: Parameters<T>) {
-    window.clearTimeout(timeout);
-    timeout = window.setTimeout(() => func.apply(this, args), wait);
+function debounce(func: () => void, wait: number): () => void {
+  let timeout: number | undefined;
+  return () => {
+    if (timeout !== undefined) {
+      window.clearTimeout(timeout);
+    }
+    timeout = window.setTimeout(func, wait);
   };
 }
 
@@ -66,11 +65,13 @@ function lerp(p1: number, p2: number, t: number): number {
   return p1 + (p2 - p1) * t;
 }
 
-function autoBind(instance: any): void {
-  const proto = Object.getPrototypeOf(instance);
+function autoBind(instance: object): void {
+  const self = instance as Record<string, unknown>;
+  const proto = Object.getPrototypeOf(instance) as Record<string, unknown>;
   Object.getOwnPropertyNames(proto).forEach((key) => {
-    if (key !== "constructor" && typeof instance[key] === "function") {
-      instance[key] = instance[key].bind(instance);
+    const candidate = self[key];
+    if (key !== "constructor" && typeof candidate === "function") {
+      self[key] = candidate.bind(instance);
     }
   });
 }
@@ -560,7 +561,7 @@ class App {
   exitSwipeThreshold: number = 28;
   tapThreshold: number = 10;
   touchMoved: boolean = false;
-  onCheckDebounce: (...args: any[]) => void;
+  onCheckDebounce: () => void;
   renderer!: Renderer;
   gl!: GL;
   camera!: Camera;
@@ -816,9 +817,10 @@ class App {
 
   onWheel(e: Event) {
     const wheelEvent = e as WheelEvent;
+    const legacyWheelEvent = wheelEvent as LegacyWheelEvent;
     const deltaX = wheelEvent.deltaX ?? 0;
     const deltaY =
-      wheelEvent.deltaY || (wheelEvent as any).wheelDelta || (wheelEvent as any).detail || 0;
+      wheelEvent.deltaY || legacyWheelEvent.wheelDelta || legacyWheelEvent.detail || 0;
     const dominant = Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY;
     const absDelta = Math.min(Math.abs(dominant), 80);
     const normalized = dominant === 0 ? 0 : Math.sign(dominant) * (absDelta / 80);

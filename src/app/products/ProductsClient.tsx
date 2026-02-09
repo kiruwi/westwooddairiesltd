@@ -52,14 +52,27 @@ export default function ProductsClient() {
   };
 
   useEffect(() => {
+    let nextCounts: Record<string, number> = {};
     try {
       const raw = window.localStorage.getItem("westwood-cart");
-      const parsed = raw ? JSON.parse(raw) : {};
-      setCounts(parsed ?? {});
+      const parsed: unknown = raw ? JSON.parse(raw) : {};
+      if (parsed && typeof parsed === "object") {
+        nextCounts = Object.fromEntries(
+          Object.entries(parsed as Record<string, unknown>).filter(
+            ([, value]) => typeof value === "number" && Number.isFinite(value) && value > 0
+          )
+        ) as Record<string, number>;
+      }
     } catch {
-      setCounts({});
+      nextCounts = {};
     }
-    setIsHydrated(true);
+
+    const raf = window.requestAnimationFrame(() => {
+      setCounts(nextCounts);
+      setIsHydrated(true);
+    });
+
+    return () => window.cancelAnimationFrame(raf);
   }, []);
 
   const updateCounts = (slug: string, delta: number) => {
