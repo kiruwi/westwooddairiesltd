@@ -66,6 +66,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-TCS6X8R9');`}
         </Script>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-CJSQP1K1HY"
+          strategy="afterInteractive"
+        />
+        <Script id="google-gtag-config" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-CJSQP1K1HY');`}
+        </Script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${nunito.variable} ${chewy.variable} ${playfair.variable} ${pacifico.variable} antialiased`}
