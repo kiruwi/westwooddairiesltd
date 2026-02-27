@@ -1,18 +1,19 @@
 import { Suspense } from "react";
-import ProductsClient from "./ProductsClient";
+import ProductsCatalogClient from "./components/ProductsCatalogClient";
+import { productsStyles } from "./components/productsStyles";
 
 export default function ProductsPage() {
   return (
     <Suspense
       fallback={
-        <div className="bg-slate-50 px-6 pb-20 pt-24 text-zinc-900">
-          <main className="mx-auto w-full max-w-[1200px]">
-            <div className="h-40 animate-pulse bg-white" />
+        <div className={productsStyles.suspenseShell}>
+          <main className={productsStyles.suspenseMain}>
+            <div className={productsStyles.suspensePulse} />
           </main>
         </div>
       }
     >
-      <ProductsClient />
+      <ProductsCatalogClient />
     </Suspense>
   );
 }

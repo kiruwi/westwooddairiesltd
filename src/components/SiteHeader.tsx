@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 
 import { PRODUCT_CATEGORIES } from "../data/products";
+import { siteSearchItems } from "./header/siteSearchItems";
 
 const leftNavItems = [
   { label: "Home", href: "/#home" },
@@ -18,9 +20,14 @@ const rightNavItems = [
 ];
 
 export default function SiteHeader() {
+  const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [activeSearchIndex, setActiveSearchIndex] = useState(-1);
+  const desktopSearchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -39,6 +46,111 @@ export default function SiteHeader() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        desktopSearchRef.current &&
+        !desktopSearchRef.current.contains(event.target as Node)
+      ) {
+        setSearchOpen(false);
+        setActiveSearchIndex(-1);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const normalizedSearchQuery = searchQuery.trim().toLowerCase();
+
+  const filteredSearchItems = useMemo(() => {
+    if (!normalizedSearchQuery) {
+      return siteSearchItems;
+    }
+
+    return siteSearchItems.filter((item) => {
+      const allTerms = [item.label, ...item.keywords].map((term) =>
+        term.toLowerCase()
+      );
+      return allTerms.some((term) => term.includes(normalizedSearchQuery));
+    });
+  }, [normalizedSearchQuery]);
+
+  useEffect(() => {
+    setActiveSearchIndex((prev) => {
+      if (!filteredSearchItems.length) return -1;
+      if (prev >= filteredSearchItems.length) return filteredSearchItems.length - 1;
+      return prev;
+    });
+  }, [filteredSearchItems]);
+
+  const closeSearchAfterSelection = () => {
+    setSearchQuery("");
+    setSearchOpen(false);
+    setMenuOpen(false);
+    setActiveSearchIndex(-1);
+  };
+
+  const navigateToSearchItem = (href: string) => {
+    router.push(href);
+    closeSearchAfterSelection();
+  };
+
+  const submitSearch = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!filteredSearchItems.length) return;
+    if (!normalizedSearchQuery && activeSearchIndex < 0) return;
+
+    const selectedItem =
+      activeSearchIndex >= 0
+        ? filteredSearchItems[activeSearchIndex]
+        : filteredSearchItems[0];
+    if (!selectedItem) return;
+
+    navigateToSearchItem(selectedItem.href);
+  };
+
+  const handleSearchQueryChange = (value: string) => {
+    setSearchQuery(value);
+    setActiveSearchIndex(-1);
+  };
+
+  const handleSearchKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (!filteredSearchItems.length) return;
+
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setSearchOpen(true);
+      setActiveSearchIndex((prev) =>
+        prev < filteredSearchItems.length - 1 ? prev + 1 : 0
+      );
+      return;
+    }
+
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setSearchOpen(true);
+      setActiveSearchIndex((prev) =>
+        prev > 0 ? prev - 1 : filteredSearchItems.length - 1
+      );
+      return;
+    }
+
+    if (event.key === "Enter" && activeSearchIndex >= 0) {
+      event.preventDefault();
+      const selectedItem = filteredSearchItems[activeSearchIndex];
+      if (selectedItem) {
+        navigateToSearchItem(selectedItem.href);
+      }
+      return;
+    }
+
+    if (event.key === "Escape") {
+      setSearchOpen(false);
+      setActiveSearchIndex(-1);
+    }
+  };
 
   const navTextClass = scrolled ? "text-black" : "text-white";
   const navHoverClass = "hover:text-[#c7d5f0]";
@@ -268,7 +380,7 @@ export default function SiteHeader() {
                 <path strokeLinecap="round" d="M6 8l4 4 4-4" />
               </svg>
             </Link>
-            <div className="absolute left-0 top-full z-20 w-48 border border-zinc-200 bg-white opacity-0 transition invisible group-hover:visible group-hover:opacity-100">
+            <div className="invisible absolute left-0 top-full z-20 w-48 border border-zinc-200 bg-white opacity-0 transition group-hover:visible group-hover:opacity-100">
               <div className="grid gap-1 p-3 text-sm text-black">
                 {PRODUCT_CATEGORIES.map((category) => (
                   <Link
@@ -299,10 +411,10 @@ export default function SiteHeader() {
           />
         </Link>
 
-        <div className="flex items-center justify-start gap-4 md:justify-start">
+        <div className="flex items-center justify-end gap-4 md:justify-start">
           <nav
             aria-label="Primary right"
-            className={`hidden items-center justify-start gap-6 pl-6 text-base md:flex ${navTextClass}`}
+            className={`hidden items-center justify-start gap-6 pl-2 text-base md:flex ${navTextClass}`}
           >
             {rightNavItems.map((item) => (
               <Link
@@ -314,6 +426,95 @@ export default function SiteHeader() {
               </Link>
             ))}
           </nav>
+          <div ref={desktopSearchRef} className="relative hidden md:block">
+            <button
+              type="button"
+              aria-label="Search"
+              aria-expanded={searchOpen}
+              aria-controls="desktop-search-panel"
+              onClick={() => {
+                setSearchOpen((open) => !open);
+                setActiveSearchIndex(-1);
+              }}
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c7d5f0]/60 ${
+                scrolled
+                  ? "border-zinc-200 bg-white text-[#213864] hover:bg-zinc-50"
+                  : "border-white/50 bg-white/15 text-white backdrop-blur hover:bg-white/25"
+              }`}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <path strokeLinecap="round" d="m21 21-4.4-4.4" />
+                <circle cx="11" cy="11" r="6.5" />
+              </svg>
+            </button>
+            {searchOpen ? (
+              <div
+                id="desktop-search-panel"
+                className="absolute right-0 top-[calc(100%+10px)] z-40 w-[22rem] max-w-[90vw] rounded-2xl border border-zinc-200 bg-white p-2 shadow-lg"
+              >
+                <form onSubmit={submitSearch}>
+                  <label htmlFor="desktop-site-search" className="sr-only">
+                    Search flavours, services, and payment options
+                  </label>
+                  <input
+                    id="desktop-site-search"
+                    type="search"
+                    autoFocus
+                    value={searchQuery}
+                    onChange={(event) => handleSearchQueryChange(event.target.value)}
+                    onKeyDown={handleSearchKeyDown}
+                    aria-controls="desktop-search-results"
+                    aria-activedescendant={
+                      activeSearchIndex >= 0
+                        ? `desktop-search-option-${activeSearchIndex}`
+                        : undefined
+                    }
+                    placeholder="Search flavours, services, payment"
+                    className="w-full rounded-full border border-zinc-200 px-4 py-2 text-sm text-black placeholder:text-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#213864]/30"
+                  />
+                </form>
+                <div
+                  id="desktop-search-results"
+                  role="listbox"
+                  className="mt-2 max-h-72 overflow-auto"
+                >
+                  {filteredSearchItems.length ? (
+                    <div className="grid gap-1">
+                      {filteredSearchItems.map((item, index) => (
+                        <Link
+                          key={`${item.category}-${item.label}`}
+                          id={`desktop-search-option-${index}`}
+                          role="option"
+                          aria-selected={index === activeSearchIndex}
+                          href={item.href}
+                          onClick={closeSearchAfterSelection}
+                          onMouseEnter={() => setActiveSearchIndex(index)}
+                          className={`rounded-xl px-3 py-2 text-sm text-black transition ${
+                            index === activeSearchIndex
+                              ? "bg-zinc-100"
+                              : "hover:bg-zinc-100"
+                          }`}
+                        >
+                          <span className="font-medium">{item.label}</span>
+                          <span className="ml-2 text-xs text-zinc-500">{item.category}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="px-3 py-2 text-sm text-zinc-500">
+                      No match found. Try strawberry, delivery service, or mobile money.
+                    </p>
+                  )}
+                </div>
+              </div>
+            ) : null}
+          </div>
           <button
             type="button"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -345,6 +546,59 @@ export default function SiteHeader() {
       >
         <nav aria-label="Mobile">
           <div className="grid gap-3 text-sm text-black">
+            <div className="grid gap-2">
+              <form onSubmit={submitSearch}>
+                <label htmlFor="mobile-site-search" className="sr-only">
+                  Search flavours, services, and payment options
+                </label>
+                <input
+                  id="mobile-site-search"
+                  type="search"
+                  value={searchQuery}
+                  onChange={(event) => handleSearchQueryChange(event.target.value)}
+                  onKeyDown={handleSearchKeyDown}
+                  aria-controls="mobile-search-results"
+                  aria-activedescendant={
+                    activeSearchIndex >= 0
+                      ? `mobile-search-option-${activeSearchIndex}`
+                      : undefined
+                  }
+                  placeholder="Search flavours, services, payment"
+                  className="w-full rounded-full border border-zinc-200 px-4 py-3 text-sm text-black placeholder:text-zinc-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#213864]/30"
+                />
+              </form>
+              {normalizedSearchQuery ? (
+                <div
+                  id="mobile-search-results"
+                  role="listbox"
+                  className="grid gap-1 rounded-2xl border border-zinc-200 bg-zinc-50 p-2"
+                >
+                  {filteredSearchItems.length ? (
+                    filteredSearchItems.map((item, index) => (
+                      <Link
+                        key={`mobile-${item.category}-${item.label}`}
+                        id={`mobile-search-option-${index}`}
+                        role="option"
+                        aria-selected={index === activeSearchIndex}
+                        href={item.href}
+                        onClick={closeSearchAfterSelection}
+                        onMouseEnter={() => setActiveSearchIndex(index)}
+                        className={`rounded-lg px-3 py-2 text-sm transition ${
+                          index === activeSearchIndex ? "bg-white" : "hover:bg-white"
+                        }`}
+                      >
+                        <span className="font-medium">{item.label}</span>
+                        <span className="ml-2 text-xs text-zinc-500">{item.category}</span>
+                      </Link>
+                    ))
+                  ) : (
+                    <p className="px-3 py-2 text-sm text-zinc-500">
+                      No match found. Try vanilla, order placement, or cash on delivery.
+                    </p>
+                  )}
+                </div>
+              ) : null}
+            </div>
             <div className="grid gap-2">
               <Link
                 href="/products"
