@@ -37,6 +37,16 @@ export default function ProductCategorySidebar({
           Cart
           <span className={productsStyles.cartCount}>{formatCartTotal(cartTotal)}</span>
         </div>
+        <Link
+          href="/checkout"
+          className={`${productsStyles.checkoutButton} ${
+            cartTotal > 0 ? "" : "pointer-events-none opacity-50"
+          }`}
+          aria-disabled={cartTotal <= 0}
+          tabIndex={cartTotal > 0 ? 0 : -1}
+        >
+          Checkout
+        </Link>
       </nav>
     </aside>
   );

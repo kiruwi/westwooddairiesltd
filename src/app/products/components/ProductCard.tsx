@@ -113,12 +113,6 @@ export default function ProductCard({
             </button>
           </div>
         </div>
-        {isSoftServe ? (
-          <p className="mt-2 px-1 text-xs font-semibold text-[#213864]/80 font-paragraph">
-            Price algorithm: KSH {unitPrice.toLocaleString("en-KE")} per litre, adjustable
-            by 0.25 L.
-          </p>
-        ) : null}
       </div>
     </div>
   );

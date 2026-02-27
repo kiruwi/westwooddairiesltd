@@ -15,6 +15,8 @@ export const productsStyles = {
     "inline-flex items-center gap-2 rounded-full bg-[#213864] px-4 py-2 text-base font-semibold text-white font-paragraph",
   cartCount:
     "inline-flex min-w-[20px] items-center justify-center rounded-full bg-white px-2 text-sm font-semibold text-[#213864]",
+  checkoutButton:
+    "mt-2 inline-flex w-full items-center justify-center rounded-full bg-[#c7d5f0] px-4 py-2 text-sm font-semibold text-[#213864] transition hover:bg-[#b2c6ea] font-paragraph",
   productsSection: "grid gap-6",
   productsHeadingWrap: "py-2",
   productsHeading:
@@ -24,7 +26,7 @@ export const productsStyles = {
     "col-span-full rounded-3xl bg-white p-8 text-center text-lg text-black",
   card: "card rounded-3xl bg-white font-chewy",
   mediaWrap:
-    "relative h-72 w-full overflow-hidden rounded-t-3xl rounded-b-[40px] bg-white",
+    "relative h-72 w-full overflow-hidden rounded-t-3xl bg-white",
   imageFallback:
     "flex h-full w-full flex-col items-center justify-center gap-2 text-black",
   comingSoonLabel: "text-xs font-semibold uppercase tracking-[0.3em]",
