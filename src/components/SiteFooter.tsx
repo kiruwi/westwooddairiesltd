@@ -31,10 +31,10 @@ export default function SiteFooter() {
               <Link className="transition hover:text-white" href="/products">
                 Products
               </Link>
-              <Link className="transition hover:text-white" href="/#process">
+              <Link className="transition hover:text-white" href="/process">
                 Process
               </Link>
-              <Link className="transition hover:text-white" href="/#stockists">
+              <Link className="transition hover:text-white" href="/stockists">
                 Stockists
               </Link>
             </div>

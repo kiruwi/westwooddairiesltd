@@ -14,8 +14,8 @@ const leftNavItems = [
 ];
 
 const rightNavItems = [
-  { label: "Process", href: "/#process" },
-  { label: "Stockists", href: "/#stockists" },
+  { label: "Process", href: "/process" },
+  { label: "Stockists", href: "/stockists" },
   { label: "Contact", href: "/#contact" },
 ];
 

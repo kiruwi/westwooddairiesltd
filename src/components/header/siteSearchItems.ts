@@ -133,13 +133,13 @@ const otherSearchItems: SiteSearchItem[] = [
   },
   {
     label: "Process",
-    href: "/#process",
+    href: "/process",
     category: "Section",
     keywords: ["how we make", "production"],
   },
   {
     label: "Stockists",
-    href: "/#stockists",
+    href: "/stockists",
     category: "Section",
     keywords: ["stores", "where to buy", "retailers"],
   },
