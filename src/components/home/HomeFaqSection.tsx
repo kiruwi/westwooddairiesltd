@@ -21,12 +21,7 @@ export default function HomeFaqSection({
       <h2 className="text-center text-5xl font-medium text-[#213864] sm:text-6xl font-title-italic">
         Frequently Asked Questions
       </h2>
-      <div
-        id="payment-options"
-        className="card mx-auto mt-6 max-w-3xl rounded-2xl bg-white p-4 text-center text-sm text-black sm:text-base"
-      >
-        Payment options: mobile money and cash on delivery.
-      </div>
+      <div id="payment-options" className="sr-only" aria-hidden="true" />
       <div className="mt-6 grid gap-3">
         {faqs.map((faq, index) => (
           <button

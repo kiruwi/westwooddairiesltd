@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 
 import { PRODUCT_CATEGORIES } from "../data/products";
@@ -20,6 +20,7 @@ const rightNavItems = [
 ];
 
 export default function SiteHeader() {
+  const pathname = usePathname();
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -152,8 +153,12 @@ export default function SiteHeader() {
     }
   };
 
-  const navTextClass = scrolled ? "text-black" : "text-white";
-  const navHoverClass = "hover:text-[#c7d5f0]";
+  const isLightBackgroundRoute = pathname !== "/";
+  const useBlueNavTheme = scrolled || isLightBackgroundRoute;
+  const navTextClass = useBlueNavTheme ? "text-[#213864]" : "text-white";
+  const navHoverClass = useBlueNavTheme
+    ? "hover:text-[#1a2f57]"
+    : "hover:text-[#c7d5f0]";
   const navRingClass = "focus-visible:ring-2 focus-visible:ring-[#c7d5f0]/50";
   const bannerContent = (
     <>
@@ -402,7 +407,7 @@ export default function SiteHeader() {
           aria-label="Westwood Dairies home"
         >
           <Image
-            src={scrolled ? "/images/logo-2.webp" : "/images/logo-2-wite.webp"}
+            src={useBlueNavTheme ? "/images/logo-2.webp" : "/images/logo-2-wite.webp"}
             alt="Westwood Dairies"
             width={324}
             height={94}
@@ -437,7 +442,7 @@ export default function SiteHeader() {
                 setActiveSearchIndex(-1);
               }}
               className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c7d5f0]/60 ${
-                scrolled
+                useBlueNavTheme
                   ? "border-zinc-200 bg-white text-[#213864] hover:bg-zinc-50"
                   : "border-white/50 bg-white/15 text-white backdrop-blur hover:bg-white/25"
               }`}
@@ -522,7 +527,7 @@ export default function SiteHeader() {
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((open) => !open)}
             className={`inline-flex h-10 w-10 items-center justify-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c7d5f0]/60 md:hidden ${
-              scrolled ? "text-[#213864]" : "text-white"
+              useBlueNavTheme ? "text-[#213864]" : "text-white"
             }`}
           >
             <span className="sr-only">Menu</span>

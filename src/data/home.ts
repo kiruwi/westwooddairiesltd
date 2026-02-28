@@ -41,7 +41,7 @@ export const HOME_FAQS: HomeFaq[] = [
   {
     question: "How do I place an order?",
     answer:
-      "Place your order through the form below or give us a quick call. We will confirm what is available and sort you out right away.",
+      "Go to Products, add items to your cart, then open Checkout. Enter your email, review your order, and click Pay with Paystack to complete payment securely online.",
   },
   {
     question: "Which areas do you deliver to?",
@@ -66,7 +66,7 @@ export const HOME_FAQS: HomeFaq[] = [
   {
     question: "Delivery & Payment",
     answer:
-      "Your order is packed to stay fresh and delivered safely within our routes. You can pay by mobile money or cash on delivery.",
+      "Your order is packed to stay fresh and delivered safely within our routes. You can now pay online with Paystack during checkout, and we also support mobile money and cash on delivery where available.",
   },
 ];
 
