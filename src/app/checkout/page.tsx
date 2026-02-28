@@ -19,6 +19,11 @@ type CheckoutLine = {
   lineTotalKsh: number;
 };
 
+type InitializePaymentResponse = {
+  authorizationUrl?: string;
+  message?: string;
+};
+
 function normalizeCount(value: number) {
   return Math.max(0, Math.round(value));
 }
@@ -68,6 +73,9 @@ function readCartCounts(): CartCounts {
 export default function CheckoutPage() {
   const [counts, setCounts] = useState<CartCounts>({});
   const [isHydrated, setIsHydrated] = useState(false);
+  const [customerEmail, setCustomerEmail] = useState("");
+  const [isInitializingPayment, setIsInitializingPayment] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   const updateLineQuantity = (slug: string, delta: number) => {
     setCounts((prev) => {
@@ -95,6 +103,57 @@ export default function CheckoutPage() {
       delete next[slug];
       return next;
     });
+  };
+
+  const initializePaystackPayment = async () => {
+    if (!lines.length || totalKsh <= 0 || isInitializingPayment) {
+      return;
+    }
+
+    const normalizedEmail = customerEmail.trim().toLowerCase();
+    if (!normalizedEmail || !normalizedEmail.includes("@")) {
+      setPaymentError("Enter a valid email before starting payment.");
+      return;
+    }
+
+    setIsInitializingPayment(true);
+    setPaymentError(null);
+
+    try {
+      const response = await fetch("/api/paystack/initialize", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: normalizedEmail,
+          amountKsh: totalKsh,
+          metadata: {
+            source: "checkout-page",
+            itemCount: lines.length,
+            items: lines.map((line) => ({
+              slug: line.slug,
+              name: line.name,
+              quantity: line.quantity,
+              lineTotalKsh: line.lineTotalKsh,
+            })),
+          },
+        }),
+      });
+
+      const payload = (await response.json()) as InitializePaymentResponse;
+
+      if (!response.ok || !payload.authorizationUrl) {
+        setPaymentError(payload.message ?? "Could not start Paystack payment.");
+        setIsInitializingPayment(false);
+        return;
+      }
+
+      window.location.href = payload.authorizationUrl;
+    } catch {
+      setPaymentError("Could not reach the payment service. Please try again.");
+      setIsInitializingPayment(false);
+    }
   };
 
   useEffect(() => {
@@ -271,8 +330,38 @@ export default function CheckoutPage() {
               <span>KSH {totalKsh.toLocaleString("en-KE")}</span>
             </div>
           </div>
+          <div className="mt-5">
+            <label htmlFor="checkout-email" className="block text-xs font-semibold uppercase tracking-[0.14em] text-black/60">
+              Customer Email
+            </label>
+            <input
+              id="checkout-email"
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              value={customerEmail}
+              onChange={(event) => setCustomerEmail(event.target.value)}
+              placeholder="you@example.com"
+              className="mt-2 w-full rounded-xl border border-[#213864]/20 bg-white px-3 py-2 text-sm text-black placeholder:text-black/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#213864]/30"
+            />
+            <button
+              type="button"
+              onClick={initializePaystackPayment}
+              disabled={!lines.length || totalKsh <= 0 || isInitializingPayment}
+              className={`mt-3 inline-flex w-full items-center justify-center rounded-full px-4 py-2 text-sm font-semibold text-white transition ${
+                !lines.length || totalKsh <= 0 || isInitializingPayment
+                  ? "cursor-not-allowed bg-[#213864]/40"
+                  : "bg-[#213864] hover:bg-[#1a2f57]"
+              }`}
+            >
+              {isInitializingPayment ? "Redirecting to Paystack..." : "Pay with Paystack"}
+            </button>
+            {paymentError ? (
+              <p className="mt-2 text-xs text-[#b63b3b]">{paymentError}</p>
+            ) : null}
+          </div>
           <p className="mt-5 text-xs text-black/60">
-            Payment integrations (M-Pesa and Visa) can now hook into this computed total.
+            Paystack will redirect back to checkout callback after payment.
           </p>
         </aside>
       </div>
