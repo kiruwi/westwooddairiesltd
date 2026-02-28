@@ -25,13 +25,13 @@ export const HOME_PRODUCTS: HomeProduct[] = [
   },
   {
     name: "Soft Serve Ice Cream",
-    size: "Assorted flavours",
+    size: "Ice Cream Ingredient",
     image: "/images/strawberry.webp",
     href: "/products?category=ice-cream",
   },
   {
     name: "Maziwa Lala",
-    size: "Fermented milk (500 ml / 1 litre)",
+    size: "Fermented milk",
     image: "/images/maziwa lala.webp",
     href: "/products?category=fermented-milk",
   },

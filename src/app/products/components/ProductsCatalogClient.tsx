@@ -9,7 +9,7 @@ import ProductGrid from "./ProductGrid";
 import { productsStyles } from "./productsStyles";
 
 function normalizeCount(value: number) {
-  return Math.round(value * 100) / 100;
+  return Math.max(0, Math.round(value));
 }
 
 const yogurtToneMap: Record<string, string> = {
@@ -57,12 +57,21 @@ export default function ProductsCatalogClient() {
       const parsed: unknown = raw ? JSON.parse(raw) : {};
 
       if (parsed && typeof parsed === "object") {
-        nextCounts = Object.fromEntries(
-          Object.entries(parsed as Record<string, unknown>).filter(
-            ([, value]) =>
-              typeof value === "number" && Number.isFinite(value) && value > 0
-          )
-        ) as Record<string, number>;
+        nextCounts = Object.entries(parsed as Record<string, unknown>).reduce<Record<string, number>>(
+          (acc, [slug, value]) => {
+            if (typeof value !== "number" || !Number.isFinite(value)) {
+              return acc;
+            }
+
+            const normalized = normalizeCount(value);
+            if (normalized > 0) {
+              acc[slug] = normalized;
+            }
+
+            return acc;
+          },
+          {}
+        );
       }
     } catch {
       nextCounts = {};

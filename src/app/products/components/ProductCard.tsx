@@ -3,11 +3,7 @@ import Image from "next/image";
 import type { ProductCategory, ProductItem } from "../../../data/products";
 import { productsStyles } from "./productsStyles";
 
-const SOFT_SERVE_STEP_LITRES = 0.25;
-
-function formatNumber(value: number) {
-  return Number.isInteger(value) ? `${value}` : value.toFixed(2).replace(/\.?0+$/, "");
-}
+const SOFT_SERVE_PACK_SIZE_LITRES = 5;
 
 type ProductCardProps = {
   item: ProductItem;
@@ -26,23 +22,18 @@ export default function ProductCard({
 }: ProductCardProps) {
   const isYogurt = activeCategory.id === "yogurt";
   const isSoftServe = activeCategory.id === "ice-cream";
-  const cardBodyStyle = isYogurt
+  const mediaWrapStyle = isYogurt
     ? { backgroundColor: yogurtToneMap[item.slug] ?? "#fde7f3" }
-    : undefined;
+    : { backgroundColor: activeCategory.tone };
   const unitPrice = item.priceKsh;
-  const computedPriceKsh = isSoftServe
-    ? Math.round(unitPrice * Math.max(itemCount, 0))
-    : unitPrice;
   const priceLabel = isSoftServe
-    ? itemCount > 0
-      ? `KSH ${computedPriceKsh.toLocaleString("en-KE")} (${formatNumber(itemCount)} L)`
-      : `KSH ${unitPrice.toLocaleString("en-KE")} / litre`
+    ? `KSH ${unitPrice.toLocaleString("en-KE")} / ${SOFT_SERVE_PACK_SIZE_LITRES}L tub`
     : `KSH ${unitPrice.toLocaleString("en-KE")}`;
-  const quantityLabel = isSoftServe ? `${formatNumber(itemCount)} L` : `${itemCount}`;
+  const quantityLabel = `${itemCount}`;
 
   return (
     <div className={productsStyles.card}>
-      <div className={productsStyles.mediaWrap}>
+      <div className={productsStyles.mediaWrap} style={mediaWrapStyle}>
         {item.image ? (
           <Image
             src={item.image}
@@ -61,35 +52,25 @@ export default function ProductCard({
           </div>
         )}
       </div>
-      <div className={productsStyles.cardBody} style={cardBodyStyle}>
-        <h3
-          className={`${productsStyles.cardTitle} ${
-            isYogurt ? "text-white" : "text-[#213864]"
-          }`}
-        >
+      <div className={productsStyles.cardBody}>
+        <h3 className={`${productsStyles.cardTitle} text-[#213864]`}>
           {item.name}
         </h3>
         <p
           className={`${productsStyles.cardDescription} ${
-            isYogurt ? "text-white/90" : "text-black"
+            isYogurt ? "text-[#213864]" : "text-black"
           }`}
         >
           {item.description}
         </p>
         <div className={productsStyles.cardFooter}>
-          <span
-            className={`${productsStyles.cardPrice} ${
-              isYogurt ? "text-white" : "text-[#213864]"
-            }`}
-          >
+          <span className={`${productsStyles.cardPrice} text-[#213864]`}>
             {priceLabel}
           </span>
           <div className={productsStyles.counterWrap}>
             <button
               type="button"
-              onClick={() =>
-                onChangeCount(item.slug, isSoftServe ? -SOFT_SERVE_STEP_LITRES : -1)
-              }
+              onClick={() => onChangeCount(item.slug, -1)}
               disabled={!itemCount}
               aria-label={`Remove ${item.name}`}
               className={`${productsStyles.decrementButtonBase} ${
@@ -103,9 +84,7 @@ export default function ProductCard({
             <span className={productsStyles.quantity}>{quantityLabel}</span>
             <button
               type="button"
-              onClick={() =>
-                onChangeCount(item.slug, isSoftServe ? SOFT_SERVE_STEP_LITRES : 1)
-              }
+              onClick={() => onChangeCount(item.slug, 1)}
               aria-label={`Add ${item.name}`}
               className={productsStyles.incrementButton}
             >

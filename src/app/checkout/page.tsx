@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { PRODUCT_ITEMS } from "../../data/products";
 
 const SOFT_SERVE_CATEGORY_ID = "ice-cream";
+const SOFT_SERVE_PACK_SIZE_LITRES = 5;
 
 type CartCounts = Record<string, number>;
 
@@ -19,7 +20,7 @@ type CheckoutLine = {
 };
 
 function normalizeCount(value: number) {
-  return Math.round(value * 100) / 100;
+  return Math.max(0, Math.round(value));
 }
 
 function formatNumber(value: number) {
@@ -28,7 +29,8 @@ function formatNumber(value: number) {
 
 function formatQuantity(categoryId: string, quantity: number) {
   if (categoryId === SOFT_SERVE_CATEGORY_ID) {
-    return `${formatNumber(quantity)} L`;
+    const formattedCount = formatNumber(quantity);
+    return `${formattedCount} tub${quantity === 1 ? "" : "s"}`;
   }
 
   return formatNumber(quantity);
@@ -66,6 +68,34 @@ function readCartCounts(): CartCounts {
 export default function CheckoutPage() {
   const [counts, setCounts] = useState<CartCounts>({});
   const [isHydrated, setIsHydrated] = useState(false);
+
+  const updateLineQuantity = (slug: string, delta: number) => {
+    setCounts((prev) => {
+      const next = { ...prev };
+      const current = next[slug] ?? 0;
+      const updated = normalizeCount(Math.max(0, current + delta));
+
+      if (updated === 0) {
+        delete next[slug];
+      } else {
+        next[slug] = updated;
+      }
+
+      return next;
+    });
+  };
+
+  const removeLine = (slug: string) => {
+    setCounts((prev) => {
+      if (!(slug in prev)) {
+        return prev;
+      }
+
+      const next = { ...prev };
+      delete next[slug];
+      return next;
+    });
+  };
 
   useEffect(() => {
     const syncFromStorage = () => {
@@ -121,46 +151,88 @@ export default function CheckoutPage() {
 
   if (!isHydrated) {
     return (
-      <main className="bg-[#c7d5f0] px-6 pb-28 pt-40 text-[#213864]">
+      <main className="bg-[#c7d5f0] px-6 pb-28 pt-48 text-[#213864] md:pt-52">
         <div className="mx-auto max-w-[1000px] rounded-3xl bg-white p-8">Loading checkout...</div>
       </main>
     );
   }
 
   return (
-    <main className="bg-[#c7d5f0] px-6 pb-28 pt-40 text-[#213864]">
+    <main className="bg-[#c7d5f0] px-6 pb-28 pt-48 text-[#213864] md:pt-52">
       <div className="mx-auto grid max-w-[1000px] gap-6 lg:grid-cols-[2fr_1fr]">
-        <section className="rounded-3xl bg-white p-6">
-          <h1 className="text-4xl font-title-italic">Checkout</h1>
-          <p className="mt-2 text-sm font-paragraph text-black/80">
+        <section className="rounded-3xl bg-white p-6 font-paragraph">
+          <h1 className="text-4xl font-title-italic leading-tight tracking-tight">Checkout</h1>
+          <p className="mt-2 text-base text-black/80">
             Confirm quantities and prices before payment.
           </p>
 
           {lines.length ? (
             <div className="mt-6 overflow-x-auto">
-              <table className="w-full min-w-[560px] border-collapse text-left">
+              <table className="w-full min-w-[680px] border-collapse text-left">
                 <thead>
                   <tr className="border-b border-black/10 text-xs uppercase tracking-[0.18em] text-black/60">
                     <th className="py-3 pr-4 font-semibold">Product</th>
                     <th className="py-3 pr-4 font-semibold">Quantity</th>
                     <th className="py-3 pr-4 font-semibold">Unit Price</th>
                     <th className="py-3 font-semibold">Line Total</th>
+                    <th className="py-3 pl-4 text-right font-semibold">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {lines.map((line) => (
                     <tr key={line.slug} className="border-b border-black/10">
-                      <td className="py-4 pr-4 text-base font-semibold text-black">{line.name}</td>
-                      <td className="py-4 pr-4 text-base font-paragraph text-black">
+                      <td className="py-4 pr-4 text-base font-semibold text-[#213864]">{line.name}</td>
+                      <td className="py-4 pr-4 text-base text-black">
                         {formatQuantity(line.categoryId, line.quantity)}
                       </td>
-                      <td className="py-4 pr-4 text-base font-paragraph text-black">
+                      <td className="py-4 pr-4 text-base text-black">
                         {line.categoryId === SOFT_SERVE_CATEGORY_ID
-                          ? `KSH ${line.unitPriceKsh.toLocaleString("en-KE")} / litre`
+                          ? `KSH ${line.unitPriceKsh.toLocaleString("en-KE")} / ${SOFT_SERVE_PACK_SIZE_LITRES}L tub`
                           : `KSH ${line.unitPriceKsh.toLocaleString("en-KE")}`}
                       </td>
                       <td className="py-4 text-base font-semibold text-black">
                         KSH {line.lineTotalKsh.toLocaleString("en-KE")}
+                      </td>
+                      <td className="py-4 pl-4">
+                        <div className="flex items-center justify-end gap-2">
+                          <button
+                            type="button"
+                            onClick={() => updateLineQuantity(line.slug, -1)}
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#213864]/40 text-[#213864] transition hover:bg-[#213864] hover:text-white"
+                            aria-label={`Decrease ${line.name}`}
+                          >
+                            -
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => updateLineQuantity(line.slug, 1)}
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#213864] text-white transition hover:bg-[#1a2f57]"
+                            aria-label={`Increase ${line.name}`}
+                          >
+                            +
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => removeLine(line.slug)}
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#b63b3b]/40 text-[#b63b3b] transition hover:bg-[#b63b3b] hover:text-white"
+                            aria-label={`Remove ${line.name}`}
+                            title="Remove item"
+                          >
+                            <svg
+                              viewBox="0 0 24 24"
+                              className="h-4 w-4"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.8"
+                            >
+                              <path d="M4 7h16" />
+                              <path d="M10 11v6" />
+                              <path d="M14 11v6" />
+                              <path d="M6 7l1 13h10l1-13" />
+                              <path d="M9 7V4h6v3" />
+                            </svg>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -168,7 +240,7 @@ export default function CheckoutPage() {
               </table>
             </div>
           ) : (
-            <div className="mt-6 rounded-2xl border border-dashed border-black/20 bg-[#f7f9ff] p-6 text-sm font-paragraph text-black/70">
+            <div className="mt-6 rounded-2xl border border-dashed border-black/20 bg-[#f7f9ff] p-6 text-sm text-black/70">
               Your cart is empty. Add items from the products page to continue.
             </div>
           )}
@@ -183,9 +255,9 @@ export default function CheckoutPage() {
           </div>
         </section>
 
-        <aside className="h-fit rounded-3xl bg-white p-6 lg:sticky lg:top-32">
-          <h2 className="text-2xl font-title-italic">Order Summary</h2>
-          <div className="mt-5 grid gap-3 text-sm font-paragraph text-black">
+        <aside className="h-fit rounded-3xl bg-white p-6 font-paragraph lg:sticky lg:top-32">
+          <h2 className="text-2xl font-title-italic tracking-tight">Order Summary</h2>
+          <div className="mt-5 grid gap-3 text-sm text-black">
             <div className="flex items-center justify-between border-b border-black/10 pb-2">
               <span>Total quantity</span>
               <span className="font-semibold">{formatNumber(normalizeCount(totalQuantity))}</span>
@@ -199,7 +271,7 @@ export default function CheckoutPage() {
               <span>KSH {totalKsh.toLocaleString("en-KE")}</span>
             </div>
           </div>
-          <p className="mt-5 text-xs font-paragraph text-black/60">
+          <p className="mt-5 text-xs text-black/60">
             Payment integrations (M-Pesa and Visa) can now hook into this computed total.
           </p>
         </aside>

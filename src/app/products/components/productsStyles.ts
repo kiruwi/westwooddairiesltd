@@ -24,17 +24,17 @@ export const productsStyles = {
   productsGrid: "grid gap-5 sm:grid-cols-2 lg:grid-cols-3",
   emptyState:
     "col-span-full rounded-3xl bg-white p-8 text-center text-lg text-black",
-  card: "card rounded-3xl bg-white font-chewy",
+  card: "card flex h-full flex-col overflow-hidden rounded-3xl bg-white font-chewy",
   mediaWrap:
     "relative h-72 w-full overflow-hidden rounded-t-3xl bg-white",
   imageFallback:
     "flex h-full w-full flex-col items-center justify-center gap-2 text-black",
   comingSoonLabel: "text-xs font-semibold uppercase tracking-[0.3em]",
   comingSoonText: "text-sm font-semibold uppercase tracking-[0.2em]",
-  cardBody: "rounded-b-3xl p-5",
+  cardBody: "flex flex-1 flex-col rounded-b-3xl p-5",
   cardTitle: "text-2xl font-bold font-paragraph",
   cardDescription: "mt-3 font-paragraph text-lg leading-7",
-  cardFooter: "mt-4 flex items-center justify-between gap-3",
+  cardFooter: "mt-auto flex items-center justify-between gap-3 pt-4",
   cardPrice: "px-1 text-sm font-semibold transition font-paragraph",
   counterWrap: "flex items-center gap-2",
   decrementButtonBase:

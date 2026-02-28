@@ -19,7 +19,7 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
     id: "ice-cream",
     title: "Soft serve ice cream",
     description:
-      "Soft serve ice cream made for cones, cups, and food service partners.",
+      "Soft serve ice cream in 5L tubs at KSH 1,500, made for cones, cups, and food service partners.",
     tone: "#fff4d6",
   },
   {
@@ -42,7 +42,7 @@ export const PRODUCT_ITEMS: ProductItem[] = [
   {
     slug: "soft-serve-ice-cream",
     name: "Strawberry",
-    description: "Smooth, airy, and clean on the finish.",
+    description: "Smooth, airy, and clean on the finish. Packed in 5L tubs.",
     categoryId: "ice-cream",
     image: "/images/strawberry.webp",
     priceKsh: 1500,
@@ -50,16 +50,9 @@ export const PRODUCT_ITEMS: ProductItem[] = [
   {
     slug: "vanilla-ice-cream",
     name: "Vanilla",
-    description: "Classic vanilla soft serve with a creamy finish.",
+    description: "Classic vanilla soft serve with a creamy finish. Packed in 5L tubs.",
     categoryId: "ice-cream",
     image: "/images/vanilla.webp",
-    priceKsh: 1500,
-  },
-  {
-    slug: "chocolate-ice-cream",
-    name: "Chocolate",
-    description: "Rich chocolate soft serve with a smooth cocoa finish.",
-    categoryId: "ice-cream",
     priceKsh: 1500,
   },
   {
