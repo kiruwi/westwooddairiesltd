@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { PRODUCT_ITEMS } from "../../data/products";
 
@@ -149,7 +149,7 @@ export default function CheckoutPage() {
         return;
       }
 
-      window.location.href = payload.authorizationUrl;
+      window.location.assign(payload.authorizationUrl);
     } catch {
       setPaymentError("Could not reach the payment service. Please try again.");
       setIsInitializingPayment(false);
@@ -176,37 +176,28 @@ export default function CheckoutPage() {
     };
   }, []);
 
-  const lines = useMemo<CheckoutLine[]>(() => {
-    return Object.entries(counts)
-      .map(([slug, quantity]) => {
-        const product = PRODUCT_ITEMS.find((item) => item.slug === slug);
-        if (!product) return null;
+  const lines: CheckoutLine[] = Object.entries(counts)
+    .map(([slug, quantity]) => {
+      const product = PRODUCT_ITEMS.find((item) => item.slug === slug);
+      if (!product) return null;
 
-        const safeQuantity = normalizeCount(Math.max(0, quantity));
-        const lineTotalKsh = Math.round(product.priceKsh * safeQuantity);
+      const safeQuantity = normalizeCount(Math.max(0, quantity));
+      const lineTotalKsh = Math.round(product.priceKsh * safeQuantity);
 
-        return {
-          slug,
-          name: product.name,
-          categoryId: product.categoryId,
-          quantity: safeQuantity,
-          unitPriceKsh: product.priceKsh,
-          lineTotalKsh,
-        };
-      })
-      .filter((line): line is CheckoutLine => Boolean(line))
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }, [counts]);
+      return {
+        slug,
+        name: product.name,
+        categoryId: product.categoryId,
+        quantity: safeQuantity,
+        unitPriceKsh: product.priceKsh,
+        lineTotalKsh,
+      };
+    })
+    .filter((line): line is CheckoutLine => Boolean(line))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
-  const totalQuantity = useMemo(
-    () => lines.reduce((sum, line) => sum + line.quantity, 0),
-    [lines]
-  );
-
-  const totalKsh = useMemo(
-    () => lines.reduce((sum, line) => sum + line.lineTotalKsh, 0),
-    [lines]
-  );
+  const totalQuantity = lines.reduce((sum, line) => sum + line.quantity, 0);
+  const totalKsh = lines.reduce((sum, line) => sum + line.lineTotalKsh, 0);
 
   if (!isHydrated) {
     return (

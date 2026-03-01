@@ -78,14 +78,6 @@ export default function SiteHeader() {
     });
   }, [normalizedSearchQuery]);
 
-  useEffect(() => {
-    setActiveSearchIndex((prev) => {
-      if (!filteredSearchItems.length) return -1;
-      if (prev >= filteredSearchItems.length) return filteredSearchItems.length - 1;
-      return prev;
-    });
-  }, [filteredSearchItems]);
-
   const closeSearchAfterSelection = () => {
     setSearchQuery("");
     setSearchOpen(false);

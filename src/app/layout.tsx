@@ -10,6 +10,7 @@ import {
 } from "next/font/google";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import LenisProvider from "../components/LenisProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -80,6 +81,7 @@ gtag('config', 'G-CJSQP1K1HY');`}
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${nunito.variable} ${chewy.variable} ${playfair.variable} ${pacifico.variable} antialiased`}
       >
+        <LenisProvider />
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-TCS6X8R9"
